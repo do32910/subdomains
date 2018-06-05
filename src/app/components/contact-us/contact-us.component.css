@@ -1,0 +1,10 @@
+.card{
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 100px;
+}
+
+.no-margin{
+    margin: 20px 0 20px 20px;
+}
