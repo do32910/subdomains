@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 //services
-
+import { SubdomainsService } from './services/subdomains.service';
 //routes
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -33,7 +33,7 @@ import { ContactUsComponent } from './components/contact-us/contact-us.component
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [SubdomainsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

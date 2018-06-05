@@ -7,6 +7,7 @@ import { Subdomain } from '../../models/Subdomain';
   templateUrl: './domain-availability.component.html',
   styleUrls: ['./domain-availability.component.css']
 })
+
 export class DomainAvailabilityComponent implements OnInit {
 
 
@@ -15,11 +16,10 @@ export class DomainAvailabilityComponent implements OnInit {
   constructor(private subdomainService: SubdomainsService){}
 
     ngOnInit(){
-      this.getSubdomains();
-    }
-
-    getSubdomains(): void{
-      this.subdomainService.getSubdomains().subscribe(subdomains => this.subdomains = subdomains);
+      this.subdomainService.getSubdomains().subscribe(subdomains => {
+        console.log(subdomains);
+        this.subdomains = subdomains;
+        });
     }
 
   }
