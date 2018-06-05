@@ -15,6 +15,8 @@ import { AppRoutingModule } from './/app-routing.module';
 import { FooterComponent } from './components/footer/footer.component';
 import { DomainListComponent } from './components/domain-list/domain-list.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
+import { ActiveUserComponent } from './active-user/active-user.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { ContactUsComponent } from './components/contact-us/contact-us.component
     NotFoundComponent,
     FooterComponent,
     DomainListComponent,
-    ContactUsComponent
+    ContactUsComponent,
+    LoginFormComponent,
+    ActiveUserComponent
   ],
   imports: [
     BrowserModule,

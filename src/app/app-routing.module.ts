@@ -10,12 +10,14 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { DomainListComponent } from './components/domain-list/domain-list.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
 
 const routes: Routes = [
   {path: '', component: DashboardComponent},
   {path: 'domain-availability', component: DomainAvailabilityComponent},
   {path: 'domain-list', component: DomainListComponent},
   {path: 'contact-us', component: ContactUsComponent},
+  {path: 'login', component: LoginFormComponent},
   {path: '*', component: NotFoundComponent}
 ];
 

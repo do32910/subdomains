@@ -15,57 +15,16 @@
 				    </tr>
 				  </thead>
 				  <tbody>
-				    <tr>
-				      <th scope="row">1</th>
-				      <td>dummy1.eu.pl</td>
-				      <td>23/05/2019</td>
-				      <td class="text-success">Active</td>
+				    <tr *ngFor="let usrdom of usersDomains">
+				      <th scope="row">{{usrdom.id_domain}}</th>
+				      <td>{{usrdom.name}}.{{usrdom.at}}</td>
+				      <td>{{usrdom.expiration_date}}</td>
+				      <td [class.text-success]="(usrdom.status == 'ACTIVE')" [class.text-danger]="(usrdom.status == 'INACTIVE')">{{usrdom.status}}</td>
 				      <td><a href="prolong_domain.html"><span class="btn btn-primary">Przedłuż ważność</span></a></td>
 				    </tr>
-					<tr>
-				      <th scope="row">2</th>
-				      <td>dummy2.eu.pl</td>
-				      <td>22/01/2019</td>
-				      <td class="text-success">Active</td>
-				      <td><a href="prolong_domain.html"><span class="btn btn-primary">Przedłuż ważność</span></a></td>
-				    </tr>
-					<tr>
-				      <th scope="row">3</th>
-				      <td>dummy3.eu.pl</td>
-				      <td>23/05/2017</td>
-				      <td class="text-danger">Inactive</td>
-				      <td><a href="prolong_domain.html"><span class="btn btn-primary">Przedłuż ważność</span></a></td>
-				    </tr>				    <tr>
-				      <th scope="row">1</th>
-				      <td>dummy4.eu.pl</td>
-				      <td>18/10/2019</td>
-				      <td class="text-success">Active</td>
-				      <td><a href="prolong_domain.html"><span class="btn btn-primary">Przedłuż ważność</span></a></td>
-				    </tr>
-					<tr>
-				      <th scope="row">2</th>
-				      <td>dummy5.eu.pl</td>
-				      <td>06/12/2022</td>
-				      <td class="text-success">Active</td>
-				      <td><a href="prolong_domain.html"><span class="btn btn-primary">Przedłuż ważność</span></a></td>
-				    </tr>
-					<tr>
-				      <th scope="row">3</th>
-				      <td>dummy6.eu.pl</td>
-				      <td>12/05/2018</td>
-				      <td class="text-danger">Inactive</td>
-				      <td><a href="prolong_domain.html"><span class="btn btn-primary">Przedłuż ważność</span></a></td>
-				    </tr>    
-				    <tr>
-				      <th scope="row">2</th>
-				      <td>dummy5.eu.pl</td>
-				      <td>01/03/2021</td>
-				      <td class="text-success">Active</td>
-				      <td><a href="prolong_domain.html"><span class="btn btn-primary">Przedłuż ważność</span></a></td>
-				    </tr>  
+					
 				  </tbody>
 				</table>
-
 			</div>
 		</div>
 	</div>
