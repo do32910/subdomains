@@ -19,7 +19,7 @@ import { DomainListComponent } from './components/domain-list/domain-list.compon
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { ActiveUserComponent } from './components/active-user/active-user.component';
-import { UserDataFormComponent } from './components/user-data-form/user-data-form.component'
+import { UserDataFormComponent } from './components/user-data-form/user-data-form.component';
 
 @NgModule({
   declarations: [
