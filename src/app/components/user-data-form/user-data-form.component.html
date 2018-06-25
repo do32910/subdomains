@@ -1,0 +1,37 @@
+<div class="card">
+    <div class="card-header">Twoje dane osobowe</div>
+    <div class="card-body">
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="userName">Imię</label>
+            <input type="text" class="form-control" id="userName" placeholder="{{userData.first_name}}" #firstName>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="userSurname">Nazwisko</label>
+            <input type="text" class="form-control" id="userSurname" placeholder="{{userData.last_name}}" #lastName>
+          </div>
+        </div>
+        <button (click)="editUserData(firstName.value, lastName.value)" class="btn btn-primary">Zmień dane</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="card">
+      <div class="card-header">Twoje dane konta</div>
+      <div class="card-body">
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="userEmail">E-mail</label>
+              <input type="email" class="form-control" id="userEmail" placeholder="{{userData.email}}" >
+            </div>
+            <div class="form-group col-md-6">
+              <label for="userPasswd">Hasło</label>
+              <input type="password" class="form-control" id="userPasswd" placeholder="*****************" >
+            </div>
+          </div>
+          <button class="btn btn-primary">Zmień dane</button>
+        </form>
+      </div>
+    </div>

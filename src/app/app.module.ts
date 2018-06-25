@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 //services
 import { SubdomainsService } from './services/subdomains.service';
+import { UserDataService } from './services/user-data.service';
+import { UsersDomainsService } from './services/users-domains.service'; 
 //routes
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -16,7 +18,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { DomainListComponent } from './components/domain-list/domain-list.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
-import { ActiveUserComponent } from './active-user/active-user.component';
+import { ActiveUserComponent } from './components/active-user/active-user.component';
+import { UserDataFormComponent } from './components/user-data-form/user-data-form.component'
 
 @NgModule({
   declarations: [
@@ -30,14 +33,19 @@ import { ActiveUserComponent } from './active-user/active-user.component';
     DomainListComponent,
     ContactUsComponent,
     LoginFormComponent,
-    ActiveUserComponent
+    ActiveUserComponent,
+    UserDataFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [SubdomainsService],
+  providers: [
+    SubdomainsService,
+    UserDataService,
+    UsersDomainsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

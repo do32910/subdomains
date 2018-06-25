@@ -4,3 +4,9 @@
     margin-left: auto;
     margin-top: 100px;
 }
+
+.availabilityInfo{
+    margin: 20px 0 0 10px;
+    font-weight: 300;
+    font-style: italic;
+}

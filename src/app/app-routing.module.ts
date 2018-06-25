@@ -11,6 +11,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { DomainListComponent } from './components/domain-list/domain-list.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
+import { UserDataFormComponent } from './components/user-data-form/user-data-form.component'
 
 const routes: Routes = [
   {path: '', component: DashboardComponent},
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'domain-list', component: DomainListComponent},
   {path: 'contact-us', component: ContactUsComponent},
   {path: 'login', component: LoginFormComponent},
+  {path: 'edytuj-dane', component: UserDataFormComponent},
   {path: '*', component: NotFoundComponent}
 ];
 

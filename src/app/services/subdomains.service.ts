@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subdomain } from '../models/Subdomain';
 import { SUBDOMAINS } from '../mockup/mock-subdomains';
 import { Observable, of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
@@ -17,8 +18,5 @@ export class SubdomainsService {
   getSubdomains(): Observable<Subdomain[]>{
     return this.http.get<Subdomain[]>(this.subdomainsUrl);
   }
-///////////////////////////////////////
-  
-
 
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SubdomainsService } from '../../services/subdomains.service';
 import { Subdomain } from '../../models/Subdomain';
+import { Observable, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-domain-availability',
@@ -9,37 +11,31 @@ import { Subdomain } from '../../models/Subdomain';
 })
 
 export class DomainAvailabilityComponent implements OnInit {
-
-
+ 
+  private searchTerms = new Subject<string>();
   subdomains: Subdomain[];
-  
+  availability: boolean;
+  showAvailability:boolean;
   constructor(private subdomainService: SubdomainsService){}
+  
 
-    ngOnInit(){
-      this.subdomainService.getSubdomains().subscribe(subdomains => {
-        console.log(subdomains);
-        this.subdomains = subdomains;
-        });
+  checkAvailability(query:string){
+    this.availability = true;
+    for(var q=0; q<this.subdomains.length; q++){
+      if(this.subdomains[q].name==query){
+        this.availability = false;
+        break;    
+      }
     }
-
+    this.showAvailability = true;
   }
 
+  ngOnInit(){
+    this.subdomainService.getSubdomains().subscribe(subdomains => {
+    this.subdomains = subdomains});    
+    this.showAvailability = false;      
+    }
 
 
-//   import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-domain-availability',
-//   templateUrl: './domain-availability.component.html',
-//   styleUrls: ['./domain-availability.component.css']
-// })
-// export class DomainAvailabilityComponent implements OnInit {
-
-//   constructor(){}
-
-//     ngOnInit(){
-
-//     }
-
-//   }
-
+    
+    }

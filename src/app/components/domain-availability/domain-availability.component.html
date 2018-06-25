@@ -1,12 +1,17 @@
+<p>{{occupied}}</p>
+
 <div class="card">
         <h5 class="card-header">Sprawdź dostępnosć domeny</h5>
         <div class="card-body">
+
           <h6 class="card-title">Wprowadź nazwę domeny, która cię interesuje, a my powiemy ci czy jest ona dostępna!</h6>
           <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Wprowadź nazwę domeny..." aria-describedby="basic-addon2">
+              <input type="text" class="form-control" placeholder="Wprowadź nazwę domeny..." aria-describedby="basic-addon2" #query>
               <div class="input-group-append">
-                  <button class="btn btn-outline-success" type="button">Sprawdź dostępność</button>
+                  <button class="btn btn-outline-success" type="button" (click)="checkAvailability(query.value)">Sprawdź dostępność</button>
               </div>
+              <div *ngIf="!(availability) && (showAvailability)" class="availabilityInfo text-danger">Ta domena jest już zajęta!</div>
+              <div *ngIf="(availability)  && (showAvailability)" class="availabilityInfo text-success">Ta domena jest dostępna!</div>
           </div>
           <br><br><br>
           <p class="card-text font-weight-light">Możesz też przejrzeć listę zajętych domen!</p>
