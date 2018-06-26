@@ -22,8 +22,6 @@ export class SubdomainPurchaseComponent implements OnInit {
   ngOnInit(){
     this.step = 1;
   }
-
-  
    
 
 }
