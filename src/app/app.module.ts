@@ -20,6 +20,10 @@ import { ContactUsComponent } from './components/contact-us/contact-us.component
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { ActiveUserComponent } from './components/active-user/active-user.component';
 import { UserDataFormComponent } from './components/user-data-form/user-data-form.component';
+import { SubdomainPurchaseComponent } from './components/subdomain-purchase/subdomain-purchase.component';
+import { AvailabilityPageComponent } from './components/availability-page/availability-page.component';
+import { ChooseOfferComponent } from './components/choose-offer/choose-offer.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,11 @@ import { UserDataFormComponent } from './components/user-data-form/user-data-for
     ContactUsComponent,
     LoginFormComponent,
     ActiveUserComponent,
-    UserDataFormComponent
+    UserDataFormComponent,
+    SubdomainPurchaseComponent,
+    AvailabilityPageComponent,
+    ChooseOfferComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,

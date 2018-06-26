@@ -1,0 +1,12 @@
+.card{
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 100px;
+}
+
+.no-top-margin{
+    margin: 10px 10px 0 10px;
+    width: 100%;
+    padding: 0;   
+}

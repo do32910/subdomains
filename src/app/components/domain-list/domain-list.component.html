@@ -7,7 +7,6 @@
 				<table class="table table-striped">
 				  <thead>
 				    <tr>
-				      <th scope="col">#</th>
 				      <th scope="col">Nazwa domeny</th>
 				      <th scope="col">Data wygaśnięcia</th>
 				      <th scope="col">Stan</th>
@@ -16,15 +15,14 @@
 				  </thead>
 				  <tbody>
 				    <tr *ngFor="let usrdom of usersDomains">
-				      <th scope="row">{{usrdom.id_domain}}</th>
-				      <td>{{usrdom.name}}.{{usrdom.at}}</td>
+				      <td #domain>{{usrdom.name}}.{{usrdom.at}}</td>
 				      <td>{{usrdom.expiration_date}}</td>
 				      <!-- <td [class.text-success]="(usrdom.status == 'ACTIVE')" [class.text-danger]="(usrdom.status == 'INACTIVE')">{{usrdom.status}}</td> -->
 							<td *ngIf="(usrdom.status == 'ACTIVE')" class="text-success">AKTYWNY</td>
 							<td *ngIf="(usrdom.status == 'INACTIVE')" class="text-danger">NIEAKTYWNY</td>
 							<ng-template #active>Aktywny</ng-template>
 							<ng-template #inavtice>Nieaktywny</ng-template>
-							<td><a href="prolong_domain.html"><span class="btn btn-primary">Przedłuż ważność</span></a></td>
+							<td><a href="/kup"><span class="btn btn-primary">Przedłuż ważność</span></a></td>
 				    </tr>
 					
 				  </tbody>

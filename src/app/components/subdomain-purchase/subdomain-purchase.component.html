@@ -1,0 +1,31 @@
+<div class="nav">
+</div>
+    <div *ngIf="step === 1">
+      <div class="card">
+        <h5 class="card-header">Wybór domeny</h5>
+        <div class="card-body">
+            <h6 class="card-title">Wprowadź nazwę subdomeny, którą chciałbyś kupić. Jeśli nie jesteś pewna/y, czy jest ona wolna, zawsze możesz to sprawdzić, klikając "Sprawdź dostępnosć!</h6>
+          <app-domain-availability></app-domain-availability>
+          <form action="/dlugosc" method="get">
+            <button class="btn btn-primary" (click)="domainToPurchase(query); step=2">Dalej</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="step === 2">
+        <div class="card">
+          <h5 class="card-header">Wybór abonamentu</h5>
+          <div class="card-body">
+            <p class="card-text card-descr">Wybierz interesujący cię abonament:</p>
+            <app-choose-offer></app-choose-offer>
+            <form action="/dlugosc" method="get">
+              <button class="btn btn-primary" (click)="step=3">Dalej</button>
+            </form>
+          </div>
+        </div>
+    </div>
+
+    <div *ngIf="step === 3">
+    <app-checkout></app-checkout>
+    </div>
