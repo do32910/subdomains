@@ -4,5 +4,6 @@
               <div class="input-group-append">
                   <button class="btn btn-outline-success" type="button" (click)="checkAvailability(query.value)">Sprawdź dostępność</button>
               </div>
-              <div *ngIf="!(availability) && (showAvailability)" class="availabilityInfo text-danger">Ta domena jest już zajęta!</div>
-              <div *ngIf="(availability)  && (showAvailability)" class="availabilityInfo text-success">Ta domena jest dostępna!</div>
+            </div>
+                <div *ngIf="!(availability) && (showAvailability)" class="availabilityInfo text-danger">Ta domena jest już zajęta!</div>
+                <div *ngIf="(availability)  && (showAvailability)" class="availabilityInfo text-success">Ta domena jest dostępna!</div>
