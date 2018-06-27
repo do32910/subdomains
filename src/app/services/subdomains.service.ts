@@ -10,7 +10,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class SubdomainsService {
 
-  private subdomainsUrl:string = 'http://flask-env.gepn8fd8hx.eu-central-1.elasticbeanstalk.com/subdomains/';
+  private subdomainsUrl:string = 'http://api-dev.yfqrqedkkf.eu-central-1.elasticbeanstalk.com/subdomains';
 
   constructor(
     private http:HttpClient) { }

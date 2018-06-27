@@ -1,6 +1,6 @@
 
           <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Wprowadź nazwę domeny..." aria-describedby="basic-addon2" #query>
+              <input type="text" class="form-control" placeholder="Wprowadź nazwę domeny..." aria-describedby="basic-addon2" (click)="hideAvailability()" #query required>
               <div class="input-group-append">
                   <button class="btn btn-outline-success" type="button" (click)="checkAvailability(query.value)">Sprawdź dostępność</button>
               </div>

@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 //services
 import { SubdomainsService } from './services/subdomains.service';
 import { UserDataService } from './services/user-data.service';
+import { PostService } from './services/post.service';
 import { UsersDomainsService } from './services/users-domains.service'; 
 //routes
 import { AppComponent } from './app.component';
@@ -24,6 +25,8 @@ import { SubdomainPurchaseComponent } from './components/subdomain-purchase/subd
 import { AvailabilityPageComponent } from './components/availability-page/availability-page.component';
 import { ChooseOfferComponent } from './components/choose-offer/choose-offer.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { PostComponent } from './components/post/post.component';
+import { PostFormComponent } from './components/post-form/post-form.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,9 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
     SubdomainPurchaseComponent,
     AvailabilityPageComponent,
     ChooseOfferComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    PostComponent,
+    PostFormComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +57,8 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
   providers: [
     SubdomainsService,
     UserDataService,
-    UsersDomainsService
+    UsersDomainsService,
+    PostService
   ],
   bootstrap: [AppComponent]
 })

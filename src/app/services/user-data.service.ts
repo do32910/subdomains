@@ -17,7 +17,7 @@ export class UserDataService {
 }
   activeUser = fakeActiveUser;
 
-  private userDomainsUrl = 'http://flask-env.gepn8fd8hx.eu-central-1.elasticbeanstalk.com/users/' + this.activeUser.id;
+  private userDomainsUrl = 'http://api-dev.yfqrqedkkf.eu-central-1.elasticbeanstalk.com/users/' + this.activeUser.id;
 
   getUserData(): Observable<User[]> {
     return this.http.get<User[]>(this.userDomainsUrl);

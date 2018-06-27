@@ -15,7 +15,8 @@ import { UserDataFormComponent } from './components/user-data-form/user-data-for
 import { SubdomainPurchaseComponent } from './components/subdomain-purchase/subdomain-purchase.component';
 import { AvailabilityPageComponent } from './components/availability-page/availability-page.component';
 import { ChooseOfferComponent } from './components/choose-offer/choose-offer.component';
-import { CheckoutComponent } from './components/checkout/checkout.component';
+import { PostComponent } from './components/post/post.component';
+
 
 const routes: Routes = [
   {path: '', component: DashboardComponent},
@@ -25,7 +26,7 @@ const routes: Routes = [
   {path: 'login', component: LoginFormComponent},
   {path: 'edytuj-dane', component: UserDataFormComponent},
   {path: 'kup', component: SubdomainPurchaseComponent},
-  {path: 'platnosc', component: CheckoutComponent},
+  {path: 'post', component: PostComponent},
   {path: '**', component: NotFoundComponent}
 ];
 
