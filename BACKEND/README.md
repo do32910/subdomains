@@ -109,3 +109,6 @@ Zwraca komunikat:
     "apartment_nr" : string,
     "postal_code" : int}
     }
+
+!!! komentarz do repozytorium:
+folder elasticbeanstalk jest ukryty w systemie plików na komputerach, dodatny tutaj ponieważ zawartość jest istotna
