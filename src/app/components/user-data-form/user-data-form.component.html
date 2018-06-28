@@ -5,14 +5,14 @@
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="userName">Imię</label>
-            <input type="text" class="form-control" id="userName" placeholder="{{userData.first_name}}" #firstName>
+            <input type="text" class="form-control" id="userName" placeholder="{{userData.first_name}}" disabled #firstName>
           </div>
           <div class="form-group col-md-6">
             <label for="userSurname">Nazwisko</label>
-            <input type="text" class="form-control" id="userSurname" placeholder="{{userData.last_name}}" #lastName>
+            <input type="text" class="form-control" id="userSurname" placeholder="{{userData.last_name}}" disabled #lastName>
           </div>
         </div>
-        <button (click)="editUserData(firstName.value, lastName.value)" class="btn btn-primary">Zmień dane</button>
+        <!-- <button (click)="editUserData(firstName.value, lastName.value)" class="btn btn-primary">Zmień dane</button> -->
       </form>
     </div>
   </div>
@@ -24,14 +24,14 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="userEmail">E-mail</label>
-              <input type="email" class="form-control" id="userEmail" placeholder="{{userData.email}}" >
+              <input type="email" class="form-control" id="userEmail" placeholder="{{userData.email}}" disabled>
             </div>
             <div class="form-group col-md-6">
               <label for="userPasswd">Hasło</label>
-              <input type="password" class="form-control" id="userPasswd" placeholder="*****************" >
+              <input type="password" class="form-control" id="userPasswd" placeholder="*****************" disabled>
             </div>
           </div>
-          <button class="btn btn-primary">Zmień dane</button>
+          <!-- <button class="btn btn-primary">Zmień dane</button> -->
         </form>
       </div>
     </div>

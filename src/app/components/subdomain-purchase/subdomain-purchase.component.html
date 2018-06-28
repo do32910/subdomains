@@ -6,14 +6,15 @@
         <div class="card-body">
             <h6 class="card-title">Wprowadź nazwę subdomeny, którą chciałbyś kupić. Jeśli nie jesteś pewna/y, czy jest ona wolna, zawsze możesz to sprawdzić, klikając "Sprawdź dostępnosć!</h6>
             <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Wprowadź nazwę domeny..." pattern="[A-Za-z]{3}" aria-describedby="basic-addon2" (click)="hideAvailability()" #query>
+            <input type="text" class="form-control"  [value]="subdomainToPurchase == undefined ? '' : subdomainToPurchase" pattern="[a-z0-9]+" aria-describedby="basic-addon2" (click)="hideAvailabilityAndPattern()" #query>
               <div class="input-group-append">
                 <button class="btn btn-outline-success" type="button" (click)="checkAvailability(query.value)">Sprawdź dostępność</button>
               </div>
             </div>
               <div *ngIf="!(availability) && (showAvailability)" class="availabilityInfo text-danger">Ta domena jest już zajęta!</div>
               <div *ngIf="(availability)  && (showAvailability)" class="availabilityInfo text-success">Ta domena jest dostępna!</div>
-            <button class="btn btn-primary" (click)="addPost(3, query.value, 'eu.pl', '44.44.33.33', '2018-05-23', '2018-06-24'); step=2">Dalej</button>
+              <div *ngIf="(wrongPattern)" class="availabilityInfo text-danger">Błędny adres! W adresie mogą znajdować się wyłącznie małe litery (bez polskich znaków), cyfry oraz znak -</div>
+            <button class="btn btn-primary" (click)="domainPattern(query.value)">Dalej</button>
         </div>
       </div>
     </div>
@@ -24,26 +25,26 @@
           <div class="card-body">
             <p class="card-text card-descr">Wybierz interesujący cię abonament:</p>
             <div class="card-body row">
-              <div class="card mini col no-top-margin" #card1>
+              <div class="card mini col no-top-margin" #card1  [ngClass]="{'selected': chosenOption == 1}">
                 <h5 class="card-header">Roczny</h5>
                 <div class="card-body">
                   <p class="card-text text-primary h2 price">61.5 zł <span class="text-secondary h6">(w tym 23% VAT)</span></p>
                   <p class="card-text price text-secondary font-weight-light">61.5 zł/rok</p>
-                  <a class="btn btn-primary" (click)="offerChoice(1)">Wybieram ten!</a>
+                  <button class="btn btn-primary" (click)="offerChoice(1)">Wybieram ten!</button>
                 </div>
               </div>
-              <div class="card mini col no-top-margin" #card2>
+              <div class="card mini col no-top-margin" #card2 [ngClass]="{'selected': chosenOption == 2}">
                 <h5 class="card-header">Pięcioletni</h5>
                 <div class="card-body">
                   <p class="card-text  text-primary h2 price">246 zł <span class="text-secondary h6">(w tym 23% VAT)</span></p>
                   <p class="card-text price text-secondary font-weight-light">49.2 zł/rok</p>
-                  <a class="btn btn-primary" (click)="offerChoice(2)">Wybieram ten!</a>
+                  <button class="btn btn-primary" (click)="offerChoice(2)">Wybieram ten!</button>
                 </div>
               </div>
             </div>
             <form>
-              <button class="btn btn-primary" (click)="step=2">Wstecz</button>
-              <button class="btn btn-primary float-right" (click)="checkOfferChoice()">Dalej</button>
+              <button class="btn btn-primary" (click)="step=1">Wstecz</button>
+              <button class="btn btn-primary float-right" (click)="addPost(3, subdomainToPurchase, 'eu.pl', '', '', ''); step=3">Dalej</button>
             </form>
           </div>
         </div>

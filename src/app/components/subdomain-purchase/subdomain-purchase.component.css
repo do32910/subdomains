@@ -20,3 +20,12 @@
 .float-right{
     float: right;
 }
+
+.selected{
+    border: 3px solid #007bff;
+    box-shadow: 0px 0px 3px 3px #007bff;
+}
+
+.white-font{
+    color: #fff;
+}

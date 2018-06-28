@@ -27,6 +27,10 @@ export class DomainAvailabilityComponent implements OnInit {
   
   
   checkAvailability(query:string){
+    if(query == ''){
+      alert("Wprowadź nazwę, która cię interesuje!");
+      return;
+    }
     this.availability = true;
     for(var q=0; q<this.subdomains.length; q++){
       if(this.subdomains[q].name==query){

@@ -26,9 +26,10 @@ export class SubdomainPurchaseComponent implements OnInit {
   availability: boolean;
   showAvailability:boolean;
   chosenOption = 1;
+  subdomainToPurchase:string;
+  wrongPattern:boolean;
 
   generateFakeIp(){
-    
     return Math.floor(Math.random()*(99-10+1)+10) + '.' + Math.floor(Math.random()*(99-10+1)+10) + '.' + Math.floor(Math.random()*(99-10+1)+10) + '.' + Math.floor(Math.random()*(99-10+1)+10);
   }
 
@@ -46,25 +47,52 @@ export class SubdomainPurchaseComponent implements OnInit {
   }
   constructor(private subdomainService: SubdomainsService, private postService: PostService){}
 
-
-
-  hideAvailability(){
+  hideAvailabilityAndPattern(){
     this.showAvailability = false;
+    this.wrongPattern = false;
   }
   
+
   checkAvailability(query:string){
+    if(query == ''){
+      alert("Wprowadź nazwę, która cię interesuje!");
+      return;
+    }else{
+      var pattern = new RegExp('^[a-zA-Z0-9-]+$');
+      if(!pattern.test(query + '')){
+        this.wrongPattern = true;
+        return;
+      }
+      this.availability = true;
+      for(var q=0; q<this.subdomains.length; q++){
+        if(this.subdomains[q].name==query){
+          this.availability = false;
+          break;    
+        }
+      }
+    this.showAvailability = true;
+    }
+  }
+
+  
+  checkAvailabilityAndProceed(query:string){
+    this.subdomainToPurchase = query;
     this.availability = true;
     for(var q=0; q<this.subdomains.length; q++){
       if(this.subdomains[q].name==query){
         this.availability = false;
-        break;    
+        this.showAvailability = true;
+        return;
       }
     }
     this.showAvailability = true;
+    this.step = 2;
   }
 
   offerChoice(num){
     this.chosenOption = num;
+    console.log(this.chosenOption);
+    console.log(this.subdomainToPurchase);
   }
 
   checkOfferChoice(){
@@ -81,6 +109,20 @@ export class SubdomainPurchaseComponent implements OnInit {
   domainToPurchase(query){
     console.log(query);
     this.query = query;
+  }
+
+  domainPattern(query:string){
+    var pattern = new RegExp('^[a-zA-Z0-9-]+$');
+    if(query == ''){
+      alert("Wprowadź nazwę, która cię interesuje!");
+      return;
+    }else if(pattern.test(query + '')){
+      this.checkAvailabilityAndProceed(query);
+      return;
+    }else{
+      this.wrongPattern = true;
+      return;
+    }
   }
 
 
@@ -107,6 +149,7 @@ export class SubdomainPurchaseComponent implements OnInit {
     this.subdomainService.getSubdomains().subscribe(subdomains => {
       this.subdomains = subdomains});    
     this.showAvailability = false;
+    this.wrongPattern = false;
   }
    
 
