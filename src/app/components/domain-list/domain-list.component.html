@@ -10,7 +10,7 @@
 				      <th scope="col">Nazwa domeny</th>
 				      <th scope="col">Data wygaśnięcia</th>
 				      <th scope="col">Stan</th>
-				      <th scope="col"> </th>
+				      <th scope="col">Adres IP</th>
 				    </tr>
 				  </thead>
 				  <tbody>
@@ -22,7 +22,8 @@
 							<td *ngIf="(usrdom.status == 'INACTIVE')" class="text-danger">NIEAKTYWNY</td>
 							<ng-template #active>Aktywny</ng-template>
 							<ng-template #inavtice>Nieaktywny</ng-template>
-							<td><a href="/kup"><span class="btn btn-primary">Przedłuż ważność</span></a></td>
+							<td>{{usrdom.ip_address}}</td>
+							<!-- <td><a href="/kup"><span class="btn btn-primary">Przedłuż ważność</span></a></td> -->
 				    </tr>
 					
 				  </tbody>

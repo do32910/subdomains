@@ -15,7 +15,7 @@ export class UsersDomainsService {
 
   activeUser = fakeActiveUser;
 
-  private userDomainsUrl = 'http://api-dev.yfqrqedkkf.eu-central-1.elasticbeanstalk.com/users/' + this.activeUser.id + '/subdomains/';
+  public userDomainsUrl = 'http://api-dev.yfqrqedkkf.eu-central-1.elasticbeanstalk.com/users/' + this.activeUser.id + '/subdomains/';
   getUsersDomains(): Observable<UsersDomain[]> {
     return this.http.get<UsersDomain[]>(this.userDomainsUrl);
   }

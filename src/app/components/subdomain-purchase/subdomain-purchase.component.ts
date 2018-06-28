@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Post } from '../../models/Post';
 import { PostService } from '../../services/post.service';
+import { fakeActiveUser } from '../../mockup/mock-activeuser';
 
 
 @Component({
@@ -67,7 +68,7 @@ export class SubdomainPurchaseComponent implements OnInit {
       for(var q=0; q<this.subdomains.length; q++){
         if(this.subdomains[q].name==query){
           this.availability = false;
-          break;    
+          break;
         }
       }
     this.showAvailability = true;
