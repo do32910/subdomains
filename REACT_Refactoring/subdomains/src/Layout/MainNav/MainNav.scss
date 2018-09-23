@@ -1,0 +1,19 @@
+@import "../../variables.scss";
+
+.main-nav{
+    margin: 0;
+    padding: 0;
+    background-color: $artichoke;
+    width: 20%;
+    position: absolute;
+    height: calc(100% - 120px);
+    &__item{
+        color: $honeydew;
+        list-style: none;
+        padding: 30px;
+        transition: background-color 0.3s;
+        &:hover{
+            background-color: #222725;
+        }
+    }
+}

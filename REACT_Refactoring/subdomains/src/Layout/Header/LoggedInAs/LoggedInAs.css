@@ -1,0 +1,5 @@
+.logged-info {
+  display: inline-block; }
+  .logged-info .user-name {
+    color: #899878;
+    font-weight: bold; }

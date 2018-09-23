@@ -1,0 +1,12 @@
+img {
+  height: 100%;
+  opacity: 0.8; }
+
+.logo {
+  display: inline-block;
+  height: 100%;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 70px;
+  color: #F1F7EE; }
+  .logo span {
+    color: #D52941; }
