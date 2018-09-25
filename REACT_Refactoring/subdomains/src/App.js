@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
+import { Route, BrowserRouter } from 'react-router-dom';
+
 import './App.css';
-import Layout from '../src/Layout';
+import Dashboard from './Dashboard';
 
 class App extends Component {
   render() {
     return (
-      <Layout />
+      <BrowserRouter>
+        <div>
+        <Route exact path='/dashboard' component={Dashboard} />
+        </div>
+      </BrowserRouter>
     );
   }
 }

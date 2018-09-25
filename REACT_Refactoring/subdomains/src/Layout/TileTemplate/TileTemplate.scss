@@ -1,0 +1,16 @@
+@import "../../variables.scss";
+
+.tile-template{
+    background-color: $honeydew;
+    padding: 100px;
+    margin: 50px;
+}
+
+.tile-header{
+    border-bottom: 3px solid $artichoke;
+    background-color: transparent;
+    padding-left: 10px;
+    color: #222725;
+    font-size: 3rem;
+    margin-bottom: 20px;
+}

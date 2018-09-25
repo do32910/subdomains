@@ -1,14 +1,12 @@
 .main-nav {
   margin: 0;
   padding: 0;
-  background-color: #899878;
-  width: 20%;
-  position: absolute;
-  height: calc(100% - 120px); }
+  background-color: #899878; }
   .main-nav__item {
     color: #F1F7EE;
     list-style: none;
     padding: 30px;
+    width: 200px;
     transition: background-color 0.3s; }
     .main-nav__item:hover {
       background-color: #222725; }

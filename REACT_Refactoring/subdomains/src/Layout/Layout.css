@@ -1,2 +1,4 @@
-h1 {
-  color: pink; }
+#container {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch; }
