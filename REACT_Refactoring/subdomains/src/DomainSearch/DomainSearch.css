@@ -18,6 +18,11 @@
     background-color: #222725;
     color: #CCC5B9;
     border-left: none;
-    transition: 0.3s all; }
+    transition: 0.3s all;
+    font-size: 90%; }
     .searchbar-container button:hover, .searchbar-container button:focus {
       background-color: #D52941; }
+    @media (max-width: 768px) {
+      .searchbar-container button {
+        font-size: 60%;
+        overflow: hidden; } }

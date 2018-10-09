@@ -23,8 +23,13 @@
         color: $palesilver;
         border-left: none;
         transition: 0.3s all;
+        font-size: 90%;
         &:hover, &:focus{
             background-color: $rustyred;
+        }
+        @media (max-width: 768px){
+            font-size: 60%;
+            overflow: hidden;
         }
     }
 }
