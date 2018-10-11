@@ -7,9 +7,8 @@ export default class DomainSearch extends Component{
         super(props);
         this.state = {
             header: "Sprawdź dostępność domeny",
-            availability: "",
-            availabilityMsg: ["Ta domena jest dostępna!", "Ta domena jest już zajęta"],
-            shouldMsgBeDisplayed: false
+            shouldMsgBeDisplayed: false,
+            availabilityMessage: ""
         }
         this.checkDomainAvailability = this.checkDomainAvailability.bind(this);
     }
@@ -20,14 +19,17 @@ export default class DomainSearch extends Component{
                 shouldMsgBeDisplayed: false
             });
         }else{
-            if(availability === "free"){  
-                console.log("freeyo");
+            if(availability === "free"){
+                this.setState({
+                    availabilityMessage: "Ta domena jest dostępna!",
+                    shouldMsgBeDisplayed: true
+                })
             }else if(availability === "taken"){
-                console.log("takenyo");
+                this.setState({
+                    availabilityMessage: "Ta domena jest już zajęta",
+                    shouldMsgBeDisplayed: true   
+                })
             }
-            this.setState({
-                shouldMsgBeDisplayed: true
-            })
         }
     }
 
@@ -49,11 +51,17 @@ export default class DomainSearch extends Component{
     }
 
     render(){
-        const searchBar = <div className="searchbar-container"><input placeholder="Wprowadź nazwę domeny..." name="domainSearchInput" id="searchinput"></input><button onClick={this.checkDomainAvailability}>Sprawdź dostępność</button>
-        {this.state.shouldMsgBeDisplayed ? <span id="availabilityMsg">{this.state.availabilityMsg[1]}</span> : null}
-        </div>;
         return (
-            <TileTemplate header={this.state.header} content={searchBar} />
+            <div className="tile-template">
+                <header className="tile-header">{this.state.header}</header>
+                <div className="tile-content">
+                    <div className="searchbar-container">
+                        <input placeholder="Wprowadź nazwę domeny..." name="domainSearchInput" id="searchinput"></input>
+                        <button onClick={this.checkDomainAvailability}>Sprawdź dostępność</button>
+                        {(this.state.shouldMsgBeDisplayed && this.state.availabilityMessage.length > 0) ? <span>{this.state.availabilityMessage}</span> : null}
+                    </div>
+                </div>
+            </div>
         )
     }
 }

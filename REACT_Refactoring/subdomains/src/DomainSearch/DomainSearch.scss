@@ -33,3 +33,24 @@
         }
     }
 }
+
+.tile-template{
+    background-color: $honeydew;
+    padding: 60px;
+    margin: 50px;
+}
+
+.tile-header{
+    border-bottom: 3px solid $artichoke;
+    background-color: transparent;
+    padding-left: 10px;
+    color: #222725;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    @media (max-width: 768px){
+        font-size: 1.7rem;
+    }
+    @media (max-width: 320px){
+        font-size: 1.1rem;
+    }
+}

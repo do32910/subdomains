@@ -26,3 +26,22 @@
       .searchbar-container button {
         font-size: 60%;
         overflow: hidden; } }
+
+.tile-template {
+  background-color: #F1F7EE;
+  padding: 60px;
+  margin: 50px; }
+
+.tile-header {
+  border-bottom: 3px solid #899878;
+  background-color: transparent;
+  padding-left: 10px;
+  color: #222725;
+  font-size: 2rem;
+  margin-bottom: 20px; }
+  @media (max-width: 768px) {
+    .tile-header {
+      font-size: 1.7rem; } }
+  @media (max-width: 320px) {
+    .tile-header {
+      font-size: 1.1rem; } }
