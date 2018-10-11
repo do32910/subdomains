@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import TileTemplate from '../Layout/TileTemplate';
 import './DomainSearch.css';
 
 export default class DomainSearch extends Component{
@@ -8,9 +7,11 @@ export default class DomainSearch extends Component{
         this.state = {
             header: "Sprawdź dostępność domeny",
             shouldMsgBeDisplayed: false,
-            availabilityMessage: ""
+            availabilityMessage: "",
+            messageColor: "#899878"
         }
         this.checkDomainAvailability = this.checkDomainAvailability.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
     printDomainAvailabilityMsg(){
         let availability = this.state.availability;
@@ -22,14 +23,24 @@ export default class DomainSearch extends Component{
             if(availability === "free"){
                 this.setState({
                     availabilityMessage: "Ta domena jest dostępna!",
-                    shouldMsgBeDisplayed: true
+                    shouldMsgBeDisplayed: true,
+                    messageColor: "#899878"
                 })
             }else if(availability === "taken"){
                 this.setState({
                     availabilityMessage: "Ta domena jest już zajęta",
-                    shouldMsgBeDisplayed: true   
+                    shouldMsgBeDisplayed: true,
+                    messageColor: "#D52941"   
                 })
             }
+        }
+    }
+
+    handleChange(){
+        if(this.state.shouldMsgBeDisplayed === true){
+            this.setState({
+                shouldMsgBeDisplayed: false
+            })
         }
     }
 
@@ -56,10 +67,11 @@ export default class DomainSearch extends Component{
                 <header className="tile-header">{this.state.header}</header>
                 <div className="tile-content">
                     <div className="searchbar-container">
-                        <input placeholder="Wprowadź nazwę domeny..." name="domainSearchInput" id="searchinput"></input>
+                        <input placeholder="Wprowadź nazwę domeny..." name="domainSearchInput" id="searchinput" onChange={this.handleChange}></input>
                         <button onClick={this.checkDomainAvailability}>Sprawdź dostępność</button>
-                        {(this.state.shouldMsgBeDisplayed && this.state.availabilityMessage.length > 0) ? <span>{this.state.availabilityMessage}</span> : null}
                     </div>
+                    {(this.state.shouldMsgBeDisplayed && this.state.availabilityMessage.length > 0) ? 
+                            <span id="availabilityMsg" style={{color: this.state.messageColor}}>{this.state.availabilityMessage}</span> : null}
                 </div>
             </div>
         )

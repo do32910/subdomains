@@ -10,3 +10,6 @@
     transition: background-color 0.3s; }
     .main-nav__item:hover {
       background-color: #222725; }
+    .main-nav__item-link {
+      color: #F1F7EE;
+      text-decoration: none; }

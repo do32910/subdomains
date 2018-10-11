@@ -13,5 +13,9 @@
         &:hover{
             background-color: #222725;
         }
+        &-link{
+            color: $honeydew;
+            text-decoration: none;
+        }
     }
 }
