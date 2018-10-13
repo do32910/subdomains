@@ -10,7 +10,7 @@ export default class LoggedInAs extends Component{
     }
     render(){
         return (
-            <div class="logged-info">Zalogowany/a jako: <span class="user-name">{this.state.loggedUser}</span></div>
+            <div className="logged-info">Zalogowany/a jako: <span className="user-name">{this.state.loggedUser}</span></div>
         )
     }
 }
