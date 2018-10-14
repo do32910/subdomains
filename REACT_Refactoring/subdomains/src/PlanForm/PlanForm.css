@@ -1,0 +1,24 @@
+.plan-form fieldset {
+  display: flex;
+  border: none; }
+
+.plan-form__option {
+  background-color: #899878;
+  padding: 20px; }
+  .plan-form__option-header {
+    color: #222725;
+    border-bottom: 3px solid #CCC5B9;
+    padding-bottom: 10px; }
+  .plan-form__option:first-child {
+    margin-right: 5px; }
+
+.plan-form__option-annual-pricing {
+  color: #222725;
+  display: block; }
+
+.plan-form__option-pricing {
+  color: #403d39; }
+  .plan-form__option-pricing-price {
+    font-size: 250%;
+    color: #D52941;
+    font-weight: bold; }

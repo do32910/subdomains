@@ -8,7 +8,8 @@ export default class DomainSearch extends Component{
             header: "Sprawdź dostępność domeny",
             shouldMsgBeDisplayed: false,
             availabilityMessage: "",
-            messageColor: "#899878"
+            messageColor: "#899878",
+            shouldPurchaseBtnBeDisplayed: false
         }
         this.checkDomainAvailability = this.checkDomainAvailability.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -24,6 +25,7 @@ export default class DomainSearch extends Component{
                 this.setState({
                     availabilityMessage: "Ta domena jest dostępna!",
                     shouldMsgBeDisplayed: true,
+                    shouldPurchaseBtnBeDisplayed: true,
                     messageColor: "#899878"
                 })
             }else if(availability === "taken"){
@@ -39,7 +41,8 @@ export default class DomainSearch extends Component{
     handleChange(){
         if(this.state.shouldMsgBeDisplayed === true){
             this.setState({
-                shouldMsgBeDisplayed: false
+                shouldMsgBeDisplayed: false,
+                shouldPurchaseBtnBeDisplayed: false
             })
         }
     }
@@ -72,6 +75,7 @@ export default class DomainSearch extends Component{
                     </div>
                     {(this.state.shouldMsgBeDisplayed && this.state.availabilityMessage.length > 0) ? 
                             <span id="availabilityMsg" style={{color: this.state.messageColor}}>{this.state.availabilityMessage}</span> : null}
+                            {this.state.shouldPurchaseBtnBeDisplayed ? <button className="addToCart-button">Dodaj do koszyka</button>: null}
                 </div>
             </div>
         )

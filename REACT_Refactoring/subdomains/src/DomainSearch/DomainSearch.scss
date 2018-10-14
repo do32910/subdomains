@@ -25,7 +25,7 @@
         transition: 0.3s all;
         font-size: 90%;
         &:hover, &:focus{
-            background-color: $rustyred;
+            background-color: $licorice;
         }
         @media (max-width: 768px){
             font-size: 60%;
@@ -63,4 +63,20 @@
     display: block;
     text-align: right;
     padding: 10px 20px 0 0;
+}
+
+.addToCart-button{
+    border: none;
+    color: $palesilver;
+    background-color: $raisinblack;
+    padding: 10px;
+    border-radius: 3px;
+    transition: 0.4s all;
+    float: right;
+    margin-right: 10px;
+    margin-top: 10px;
+
+    &:hover{
+        background-color: $licorice;
+    }
 }

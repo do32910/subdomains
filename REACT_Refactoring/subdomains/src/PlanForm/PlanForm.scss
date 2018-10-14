@@ -1,0 +1,41 @@
+@import '../variables.scss';
+
+// plan-form
+// plan-form__option
+// plan-form__option-header
+// plan-form__option-pricing
+// plan-form__option-annual-pricing
+// plan-form__oprion-btn
+
+.plan-form{
+    & fieldset{
+        display: flex;
+        border: none;
+    }
+    &__option{
+        background-color: $artichoke;
+        padding: 20px;
+        &-header{
+            color: $raisinblack;
+            border-bottom: 3px solid $palesilver;
+            padding-bottom: 10px;
+        }
+        &:first-child{
+            margin-right: 5px;
+        }
+    }
+
+    &__option-annual-pricing{
+        color: $raisinblack;
+        display: block;
+    }
+
+    &__option-pricing{
+        &-price{
+            font-size: 250%;
+            color: $rustyred;
+            font-weight: bold;
+        }
+        color: $blackolive;
+    }
+}
