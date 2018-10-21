@@ -13,11 +13,11 @@
         border: none;
     }
     &__option{
-        background-color: $artichoke;
+        background-color: $palesilver;
         padding: 20px;
         &-header{
             color: $raisinblack;
-            border-bottom: 3px solid $palesilver;
+            border-bottom: 3px solid $blackolive;
             padding-bottom: 10px;
         }
         &:first-child{
@@ -37,5 +37,35 @@
             font-weight: bold;
         }
         color: $blackolive;
+    }
+    &__option-btn{
+        border: none;
+        background-color: $artichoke;
+        color: $honeydew;
+        padding: 10px;
+        border-radius: 1px;
+        margin-top: 10px;
+        transition: 0.3s all;
+        &:hover{
+            background-color: $blackolive;
+        }
+    }
+}
+
+.form-submit-btn{
+    padding: 20px 30px;
+    width: 150px;
+    background-color: $blackolive;
+    color: $palesilver;
+    border: none;
+    border-radius: 1px;
+    margin: 20px;
+    margin-left: calc(100% - 150px);
+}
+
+.selected{
+    background-color: $artichoke;
+    & > .plan-form__option-btn{
+        background-color: $blackolive;
     }
 }

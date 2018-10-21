@@ -1,13 +1,14 @@
+/*honeydew / artichoke / raisinblack*/
 .plan-form fieldset {
   display: flex;
   border: none; }
 
 .plan-form__option {
-  background-color: #899878;
+  background-color: #CCC5B9;
   padding: 20px; }
   .plan-form__option-header {
     color: #222725;
-    border-bottom: 3px solid #CCC5B9;
+    border-bottom: 3px solid #403d39;
     padding-bottom: 10px; }
   .plan-form__option:first-child {
     margin-right: 5px; }
@@ -22,3 +23,29 @@
     font-size: 250%;
     color: #D52941;
     font-weight: bold; }
+
+.plan-form__option-btn {
+  border: none;
+  background-color: #899878;
+  color: #F1F7EE;
+  padding: 10px;
+  border-radius: 1px;
+  margin-top: 10px;
+  transition: 0.3s all; }
+  .plan-form__option-btn:hover {
+    background-color: #403d39; }
+
+.form-submit-btn {
+  padding: 20px 30px;
+  width: 150px;
+  background-color: #403d39;
+  color: #CCC5B9;
+  border: none;
+  border-radius: 1px;
+  margin: 20px;
+  margin-left: calc(100% - 150px); }
+
+.selected {
+  background-color: #899878; }
+  .selected > .plan-form__option-btn {
+    background-color: #403d39; }

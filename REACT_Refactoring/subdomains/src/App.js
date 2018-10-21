@@ -6,6 +6,7 @@ import Dashboard from './Dashboard';
 import DomainList from './DomainList';
 import LoginPage from './LoginPage';
 import PlanFormView from './PlanFormView';
+import LoadingPage from './LoadingPage';
 
 class App extends Component {
   render() {
@@ -16,6 +17,8 @@ class App extends Component {
         <Route exact path='/domains' component={DomainList} />
         <Route exact path='/login' component={LoginPage} />
         <Route exact path='/planform' component={PlanFormView} />
+        {/* the ones below are for testing only; delete after using */}
+        <Route exact path='/load' component={LoadingPage} />
         </div>
       </BrowserRouter>
     );
