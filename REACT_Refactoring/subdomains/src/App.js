@@ -7,6 +7,7 @@ import DomainList from './DomainList';
 import LoginPage from './LoginPage';
 import PlanFormView from './PlanFormView';
 import LoadingPage from './LoadingPage';
+import AccountDetailsView from './AccountDetailsView';
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
         <Route exact path='/domains' component={DomainList} />
         <Route exact path='/login' component={LoginPage} />
         <Route exact path='/planform' component={PlanFormView} />
+        <Route exact path='/your-account' component={AccountDetailsView} />
         {/* the ones below are for testing only; delete after using */}
         <Route exact path='/load' component={LoadingPage} />
         </div>
