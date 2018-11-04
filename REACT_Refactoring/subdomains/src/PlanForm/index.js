@@ -12,7 +12,7 @@ export default class PlanForm extends Component{
                 {duration: "Roczny", price: "61.50"},
                 {duration: "Pięcioletni", price: "246"}
             ],
-            selectedPlan: undefined
+            selectedPlan: undefined,
         }
     }
 
@@ -32,10 +32,10 @@ export default class PlanForm extends Component{
         e.preventDefault();
     }
 
-
     render(){
         return (
             <form className="plan-form">
+                <div>{this.state.domainToPurchase}</div>
                 <fieldset>
                 <div className="plan-form__option" id="plan-0">
                     <h2 className="plan-form__option-header">{this.state.availablePlans[0].duration}</h2>

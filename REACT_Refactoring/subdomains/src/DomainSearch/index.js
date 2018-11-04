@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './DomainSearch.css';
 
 export default class DomainSearch extends Component{
     constructor(props){
         super(props);
         this.state = {
+            url: "http://api-dev.yfqrqedkkf.eu-central-1.elasticbeanstalk.com/names",
             header: "Sprawdź dostępność domeny",
             shouldMsgBeDisplayed: false,
             availabilityMessage: "",
@@ -53,7 +55,7 @@ export default class DomainSearch extends Component{
         if(searchInput.length === 0){
             return 0;
         }
-        fetch(`http://api-dev.yfqrqedkkf.eu-central-1.elasticbeanstalk.com/names/${searchInput}`)
+        fetch(`${this.state.url}/${searchInput}`)
             .then( resp => resp.text())
             .then( msg => { 
                 msg = msg.substr(13,).slice(0,-2);  
@@ -75,7 +77,7 @@ export default class DomainSearch extends Component{
                     </div>
                     {(this.state.shouldMsgBeDisplayed && this.state.availabilityMessage.length > 0) ? 
                             <span id="availabilityMsg" style={{color: this.state.messageColor}}>{this.state.availabilityMessage}</span> : null}
-                            {this.state.shouldPurchaseBtnBeDisplayed ? <button className="addToCart-button">Dodaj do koszyka</button>: null}
+                            {this.state.shouldPurchaseBtnBeDisplayed ? <Link className="addToCart-button" to={{pathname: "/planform", state: {foo: "bar"}}}>Kup domenę</Link>: null}
                 </div>
             </div>
         )
