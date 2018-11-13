@@ -89,12 +89,7 @@ Wyświetla wiadomość czy subdomana o podanym name jest zajęta czy nie.
 
 ### addresses/ (może nie działać)
 #### GET:
-Zwraca komunikat:
-
-    {
-    "message" : "user doesn't have an address"
-    }
-    
+Wyświetla błąd, że nie podało się id użytkownika
 ### addresses/\<int:user_id\>
 #### GET:
 
@@ -109,6 +104,3 @@ Zwraca komunikat:
     "apartment_nr" : string,
     "postal_code" : int}
     }
-
-!!! komentarz do repozytorium:
-folder elasticbeanstalk jest ukryty w systemie plików na komputerach, dodatny tutaj ponieważ zawartość jest istotna
