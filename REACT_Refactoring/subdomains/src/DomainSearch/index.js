@@ -6,7 +6,7 @@ export default class DomainSearch extends Component{
     constructor(props){
         super(props);
         this.state = {
-            url: "http://api-dev.yfqrqedkkf.eu-central-1.elasticbeanstalk.com/names",
+            url: "https://www.api.subdom.name/names",
             header: "Sprawdź dostępność domeny",
             shouldMsgBeDisplayed: false,
             availabilityMessage: "",

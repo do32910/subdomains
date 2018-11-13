@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, BrowserRouter } from 'react-router-dom';
+import { Route, Redirect, BrowserRouter } from 'react-router-dom';
 
 import './App.css';
 import Dashboard from './Dashboard';
@@ -14,11 +14,13 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div>
+        {/* <Route exact path="/" render={() => (  loggedIn ? (    <Redirect to="/dashboard"/>  ) : (    <LoginPage/>  ))}/> */}
         <Route exact path='/dashboard' component={Dashboard} />
         <Route exact path='/domains' component={DomainList} />
         <Route exact path='/login' component={LoginPage} />
         <Route exact path='/planform' component={PlanFormView} />
         <Route exact path='/account' component={AccountDetailsView} />
+        <Route exact path="/" render={() => <Redirect to="/dashboard"/> }/>
         {/* the ones below are for testing only; delete after using */}
         <Route exact path='/load' component={LoadingPage} />
         </div>

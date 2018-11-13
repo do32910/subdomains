@@ -5,7 +5,7 @@ export default class AccountDetails extends Component{
     constructor(props){
         super(props);
         this.state = {
-            url: "http://api-dev.yfqrqedkkf.eu-central-1.elasticbeanstalk.com",
+            url: "https://www.api.subdom.name",
             loggedUserId: "3",
             loggedUserData: {
                 email: "",
