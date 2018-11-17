@@ -14,7 +14,15 @@ do wysłania:
     "password" : pass
     }
 `
-jeżeli podana para danych istnieje, zwraca access token, który jest potrzebny do całej reszty (dodajemy do **headers**:
+jeżeli podana para danych istnieje, strona zwraca:
+
+    {
+    "access_token" : TOKEN,           //wygasa po 15min
+    "message" : "success",
+    "refresh_token" : REFRESH_TOKEN   //wygasa po 24h
+    }
+
+access token, który jest potrzebny do całej reszty (dodajemy do **headers**:
 `
     {
     ...
@@ -22,6 +30,10 @@ jeżeli podana para danych istnieje, zwraca access token, który jest potrzebny 
     ...
     }
 `
+
+### refresh/
+#### POST:
+Wysyłamy header `Authorization: Bearer REFRESH_TOKEN`, otrzymujemy w odpowiedzi `"access_token" : TOKEN"`, z którego możemy dalej korzystać.
 
 ### users/
 #### GET:
