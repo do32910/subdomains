@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, json, request
 from flask.views import MethodView
+from flask_sslify import SSLify
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from flask_jwt_extended import (create_access_token, create_refresh_token, jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt)
@@ -7,6 +8,7 @@ from flask_restful import Resource, Api
 from sqlalchemy import text
 
 application = Flask(__name__)
+sslify = SSLify(application)
 jwt = JWTManager(application)
 
 application.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://subdom2018:subdom2018@subdom2018.cfijc6ozllle.eu-central-1.rds.amazonaws.com:1433/subdom2018'
@@ -147,6 +149,7 @@ class API_Users(MethodView):
     @jwt_required
     def get(self, user_id):
         if user_id is None:
+
             count = db.engine.execute("select count(id) from users")
             count2 = count.fetchall()
             count = count2[0][0]
@@ -352,5 +355,5 @@ application.add_url_rule('/addresses/<int:user_id>', view_func=adresses_view, me
 if __name__ == "__main__":
     # Setting debug to True enables debug output. This line should be
     # removed before deploying a production app.
-    application.debug = True
+    application.debug = False
     application.run()
