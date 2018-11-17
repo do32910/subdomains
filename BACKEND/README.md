@@ -1,7 +1,7 @@
 # API
 
 ### Główna strona:
-https://www.api.subdom.name <br/>
+https://api.subdom.name <br/>
 Wszystkie adresy podane poniżej trzeba dopisać do tego adresu, po '/'.
 Dane zwracane są jako JSONy. Nazwy kolumn i tablic są po angielsku.
 
