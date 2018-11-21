@@ -6,7 +6,7 @@ export default class LoginPage extends Component{
     constructor(props){
         super(props);
         this.state = {
-            url: `https://www.api.subdom.name`,
+            url: `https://api.subdom.name`,
             header: "Logowanie",
             token: ""
         }

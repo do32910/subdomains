@@ -11,7 +11,7 @@ export default class DomainList extends Component{
     }
 
     getList(){
-        fetch(`https://www.api.subdom.name/users/${3}/subdomains/`)
+        fetch(`https://api.subdom.name/users/${3}/subdomains/`)
             .then(resp => resp.json())
             .then(list => {
                 this.setState({

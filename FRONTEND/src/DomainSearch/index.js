@@ -6,7 +6,7 @@ export default class DomainSearch extends Component{
     constructor(props){
         super(props);
         this.state = {
-            url: "https://www.api.subdom.name/names",
+            url: "https://api.subdom.name/names",
             header: "Sprawdź dostępność domeny",
             shouldMsgBeDisplayed: false,
             availabilityMessage: "",
