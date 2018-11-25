@@ -21,15 +21,19 @@ class App extends Component {
       <BrowserRouter>
         <div>
         <Route exact path="/" render={() => (  this.props.isLoggedIn ? ( <Redirect to="/account"/> ) : ( <Redirect to={{pathname: "/login", state: { from: "/dashboard"}}}/> ) ) }/>
-        <Route exact path='/dashboard' component={Dashboard} />
-        <Route exact path='/domains' component={DomainList} />
+        <Route exact path="/dashboard" render={() => (  this.props.isLoggedIn ? ( <Dashboard /> ) : ( <Redirect to={{pathname: "/login", state: { from: "/dashboard"}}}/> ) ) }/>
+        <Route exact path="/domains" render={() => (  this.props.isLoggedIn ? ( <DomainList /> ) : ( <Redirect to={{pathname: "/login", state: { from: "/dashboard"}}}/> ) ) }/>
         <Route exact path='/login' render={() => <LoginPage isLoggedIn={this.props.isLoggedIn} username={this.props.username} token={this.props.token}/>} />
-        <Route exact path='/planform' component={PlanFormView} />
-        <Route exact path='/account' component={AccountDetailsView} />
+        <Route exact path="/account" render={() => (  this.props.isLoggedIn ? ( <AccountDetailsView /> ) : ( <Redirect to={{pathname: "/login", state: { from: "/dashboard"}}}/> ) ) }/>
+        
+        {/* <Route exact path='/dashboard' component={Dashboard} />
+        <Route exact path='/domains' component={DomainList} /> */}
+        {/* <Route exact path='/account' component={AccountDetailsView} /> */}
         {/* <Route exact path="/" render={() => <Redirect to="/dashboard"/> }/> */}
 
         {/* the ones below are for testing only; delete after using */}
         <Route exact path='/load' component={LoadingPage} />
+        <Route exact path='/planform' component={PlanFormView} />
         </div>
       </BrowserRouter>
     );
