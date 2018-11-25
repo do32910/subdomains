@@ -1,0 +1,17 @@
+@import "../../../../variables.scss";
+
+img{
+    height: 100%;
+    opacity: 0.8;
+}
+
+.logo{
+    display: inline-block;
+    height: 100%;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 70px;
+    color: $honeydew;
+    span{
+        color: $rustyred;
+    }
+}

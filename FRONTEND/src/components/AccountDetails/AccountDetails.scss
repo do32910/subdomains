@@ -1,0 +1,49 @@
+@import '../../variables.scss';
+
+.user-data-form{
+    & fieldset{
+        border: none;
+        display: flex;
+    }
+    &_legend{
+        color: $woodbrown;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 30px 0 10px 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid $blackolive;
+
+    }
+    &_input{
+        width: 50%;
+        margin-right: -4px;
+        margin-bottom: 12px;
+        float: right;
+        border: none;
+        border-radius: 2px;
+        padding: 5px;
+        height: 30px;
+        &:focus{
+            border-left: 1px solid $artichoke; 
+            border-top: 1px solid $artichoke;
+            border-bottom: 1px solid $artichoke;
+            outline: none;
+        }
+    }
+    &_label{
+        width: 50%;
+        padding: 5px 0;
+        display: inline-block;
+    }
+    &_change-btn{
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+        width: 30px;
+        height: 30px;
+        border: none;
+        color: $honeydew;
+        font-size: 10px;
+        background-color: $artichoke;
+        padding: 4px;
+    }
+}

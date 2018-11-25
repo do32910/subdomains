@@ -1,0 +1,71 @@
+@import '../../variables.scss';
+
+// plan-form
+// plan-form__option
+// plan-form__option-header
+// plan-form__option-pricing
+// plan-form__option-annual-pricing
+// plan-form__oprion-btn
+
+.plan-form{
+    & fieldset{
+        display: flex;
+        border: none;
+    }
+    &__option{
+        background-color: $palesilver;
+        padding: 20px;
+        &-header{
+            color: $raisinblack;
+            border-bottom: 3px solid $blackolive;
+            padding-bottom: 10px;
+        }
+        &:first-child{
+            margin-right: 5px;
+        }
+    }
+
+    &__option-annual-pricing{
+        color: $raisinblack;
+        display: block;
+    }
+
+    &__option-pricing{
+        &-price{
+            font-size: 250%;
+            color: $rustyred;
+            font-weight: bold;
+        }
+        color: $blackolive;
+    }
+    &__option-btn{
+        border: none;
+        background-color: $artichoke;
+        color: $honeydew;
+        padding: 10px;
+        border-radius: 1px;
+        margin-top: 10px;
+        transition: 0.3s all;
+        &:hover{
+            background-color: $blackolive;
+        }
+    }
+}
+
+.form-submit-btn{
+    padding: 20px 30px;
+    width: 150px;
+    background-color: $blackolive;
+    color: $palesilver;
+    border: none;
+    border-radius: 1px;
+    margin: 20px;
+    margin-left: calc(100% - 150px);
+}
+
+.selected{
+    background-color: $artichoke;
+    & > .plan-form__option-btn{
+        background-color: $blackolive;
+    }
+}

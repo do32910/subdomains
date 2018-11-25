@@ -1,0 +1,84 @@
+@import '../../variables.scss';
+
+.searchbar-container{
+    display: flex;
+    width: 100%;
+    input, button{
+        border-radius: 0;
+        border: none;
+        padding: 20px 20px;
+        font-size: 0.9rem;
+        border: 2px solid $artichoke;
+    }
+    input{
+        width: 75%;
+        border-radius: 30px 0 0 30px;
+        background-color: $honeydew;
+        border-right: none;
+    }
+    button{
+        width: 25%;
+        border-radius: 0 30px 30px 0;
+        background-color: $raisinblack;
+        color: $palesilver;
+        border-left: none;
+        transition: 0.3s all;
+        font-size: 90%;
+        &:hover, &:focus{
+            background-color: $licorice;
+        }
+        @media (max-width: 768px){
+            font-size: 60%;
+            overflow: hidden;
+        }
+    }
+}
+
+.tile-template{
+    background-color: $honeydew;
+    padding: 60px;
+    margin: 50px;
+}
+
+.tile-header{
+    border-bottom: 3px solid $artichoke;
+    background-color: transparent;
+    padding-left: 10px;
+    color: #222725;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    @media (max-width: 768px){
+        font-size: 1.7rem;
+    }
+    @media (max-width: 320px){
+        font-size: 1.1rem;
+    }
+}
+
+#availabilityMsg{
+    color: $artichoke;
+    font-weight: bold;
+    width: 100%;
+    font-size: 0.8rem;
+    display: block;
+    text-align: right;
+    padding: 10px 20px 0 0;
+}
+
+.addToCart-button{
+    border: none;
+    color: $palesilver;
+    background-color: $raisinblack;
+    text-decoration: none;
+    font-size: 12px;
+    padding: 10px;
+    border-radius: 3px;
+    transition: 0.4s all;
+    float: right;
+    margin-right: 10px;
+    margin-top: 10px;
+
+    &:hover{
+        background-color: $licorice;
+    }
+}

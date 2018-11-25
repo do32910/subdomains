@@ -1,0 +1,9 @@
+@import "../../../../variables.scss";
+
+.logged-info{
+    display: inline-block;
+    .user-name{
+        color: $artichoke;
+        font-weight: bold;
+    }
+}
