@@ -13,7 +13,12 @@ export function doLogin(username, token) {
     }
 }
 
+export function doLogout(){
+  return{
+    type: types.AUTH_LOGOUT
+  }
+}
 
-export const doLogout = () => dispatch => {
-  dispatch(userLogout());
-};
+// export const doLogout = () => dispatch => {
+//   dispatch(userLogout());
+// };

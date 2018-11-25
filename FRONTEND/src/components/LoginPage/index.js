@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Redirect } from 'react-router-dom';
 import './LoginPage.css';
 import TileTemplate from '../Layout/TileTemplate';
-import { doLogin, doLogout } from "../../actions/auth";
+import { doLogin } from "../../actions/auth";
 import { bindActionCreators } from  'redux';
 import { connect } from "react-redux";
 
@@ -39,10 +39,6 @@ class LoginPage extends Component{
             responseData => {
                 console.log(responseData.access_token);
                 this.props.doLogin("Dabi", responseData.access_token)
-                // this.setState({
-                //     token: responseData.access_token,
-                //     redirectToReferrer: true
-                // })
             }
         )
         
@@ -65,11 +61,11 @@ class LoginPage extends Component{
     }
 
     render(){
+        console.log(this.props)
         const from = this.props.from ? this.props.from : '/';
         const auth = this.props;
         const loginForm = (
             <form className="loginForm">
-            {auth.isLoggedIn ? "sladkflkjfdsgkldf" : "niet"}
                 <label htmlFor="loginName" className="loginForm__label">Nazwa użytkownika:</label>
                 <input type="text" className="loginForm__input" id="loginName" placeholder="Nazwa..."/>
                 <label htmlFor="password" className="loginForm__label">Hasło:</label>
