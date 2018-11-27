@@ -307,25 +307,17 @@ class API_Names(MethodView):
             list = []
             for i in range(count):
                 subdom_dict = {
-                    'id_domain' : row[i][0],
-                    'id_user' : row[i][1],
                     'name' : row[i][2],
-                    'at' : row[i][3],
-                    'ip_address' : row[i][4],
-                    'purchase_date' : str(row[i][5]),
-                    'expiration_date' : str(row[i][6]),
                     'status' : row[i][7]}
                 list.append(subdom_dict)
             
             return json.dumps(list, ensure_ascii=False)
         else:
-            count = db.engine.execute("select count(id_domain) from subdomains WHERE name = '" + str(name) + "'")
-            count2 = count.fetchall()
-            count = count2[0][0]
-            if count == 0:
-                return json.dumps({'message' : 'free'}, ensure_ascii=False)
-            else:
+            subd = Subdomains.query.filter(Subdomains.name==str(name)).filter(Subdomains.status=="ACTIVE").first()
+            if subd:
                 return json.dumps({'message' : 'taken'}, ensure_ascii=False)
+            else:
+                return json.dumps({'message' : 'free'}, ensure_ascii=False)
 
 
 ##############
@@ -361,5 +353,5 @@ application.add_url_rule('/addresses/<int:user_id>', view_func=adresses_view, me
 if __name__ == "__main__":
     # Setting debug to True enables debug output. This line should be
     # removed before deploying a production app.
-    application.debug = False
+    application.debug = True
     application.run()
