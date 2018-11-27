@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './DomainSearch.css';
+import { connect } from "react-redux";
 
-export default class DomainSearch extends Component{
+class DomainSearch extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -11,7 +12,8 @@ export default class DomainSearch extends Component{
             shouldMsgBeDisplayed: false,
             availabilityMessage: "",
             messageColor: "#899878",
-            shouldPurchaseBtnBeDisplayed: false
+            shouldPurchaseBtnBeDisplayed: false,
+            token: this.props.token
         }
         this.checkDomainAvailability = this.checkDomainAvailability.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -55,7 +57,15 @@ export default class DomainSearch extends Component{
         if(searchInput.length === 0){
             return 0;
         }
-        fetch(`${this.state.url}/${searchInput}`)
+        fetch(`${this.state.url}/${searchInput}`, {
+            method: 'get',
+            withCredentials: true,
+            credentials: 'include',
+            headers:{
+                'Authorization': `Bearer ${this.state.token}`,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }})
             .then( resp => resp.text())
             .then( msg => { 
                 msg = msg.substr(13,).slice(0,-2);  
@@ -83,3 +93,14 @@ export default class DomainSearch extends Component{
         )
     }
 }
+
+function mapStateToProps(state){
+    return {
+      isLoggedIn: state.isLoggedIn,
+      username: state.username,
+      token: state.token,
+      userId: state.userId
+    }
+}
+
+export default connect(mapStateToProps)(DomainSearch); 

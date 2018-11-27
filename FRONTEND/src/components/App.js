@@ -22,8 +22,8 @@ class App extends Component {
         <div>
         <Route exact path="/" render={() => (  this.props.isLoggedIn ? ( <Redirect to="/account"/> ) : ( <Redirect to={{pathname: "/login", state: { from: "/dashboard"}}}/> ) ) }/>
         <Route exact path="/dashboard" render={() => (  this.props.isLoggedIn ? ( <Dashboard /> ) : ( <Redirect to={{pathname: "/login", state: { from: "/dashboard"}}}/> ) ) }/>
-        <Route exact path="/domains" render={() => (  this.props.isLoggedIn ? ( <DomainList /> ) : ( <Redirect to={{pathname: "/login", state: { from: "/dashboard"}}}/> ) ) }/>
-        <Route exact path='/login' render={() => <LoginPage isLoggedIn={this.props.isLoggedIn} username={this.props.username} token={this.props.token}/>} />
+        <Route exact path="/domains" render={() => (  this.props.isLoggedIn ? ( <DomainList username={this.props.username} token={this.props.token}/> ) : ( <Redirect to={{pathname: "/login", state: { from: "/dashboard"}}}/> ) ) }/>
+        <Route exact path='/login' render={() => <LoginPage isLoggedIn={this.props.isLoggedIn} username={this.props.username} token={this.props.token} userId={this.props.userId}/>} />
         <Route exact path="/account" render={() => (  this.props.isLoggedIn ? ( <AccountDetailsView /> ) : ( <Redirect to={{pathname: "/login", state: { from: "/dashboard"}}}/> ) ) }/>
         
         {/* <Route exact path='/dashboard' component={Dashboard} />
@@ -44,7 +44,8 @@ function mapStateToProps(state){
     return {
       isLoggedIn: state.isLoggedIn,
       username: state.username,
-      token: state.token
+      token: state.token,
+      userId: state.userId
     }
 }
 

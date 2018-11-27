@@ -7,8 +7,8 @@
   background-color: #CCC5B9;
   padding: 20px; }
   .plan-form__option-header {
-    color: #222725;
-    border-bottom: 3px solid #403d39;
+    color: #B49A67;
+    border-bottom: 3px solid #466365;
     padding-bottom: 10px; }
   .plan-form__option:first-child {
     margin-right: 5px; }
@@ -47,5 +47,7 @@
 
 .selected {
   background-color: #899878; }
+  .selected > .plan-form__option-header {
+    color: #403d39; }
   .selected > .plan-form__option-btn {
     background-color: #403d39; }

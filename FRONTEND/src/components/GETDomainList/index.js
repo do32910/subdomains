@@ -1,17 +1,27 @@
 import React, {Component} from 'react';
 import './GETDomainList.css';
+import { connect } from "react-redux";
 
-export default class DomainList extends Component{
+class GETDomainList extends Component{
     constructor(props){
         super(props);
         this.state= {
             userId: 3,
+            token: this.props.token,
             domainList: []
         }
     }
 
     getList(){
-        fetch(`https://api.subdom.name/users/${3}/subdomains/`)
+        fetch(`https://api.subdom.name/users/${3}/subdomains/`, {
+            method: 'get',
+            withCredentials: true,
+            credentials: 'include',
+            headers:{
+                'Authorization': `Bearer ${this.state.token}`,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }})
             .then(resp => resp.json())
             .then(list => {
                 this.setState({
@@ -54,3 +64,15 @@ export default class DomainList extends Component{
         )
     }
 }
+
+
+function mapStateToProps(state){
+    return {
+      isLoggedIn: state.isLoggedIn,
+      username: state.username,
+      token: state.token,
+      userId: state.userId
+    }
+}
+
+export default connect(mapStateToProps)(GETDomainList); 

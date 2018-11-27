@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import './AccountDetails.css';
+import { connect } from "react-redux";
 
-export default class AccountDetails extends Component{
+class AccountDetails extends Component{
     constructor(props){
         super(props);
         this.state = {
             url: "https://api.subdom.name",
-            loggedUserId: "3",
+            loggedUserId: this.props.userId,
+            token: this.props.token,
             loggedUserData: {
                 email: "",
                 first_name: "",
@@ -17,7 +19,15 @@ export default class AccountDetails extends Component{
     }
 
     componentDidMount(){
-        fetch(`${this.state.url}/users/${this.state.loggedUserId}`)
+        fetch(`${this.state.url}/users/${this.state.loggedUserId}`, {
+            method: 'get',
+            withCredentials: true,
+            credentials: 'include',
+            headers:{
+                'Authorization': `Bearer ${this.state.token}`,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }})
             .then(resp => resp.json())
             .then((retrievedData) => {
                 this.setState({
@@ -43,14 +53,16 @@ export default class AccountDetails extends Component{
                 method: 'PUT',
                 body: JSON.stringify(dataToBeUpdated),
                 headers:{
-                    'Content-Type': 'application/json'
+                    'Authorization': `Bearer ${this.state.token}`,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                   }
             }).then(res => res.json())
-            .then(odp => console.log('msg:'))
         }
     }
 //  IMPORTANT: INPUT IDS HAVE TO BE EXACTLY THE SAME AS NAMES OF VALUES FROM THE STATE THEY ARE TAKEN FROM, OTHERWISE CHANGEUSERDATA FUNCTION WILL BREAK
     render(){
+        console.log(this.props.userId);
         return (
             <form className="user-data-form">
                 <legend className="user-data-form_legend">Dane osobowe</legend>
@@ -79,3 +91,14 @@ export default class AccountDetails extends Component{
         )
     }
 }
+
+function mapStateToProps(state){
+    return {
+      isLoggedIn: state.isLoggedIn,
+      username: state.username,
+      token: state.token,
+      userId: state.userId
+    }
+}
+
+export default connect(mapStateToProps)(AccountDetails); 

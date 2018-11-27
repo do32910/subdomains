@@ -4,7 +4,7 @@ const initialState = {
   username: "",
   token: "",
   isLoggedIn: false,
-  
+  userId: ""
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -14,6 +14,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         username: action.username,
         token: action.token,
+        userId: action.userId,
         isLoggedIn: true
       };
     case types.AUTH_LOGOUT:
