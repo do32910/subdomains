@@ -1,12 +1,5 @@
 @import '../../variables.scss';
 
-// plan-form
-// plan-form__option
-// plan-form__option-header
-// plan-form__option-pricing
-// plan-form__option-annual-pricing
-// plan-form__oprion-btn
-
 .plan-form{
     & fieldset{
         display: flex;
@@ -16,8 +9,8 @@
         background-color: $palesilver;
         padding: 20px;
         &-header{
-            color: $raisinblack;
-            border-bottom: 3px solid $blackolive;
+            color: $woodbrown;
+            border-bottom: 3px solid $deepspacesparkle;
             padding-bottom: 10px;
         }
         &:first-child{
@@ -65,6 +58,9 @@
 
 .selected{
     background-color: $artichoke;
+    & > .plan-form__option-header{
+        color: $blackolive;
+    }
     & > .plan-form__option-btn{
         background-color: $blackolive;
     }

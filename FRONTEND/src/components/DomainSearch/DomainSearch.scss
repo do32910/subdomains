@@ -14,18 +14,19 @@
         width: 75%;
         border-radius: 30px 0 0 30px;
         background-color: $honeydew;
+        color: $woodbrown;
         border-right: none;
     }
     button{
         width: 25%;
         border-radius: 0 30px 30px 0;
-        background-color: $raisinblack;
-        color: $palesilver;
+        background-color: $licorice;
+        color: $woodbrown;
         border-left: none;
         transition: 0.3s all;
         font-size: 90%;
         &:hover, &:focus{
-            background-color: $licorice;
+            background-color: $deepspacesparkle;
         }
         @media (max-width: 768px){
             font-size: 60%;
@@ -68,7 +69,7 @@
 .addToCart-button{
     border: none;
     color: $palesilver;
-    background-color: $raisinblack;
+    background-color: $licorice;
     text-decoration: none;
     font-size: 12px;
     padding: 10px;
@@ -79,6 +80,6 @@
     margin-top: 10px;
 
     &:hover{
-        background-color: $licorice;
+        background-color: $deepspacesparkle;
     }
 }

@@ -1,21 +1,21 @@
 /*honeydew / artichoke / raisinblack*/
 .domain-list__header tr td {
-  color: #899878;
+  color: #B49A67;
   font-weight: bold;
   padding-bottom: 20px; }
+
+.domain-list__body tr {
+  color: #466365; }
 
 .domain-list__body tr:nth-child(2n) {
   background-color: #899878;
   color: #F1F7EE; }
   .domain-list__body tr:nth-child(2n) .domain-list-element__prolong-button {
     background-color: #CCC5B9;
-    color: #222725; }
+    color: #466365; }
     .domain-list__body tr:nth-child(2n) .domain-list-element__prolong-button:hover {
-      background-color: #899878;
+      background-color: #8C7284;
       color: #F1F7EE; }
-
-.domain-list__body td:last-child {
-  background-color: #F1F7EE; }
 
 .domain-list__body td {
   padding: 10px; }
@@ -25,14 +25,14 @@
 
 .domain-list-element__prolong-button {
   border: none;
-  background-color: #403d39;
+  background-color: #466365;
   padding: 10px;
   color: #F1F7EE;
   border-radius: 3px;
   cursor: pointer;
   transition: 0.4s all; }
   .domain-list-element__prolong-button:hover {
-    background-color: #121113; }
+    background-color: #8C7284; }
 
 .inactive-domain {
   color: #D52941;

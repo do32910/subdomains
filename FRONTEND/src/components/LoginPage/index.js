@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import './LoginPage.css';
 import TileTemplate from '../Layout/TileTemplate';
 import { doLogin } from "../../actions/auth";
-import { bindActionCreators } from  'redux';
+import { bindActionCreators, combineReducers } from  'redux';
 import { connect } from "react-redux";
 
 
@@ -37,8 +37,7 @@ class LoginPage extends Component{
             (response) => response.json()
         ).then(
             responseData => {
-                console.log(responseData.access_token);
-                this.props.doLogin("Dabi", responseData.access_token)
+                this.props.doLogin("Dabi", responseData.access_token, responseData.user_id)
             }
         )
         
@@ -61,7 +60,7 @@ class LoginPage extends Component{
     }
 
     render(){
-        console.log(this.props)
+        console.log(this.props.userId);
         const from = this.props.from ? this.props.from : '/';
         const auth = this.props;
         const loginForm = (
@@ -89,5 +88,3 @@ function mapDispatchToProps(dispatch){
 }
 
 export default connect(null, mapDispatchToProps)(LoginPage);
-
-// export default LoginPage;

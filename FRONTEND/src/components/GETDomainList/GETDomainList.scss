@@ -2,28 +2,31 @@
 
 .domain-list__header{
     & tr td{
-        color: $artichoke;
+        color: $woodbrown;
         font-weight: bold;
         padding-bottom: 20px;
     }
 }
 
 .domain-list__body{
+    & tr{
+        color: $deepspacesparkle;
+    }
     & tr:nth-child(2n){
         background-color: $artichoke;
         color: $honeydew;
         & .domain-list-element__prolong-button{
             background-color: $palesilver;
-            color: $raisinblack;
+            color: $deepspacesparkle;
             &:hover{
-                background-color: $artichoke;
+                background-color: $rocketmetallic;
                 color: $honeydew;
             }
         }
     }
-    & td:last-child{
-        background-color: $honeydew;
-    }
+    // & td:last-child{
+    //     background-color: $honeydew;
+    // }
     & td{
         padding: 10px;
     }
@@ -35,14 +38,14 @@
     }
     &__prolong-button{
         border: none;
-        background-color: $blackolive;
+        background-color: $deepspacesparkle;
         padding: 10px;
         color: $honeydew;
         border-radius: 3px;
         cursor: pointer;
         transition: 0.4s all;
         &:hover{
-            background-color: $licorice;
+            background-color: $rocketmetallic;
         }
     }
 }

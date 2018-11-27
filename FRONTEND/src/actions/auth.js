@@ -5,11 +5,12 @@ const userLogout = () => ({
 });
 
 
-export function doLogin(username, token) {
+export function doLogin(username, token, userId) {
     return {
         type: types.AUTH_LOGIN,
         username: username,
-        token: token
+        token: token,
+        userId: userId
     }
 }
 
@@ -18,7 +19,3 @@ export function doLogout(){
     type: types.AUTH_LOGOUT
   }
 }
-
-// export const doLogout = () => dispatch => {
-//   dispatch(userLogout());
-// };
