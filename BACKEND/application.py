@@ -98,8 +98,14 @@ class Authorize(MethodView):
         if (current_user):
             access_token = create_access_token(identity = str(request.get_json()['login']))
             refresh_token = create_refresh_token(identity = str(request.get_json()['login']))
+
+            result = db.engine.execute("select * from users where login = '" + str(login) + "'")
+            row = result.fetchall()
+            id_token = row[0][0]            
+
             return json.dumps({
                 'message' : 'success',
+                'user_id' : id_token,
                 'access_token' : access_token,
                 'refresh_token' : refresh_token
             })
