@@ -112,10 +112,15 @@ Edytuje subdomenę o id = subdomain_id korzystając z danych podanych w JSONie w
 
 ### names/
 #### GET:
-Wyświetla wszystkie subdomeny, w formie takiej jak w users/<int:user_id>/subdomains
+Wyświetla wszystkie subdomeny, w formie
+
+    {
+    "name" : name,
+    "status" : "INACTIVE" / "ACTIVE"
+    }
 ### names/\<string:name\>
 #### GET:
-Wyświetla wiadomość czy subdomana o podanym name jest zajęta czy nie. 
+Wyświetla wiadomość czy subdomana o podanym name jest zajęta czy nie. (`{"message" : "free"}` lub `{"message":"taken"}`)
 
 ### addresses/ (może nie działać)
 #### GET:
