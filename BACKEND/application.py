@@ -1,6 +1,8 @@
 from flask import Flask, jsonify, json, request
 from flask.views import MethodView
 from flask_sslify import SSLify
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from flask_jwt_extended import (create_access_token, create_refresh_token, jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt)
@@ -10,6 +12,12 @@ from sqlalchemy import text
 application = Flask(__name__)
 sslify = SSLify(application)
 jwt = JWTManager(application)
+limiter = Limiter(
+    application,
+    key_func=get_remote_address,
+    default_limits=["200 per day", "50 per hour"]
+)
+
 
 application.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://subdom2018:subdom2018@subdom2018.cfijc6ozllle.eu-central-1.rds.amazonaws.com:1433/subdom2018'
 application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -296,28 +304,13 @@ class API_Subdomains(MethodView):
         return json.dumps({'message' : 'success'}, ensure_ascii=False)
 
 class API_Names(MethodView):
-    @jwt_required
+    decorators = [limiter.limit("1/second")]
     def get(self, name):
-        if name is None:
-            count = db.engine.execute("select count(id_domain) from subdomains")
-            count2 = count.fetchall()
-            count = count2[0][0]
-            result = db.engine.execute("select * from subdomains")
-            row = result.fetchall()
-            list = []
-            for i in range(count):
-                subdom_dict = {
-                    'name' : row[i][2],
-                    'status' : row[i][7]}
-                list.append(subdom_dict)
-            
-            return json.dumps(list, ensure_ascii=False)
+        subd = Subdomains.query.filter(Subdomains.name==str(name)).filter(Subdomains.status=="ACTIVE").first()
+        if subd:
+            return json.dumps({'message' : 'taken'}, ensure_ascii=False)
         else:
-            subd = Subdomains.query.filter(Subdomains.name==str(name)).filter(Subdomains.status=="ACTIVE").first()
-            if subd:
-                return json.dumps({'message' : 'taken'}, ensure_ascii=False)
-            else:
-                return json.dumps({'message' : 'free'}, ensure_ascii=False)
+            return json.dumps({'message' : 'free'}, ensure_ascii=False)
 
 
 ##############
