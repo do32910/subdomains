@@ -110,17 +110,10 @@ Edytuje subdomenę o id = subdomain_id korzystając z danych podanych w JSONie w
 
 #### DELETE: not implemented yet
 
-### names/
-#### GET:
-Wyświetla wszystkie subdomeny, w formie
-
-    {
-    "name" : name,
-    "status" : "INACTIVE" / "ACTIVE"
-    }
 ### names/\<string:name\>
 #### GET:
 Wyświetla wiadomość czy subdomana o podanym name jest zajęta czy nie. (`{"message" : "free"}` lub `{"message":"taken"}`)
+**Jest limit na 1 request/second dla konkretnego adresu ip**
 
 ### addresses/ (może nie działać)
 #### GET:
