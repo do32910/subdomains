@@ -8,6 +8,8 @@ from flask_jwt_extended import JWTManager
 from flask_jwt_extended import (create_access_token, create_refresh_token, jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt)
 from flask_restful import Resource, Api
 from sqlalchemy import text
+import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
 
 application = Flask(__name__)
 sslify = SSLify(application)
@@ -40,15 +42,22 @@ class Users(db.Model):
     last_name = db.Column('last_name', db.Unicode)
     subdomains = db.relationship('Subdomains', backref='user', lazy=True)
 
-    def __init__(self, login, password, email, last_login_date, registration_date, subdomains, first_name, last_name):
+    def __init__(self, login, password, email, last_login_date, registration_date, first_name, last_name):  #, subdomains):s
         self.login = login
-        self.password = password
+        self.set_password(password)
         self.email = email
         self.last_login_date = last_login_date
         self.registration_date = registration_date
-        self.subdomains = subdomains
+        # self.subdomains = subdomains
         self.first_name = first_name
         self.last_name = last_name
+    
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
+
 
 class Subdomains(db.Model):
     __tablename = 'subdomains'
@@ -102,18 +111,14 @@ class Authorize(MethodView):
         login = str(request.get_json()['login'])
         password = str(request.get_json()['password'])
         
-        current_user = Users.query.filter_by(login = login, password = password).first()
-        if (current_user):
+        current_user = Users.query.filter_by(login = login).first()
+        if (current_user and current_user.check_password(password)):
             access_token = create_access_token(identity = str(request.get_json()['login']))
-            refresh_token = create_refresh_token(identity = str(request.get_json()['login']))
-
-            result = db.engine.execute("select * from users where login = '" + str(login) + "'")
-            row = result.fetchall()
-            id_token = row[0][0]            
+            refresh_token = create_refresh_token(identity = str(request.get_json()['login']))           
 
             return json.dumps({
                 'message' : 'success',
-                'user_id' : id_token,
+                'user_id' : current_user.id,
                 'access_token' : access_token,
                 'refresh_token' : refresh_token
             })
@@ -160,7 +165,7 @@ class API_Addresses(MethodView):
                 return json.dumps({'message' : "user doesn't have an address"}, ensure_ascii=False)
 
 class API_Users(MethodView):
-    @jwt_required
+    # @jwt_required
     def get(self, user_id):
         if user_id is None:
 
@@ -200,11 +205,37 @@ class API_Users(MethodView):
             return json.dumps(subdom_dict, ensure_ascii=False)
 
     def post(self):
-        return str(request.get_json()['login'])
+        # return str(request.get_json())
+        #def __init__(self, login, password, email, last_login_date, registration_date, subdomains, first_name, last_name):
+        
+        now = datetime.datetime.now()
+        try:
+            login = request.get_json()['login']
+            password = request.get_json()['password']
+            email = request.get_json()['email']
+            registration_date = now.strftime('%Y-%m-%d')
+            last_login_date = now.strftime('%Y-%m-%d')
+            first_name = request.get_json()['first_name']
+            last_name = request.get_json()['last_name']
+        except:
+            return json.dumps({'message' : 'wrong data given'})
 
-    def post(self, login):
-        if login == 'login':
-            return str('login')
+        taken = Users.query.filter(Users.login == login).first()
+        if taken:
+            return json.dumps({'message' : 'Login is taken'})
+        taken = Users.query.filter(Users.email == email).first()
+        if taken:
+            return json.dumps({'message' : 'Email is taken'})
+
+        try:
+            x = Users(login, password, email, last_login_date, registration_date,first_name,last_name)
+        except:
+            return json.dumps({'message' : 'error creating User'})
+        db.session.add(x)
+        db.session.commit()
+        access_token = create_access_token(identity = str(request.get_json()['login']))
+        refresh_token = create_refresh_token(identity = str(request.get_json()['login']))
+        return json.dumps({'message' : 'success', 'user_id' : x.id, 'access_token' : access_token, 'refresh_token' : refresh_token})
 
     def delete(self, user_id):
         return 'delete user with id == ' + str(user_id)
@@ -212,18 +243,28 @@ class API_Users(MethodView):
     def put(self, user_id):
         columns = request.get_json()['columns']
         values = request.get_json()['values']
-        string = "UPDATE users SET "
-        for i in range (len(columns) - 1):
-            string = string \
-                    + str(columns[i]) \
-                    + " = '" + str(values[i]) \
-                    + "', "
-        string = string \
-                + str(columns[len(columns) - 1]) \
-                + " = '" + str(values[len(columns) - 1]) \
-                + "' WHERE id = " \
-                + str(user_id)
-        result = db.engine.execute(string)
+        usr = Users.query.get(user_id)
+        if "login" in columns:
+            login = values[columns.index("login")]
+            usr.login = login
+        
+        if "password" in columns:
+            password = values[columns.index("password")]
+            usr.set_password(password) 
+
+        if "first_name" in columns:
+            first_name = values[columns.index("first_name")]
+            usr.first_name = first_name
+
+        if "last_name" in columns:
+            last_name = values[columns.index("last_name")]
+            usr.last_name = last_name
+
+        if "email" in columns:
+            email = values[columns.index("email")]
+            usr.email = email       
+        db.session.commit()
+
         return json.dumps({'message' : 'success'}, ensure_ascii=False)
 
 class API_Subdomains(MethodView):
