@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
 import './PlanForm.css';
+import DomainPurchaseIP from '../DomainPurchaseIP';
 
 export default class PlanForm extends Component{
     constructor(props){
         super(props);
         this.state = {
-            domainToPurchase: "",
             availablePlans: [
-                {duration: "Roczny", price: "61.50"},
-                {duration: "Pięcioletni", price: "246"}
+                {duration: "Roczny", price: "61.50", durationInInt: 1},
+                {duration: "Pięcioletni", price: "246", durationInInt: 5}
             ],
+            proceed: false,
             selectedPlan: undefined,
         }
     }
@@ -22,18 +23,23 @@ export default class PlanForm extends Component{
         });
         selectedPlan.classList.add('selected');
         this.setState({
-            selectedPlan: this.state.availablePlans[index].duration
+            selectedPlan: this.state.availablePlans[index].durationInInt
         })
     }
 
     submitForm(e){
         e.preventDefault();
+        this.setState({
+            proceed: true
+        })
     }
-
     render(){
+        if(this.state.proceed){
+            return <DomainPurchaseIP domainToPurchase={this.props.domainToPurchase} selectedPlan={this.state.selectedPlan}/>
+        }
         return (
             <form className="plan-form">
-                <div>{this.state.domainToPurchase}</div>
+                <header className="tile-header">Wybór abonamentu</header>
                 <fieldset>
                 <div className="plan-form__option" id="plan-0">
                     <h2 className="plan-form__option-header">{this.state.availablePlans[0].duration}</h2>
@@ -48,7 +54,7 @@ export default class PlanForm extends Component{
                     <button className="plan-form__option-btn" onClick={(e) => this.selectPlan(e, 1)}>Wybieram ten!</button>
                 </div>
                 </fieldset>
-                <button className="form-submit-btn" onClick={this.submitForm}>Przejdź dalej</button>
+                <button className="form-submit-btn" onClick={(e) => this.submitForm(e)}>Przejdź dalej</button>
             </form>
         )
     }

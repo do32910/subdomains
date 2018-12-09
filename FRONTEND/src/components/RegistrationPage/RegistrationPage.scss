@@ -1,6 +1,6 @@
 @import '../../variables.scss';
 
-.loginContainer{
+.registrationContainer{
     width: 700px;
     margin: 100px auto;
     @media(max-width: 768px){
@@ -8,7 +8,7 @@
     }
 }
 
-.loginForm{
+.registrationForm{
     display: flex;
     flex-direction: column;
     &__label{

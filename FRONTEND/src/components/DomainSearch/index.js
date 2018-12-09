@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import './DomainSearch.css';
 import { connect } from "react-redux";
 
+import PlanForm from '../PlanForm';
+
 class DomainSearch extends Component{
     constructor(props){
         super(props);
@@ -13,7 +15,8 @@ class DomainSearch extends Component{
             availabilityMessage: "",
             messageColor: "#899878",
             shouldPurchaseBtnBeDisplayed: false,
-            token: this.props.token
+            token: this.props.token,
+            shouldPlanFormBeDisplayed: false
         }
         this.checkDomainAvailability = this.checkDomainAvailability.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -55,8 +58,22 @@ class DomainSearch extends Component{
         e.preventDefault();
         var searchInput = document.querySelector('#searchinput').value;
         if(searchInput.length === 0){
+            this.setState({
+                availabilityMessage: "Wprowadź nazwę, która cię interesuje",
+                shouldMsgBeDisplayed: true,
+                messageColor: "#D52941"
+            })
             return 0;
         }
+        if(!/^[a-z0-9\-]+$/.test(searchInput)){
+            this.setState({
+                availabilityMessage: "Niepoprawna nazwa domeny. Nazwa może zawierać tylko litery, cyfry oraz myślnik",
+                shouldMsgBeDisplayed: true,
+                messageColor: "#D52941"
+            })
+            return 0;
+        }
+
         fetch(`${this.state.url}/${searchInput}`, {
             method: 'get',
             withCredentials: true,
@@ -76,7 +93,24 @@ class DomainSearch extends Component{
             });
     }
 
+    displayPlanForm(e){
+        e.preventDefault();
+        this.setState({
+            shouldPlanFormBeDisplayed: true,
+            domainToPurchase: document.querySelector('#searchinput').value
+        })
+    }
+
     render(){
+
+        if(this.state.shouldPlanFormBeDisplayed){
+            return (
+                <div className="tile-template">
+                    <PlanForm domainToPurchase={this.state.domainToPurchase}/>
+                </div>
+            )
+        }
+
         return (
             <div className="tile-template">
                 <header className="tile-header">{this.state.header}</header>
@@ -87,7 +121,7 @@ class DomainSearch extends Component{
                     </div>
                     {(this.state.shouldMsgBeDisplayed && this.state.availabilityMessage.length > 0) ? 
                             <span id="availabilityMsg" style={{color: this.state.messageColor}}>{this.state.availabilityMessage}</span> : null}
-                            {this.state.shouldPurchaseBtnBeDisplayed ? <Link className="addToCart-button" to={{pathname: "/planform", state: {foo: "bar"}}}>Kup domenę</Link>: null}
+                            {this.state.shouldPurchaseBtnBeDisplayed ? <button className="addToCart-button" onClick={(e) => this.displayPlanForm(e)}>Kup domenę</button>: null}
                 </div>
             </div>
         )
