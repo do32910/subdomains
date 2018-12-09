@@ -7,7 +7,7 @@ export default class LoadingPage extends Component{
     render(){
         const loadingView = <div className="lds-ring" style={{"margin": " 50px calc(50% - 50px)"}}><div></div><div></div><div></div><div></div></div>
         return(
-            <Layout content={<TileTemplate header="Poczekaj na przeniesienie do systemu płatności... " content={loadingView}/>}/>
+            <TileTemplate header="Poczekaj na przeniesienie do systemu płatności... " content={loadingView}/>
         )
     }
 }
