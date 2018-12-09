@@ -10,6 +10,20 @@ from flask_restful import Resource, Api
 from sqlalchemy import text
 import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+import boto3
+from credentials import *
+'''
+imported variables:
+aws_access_key_id
+aws_secret_access_key
+db_uri
+jwt_key
+'''
+client = boto3.client(
+            'route53',
+            aws_access_key_id=aws_access_key_id,
+            aws_secret_access_key=aws_secret_access_key
+ )
 
 application = Flask(__name__)
 sslify = SSLify(application)
@@ -21,9 +35,9 @@ limiter = Limiter(
 )
 
 
-application.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://subdom2018:subdom2018@subdom2018.cfijc6ozllle.eu-central-1.rds.amazonaws.com:1433/subdom2018'
+application.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-application.config['JWT_SECRET_KEY'] = 'jwt-secret-string'
+application.config['JWT_SECRET_KEY'] = jwt_key
 db = SQLAlchemy(application)
 
 #################
@@ -354,6 +368,57 @@ class API_Names(MethodView):
             return json.dumps({'message' : 'free'}, ensure_ascii=False)
 
 
+class DNS_test(MethodView):
+    decorators = [limiter.limit("1/second")]
+    def get(self, record):
+        if record is not None:
+
+            subdomname = record + '.subdom.name.'
+            ip = '150.254.78.3' # https://laboratoria.wmi.amu.edu.pl/en
+
+
+            # creates a record set (or changes the IP if record already exists!)
+
+            boto3.set_stream_logger('botocore')
+            try:
+                response = client.change_resource_record_sets(
+                    HostedZoneId=zone_id,
+                    ChangeBatch={
+                        'Changes': [
+                            {
+                                'Action': 'UPSERT',
+                                'ResourceRecordSet': {
+                                    'Name': subdomname,
+                                    'Type': 'A',
+                                    'TTL': 1,
+                                    'ResourceRecords': [
+                                        {
+                                            'Value': ip 
+                                        }
+                                    ],
+                                }
+                            }
+                        ]
+                    }
+                )
+                ### ta część zjebuje, ale kod powyżej działa - record dodaje się do route53, tylko do bazy danych już nie
+                id_user = '3'
+                name = record
+                at = 'eu.pl'
+                ip_address = ip
+                purchase_date = '2019-12-12'
+                expiration_date = '2019-12-1'
+
+                new_subdom = Subdomains(id_user, name, at, ip_address, purchase_date, expiration_date, 'ACTIVE')
+                db.session.add(new_subdom)
+                db.session.commit()
+                ### 
+                return json.dumps({'message' : 'created record'}, ensure_ascii=False)
+            except botocore.exceptions.ClientError as e:
+                return json.dumps({'error' : e}, ensure_ascii=False)
+        else:
+            return json.dumps({'error' : 'no record'}, ensure_ascii=False)
+
 ##############
 ### routes ###
 ##############
@@ -363,6 +428,7 @@ names_view = API_Names.as_view('names_api')
 adresses_view = API_Addresses.as_view('addresses_api')
 auth = Authorize.as_view('auth')
 refresh = TokenRefresh.as_view('refresh')
+dns_test_view = DNS_test.as_view('test_dns')
 
 application.add_url_rule('/login/', view_func=auth, methods=['POST'])
 application.add_url_rule('/refresh/', view_func=refresh, methods=['POST'])
@@ -382,10 +448,54 @@ application.add_url_rule('/names/<string:name>', view_func=names_view, methods=[
 application.add_url_rule('/addresses/', defaults={'user_id':None},view_func=adresses_view, methods=['GET'])
 application.add_url_rule('/addresses/<int:user_id>', view_func=adresses_view, methods=['GET'])
 
-
+application.add_url_rule('/dnstest/', defaults={'record':None},view_func=dns_test_view, methods=['GET'])
+application.add_url_rule('/dnstest/<string:record>', view_func=dns_test_view, methods=['GET'])
 
 if __name__ == "__main__":
     # Setting debug to True enables debug output. This line should be
     # removed before deploying a production app.
     application.debug = True
     application.run()
+
+'''
+# full request syntax for record set modification
+
+response = client.change_resource_record_sets(
+    HostedZoneId='string',
+    ChangeBatch={
+        'Comment': 'string',
+        'Changes': [
+            {
+                'Action': 'CREATE'|'DELETE'|'UPSERT',
+                'ResourceRecordSet': {
+                    'Name': 'string',
+                    'Type': 'SOA'|'A'|'TXT'|'NS'|'CNAME'|'MX'|'NAPTR'|'PTR'|'SRV'|'SPF'|'AAAA'|'CAA',
+                    'SetIdentifier': 'string',
+                    'Weight': 123,
+                    'Region': 'us-east-1'|'us-east-2'|'us-west-1'|'us-west-2'|'ca-central-1'|'eu-west-1'|'eu-west-2'|'eu-west-3'|'eu-central-1'|'ap-southeast-1'|'ap-southeast-2'|'ap-northeast-1'|'ap-northeast-2'|'ap-northeast-3'|'sa-east-1'|'cn-north-1'|'cn-northwest-1'|'ap-south-1',
+                    'GeoLocation': {
+                        'ContinentCode': 'string',
+                        'CountryCode': 'string',
+                        'SubdivisionCode': 'string'
+                    },
+                    'Failover': 'PRIMARY'|'SECONDARY',
+                    'MultiValueAnswer': True|False,
+                    'TTL': 123,
+                    'ResourceRecords': [
+                        {
+                            'Value': 'string'
+                        },
+                    ],
+                    'AliasTarget': {
+                        'HostedZoneId': 'string',
+                        'DNSName': 'string',
+                        'EvaluateTargetHealth': True|False
+                    },
+                    'HealthCheckId': 'string',
+                    'TrafficPolicyInstanceId': 'string'
+                }
+            },
+        ]
+    }
+)
+'''
