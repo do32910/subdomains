@@ -11,7 +11,9 @@ from sqlalchemy import text
 import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 import boto3
+import botocore
 from credentials import *
+
 '''
 imported variables:
 aws_access_key_id
@@ -376,7 +378,6 @@ class DNS_test(MethodView):
             subdomname = record + '.subdom.name.'
             ip = '150.254.78.3' # https://laboratoria.wmi.amu.edu.pl/en
 
-
             # creates a record set (or changes the IP if record already exists!)
 
             boto3.set_stream_logger('botocore')
@@ -401,21 +402,22 @@ class DNS_test(MethodView):
                         ]
                     }
                 )
-                ### ta część zjebuje, ale kod powyżej działa - record dodaje się do route53, tylko do bazy danych już nie
                 id_user = '3'
                 name = record
                 at = 'eu.pl'
                 ip_address = ip
                 purchase_date = '2019-12-12'
-                expiration_date = '2019-12-1'
-
-                new_subdom = Subdomains(id_user, name, at, ip_address, purchase_date, expiration_date, 'ACTIVE')
+                expiration_date = '2019-12-31'
+                try:
+                    new_subdom = Subdomains(id_user, name, at, ip_address, purchase_date, expiration_date, 'ACTIVE')
+                except:
+                    return json.dumps({'message' : 'error creating new_subdom'})
                 db.session.add(new_subdom)
                 db.session.commit()
-                ### 
+
                 return json.dumps({'message' : 'created record'}, ensure_ascii=False)
             except botocore.exceptions.ClientError as e:
-                return json.dumps({'error' : e}, ensure_ascii=False)
+                return json.dumps({'error' : str(e)}, ensure_ascii=False)
         else:
             return json.dumps({'error' : 'no record'}, ensure_ascii=False)
 
