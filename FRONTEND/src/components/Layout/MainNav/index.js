@@ -14,9 +14,6 @@ export default class MainNav extends Component{
                     <li className="main-nav__item">list item 1</li>
                     <li className="main-nav__item">list item 4</li>
                     <li className="main-nav__item">list item 5</li>
-                    <li className="main-nav__item">list item 6</li>
-                    <li className="main-nav__item">list item 7</li>
-                    <li className="main-nav__item">list item 8</li>
                 </ul>
             </nav>
         )

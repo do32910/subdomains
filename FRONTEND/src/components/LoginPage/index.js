@@ -45,10 +45,10 @@ class LoginPage extends Component{
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                // "login": loginToVerify,
-                // "password": psswdToVerify
-             "login": "Dabi",
-             "password": "endeavorsuccs"
+                "login": loginToVerify,
+                "password": psswdToVerify
+            //  "login": "Dabi",
+            //  "password": "endeavorsuccs"
             })
         }).then(
             (response) => response.json()
@@ -58,7 +58,7 @@ class LoginPage extends Component{
                     this.printMessage("Niepoprawne dane logowania");
                     return 0;
                 }
-                this.props.doLogin("Dabi", responseData.access_token, responseData.user_id)
+                this.props.doLogin(loginToVerify, responseData.access_token, responseData.user_id)
             }
         )
     }
@@ -114,7 +114,7 @@ class LoginPage extends Component{
 
 
     render(){
-        console.log(this.state.validationMessage);
+        console.log(this.props.userId);
         const from = this.props.from ? this.props.from : '/';
         const auth = this.props;
         const loginForm = (

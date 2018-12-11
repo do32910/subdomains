@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './RegistrationPage.css';
-import TileTemplate from '../Layout/TileTemplate';
-
+import { Redirect } from 'react-router'
 
 export default class RegistrationPage extends Component{
     constructor(props){
         super(props);
         this.state = {
             header: "Zarejestruj się",
+            url: `https://api.subdom.name`,
             errorMessages: {
                 emptyField: "Wszystkie pola muszą być wypełnione!",
                 wrongLogin: "Login zawiera niedozwolone znaki",
@@ -16,8 +16,8 @@ export default class RegistrationPage extends Component{
                 wrongPswdLength: "Hasło powinno składać się z 6 do 20 znaków"
             },
             shouldMsgBeDisplayed: false,
-            errorsToDisplay: ["asasas"],
-            test: "asgfafgadfg"
+            errorsToDisplay: [],
+            redirect: false
         }
     }
 
@@ -34,14 +34,14 @@ export default class RegistrationPage extends Component{
 
         var errorListToDisplay = [];
 
-        // if(password.length <= 0 || passwordRpt.length <= 0 || userEmail.length <= 0 || userName.length <= 0){
-        //     errorListToDisplay.push(this.state.emptyField);
-        //     this.setState({
-        //         errorsToDisplay: errorListToDisplay,
-        //         shouldMsgBeDisplayed: true
-        //     })
-        //     return 0;
-        // }
+        if(password.length <= 0 || passwordRpt.length <= 0 || userEmail.length <= 0 || userName.length <= 0){
+            errorListToDisplay.push(this.state.errorMessages.emptyField);
+            this.setState({
+                errorsToDisplay: errorListToDisplay,
+                shouldMsgBeDisplayed: true
+            })
+            return 0;
+        }
 
         if(password !== passwordRpt){
             errorListToDisplay.push(this.state.errorMessages.passwordConfirmationFailed);
@@ -57,17 +57,43 @@ export default class RegistrationPage extends Component{
         }
 
         if(errorListToDisplay.length >= 1){
-            console.log(errorListToDisplay);
             this.setState({
-                // errorsToDisplay: errorListToDisplay,
+                errorsToDisplay: errorListToDisplay,
                 shouldMsgBeDisplayed: true
             })
+            return 0;
         }
+        fetch(`${this.state.url}/users/`, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "login": userName,
+                "password": password,
+                "email": userEmail,
+                "first_name": "Mar",
+                "last_name": "Chew"
+             })
+        }).then(
+            (response) => response.json()
+        ).then(
+            this.setState({
+                redirect: true
+            })
+        )
+
 
     }
 
     render(){
 
+        if(this.state.redirect === true){
+            return (
+                <Redirect to="/login" />
+            )
+        }
+        
         return (
             <div className="registrationForm">
             <label htmlFor="userName" className="registrationForm__label">Nazwa użytkownika:</label>
@@ -80,7 +106,7 @@ export default class RegistrationPage extends Component{
             <label htmlFor="passwordRpt" className="registrationForm__label">Powtórz hasło:</label>
             <input type="password" className="registrationForm__input" id="passwordRpt" placeholder="Hasło..." onChange={this.handleChange}/>
             {(this.state.shouldMsgBeDisplayed) ? 
-                <span id="availabilityMsg">{this.state.errorsToDisplay[0]}</span> :  null}
+                 <span id="availabilityMsg">{this.state.errorsToDisplay[0]}</span> :  null}
             <input type="submit" className="registrationForm__submitBtn" id="registerSubmit" onClick={(e) => this.validateRegistrationForm(e)} value="Utwórz konto"/>
         </div>
         )

@@ -6,14 +6,14 @@ class GETDomainList extends Component{
     constructor(props){
         super(props);
         this.state= {
-            userId: 3,
+            userId: this.props.userId,
             token: this.props.token,
             domainList: []
         }
     }
 
     getList(){
-        fetch(`https://api.subdom.name/users/${3}/subdomains/`, {
+        fetch(`https://api.subdom.name/users/${this.state.userId}/subdomains/`, {
             method: 'get',
             withCredentials: true,
             credentials: 'include',

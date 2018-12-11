@@ -27,7 +27,6 @@ class App extends Component {
         <Route exact path="/account" render={() => (  this.props.isLoggedIn ? ( <AccountDetailsView /> ) : ( <Redirect to={{pathname: "/login", state: { from: "/dashboard"}}}/> ) ) }/>
         <Route exact path="/register" component={RegistrationPageView} />
 
-
         {/* the ones below are for testing only; delete after using */}
         <Route exact path='/load' component={LoadingPage} />
         <Route exact path='/planform' component={PlanFormView} />
