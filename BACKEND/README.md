@@ -50,9 +50,18 @@ wyświetla dane wszystkich użytkowników w formie:
     },
     ...
 
-#### POST: not implemented yet
+#### POST:
+Tworzy nowego użytkownika w bazie danych na podstawie otrzymanych informacji. Format przesyłania infomacji:
 
-
+    {
+        "login" = string,
+        "password" = string,
+        "email" = string,
+        "first_name" = string,
+        "last_name" = string
+     }
+*Hasło jest szyfrowane w momencie rejestracji.*
+**Data rejestracji i pierwszego logowania jest automatycznie pobierana w momencie dodawania rekordu do bazy.**
 
 ### users/\<int:user_id\>
 #### GET:
@@ -102,6 +111,8 @@ Dodaje nową subdomenę, korzystając z danych przesłanych za pomocą JSONa w *
     "purchase_date" : data (w formie '2000-12-12'),
     "expiration_date" : data (w formie '2000-12-12')
     }
+    
+*UWAGA* funkcja dodaje stronę zarówno do bazy danych jak i rekordów AWS - tzn. w pełni funkcjonalnie rejestruje subdomenę.
     
 ### subdomains/\<int:subdomain_id\>
 
