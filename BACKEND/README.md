@@ -50,9 +50,18 @@ wyświetla dane wszystkich użytkowników w formie:
     },
     ...
 
-#### POST: not implemented yet
+#### POST:
+Tworzy nowego użytkownika w bazie danych na podstawie otrzymanych informacji. Format przesyłania infomacji:
 
-
+    {
+        "login" = string,
+        "password" = string,
+        "email" = string,
+        "first_name" = string,
+        "last_name" = string
+     }
+*Hasło jest szyfrowane w momencie rejestracji.*
+**Data rejestracji i pierwszego logowania jest automatycznie pobierana w momencie dodawania rekordu do bazy.**
 
 ### users/\<int:user_id\>
 #### GET:
