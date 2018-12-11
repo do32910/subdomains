@@ -103,6 +103,8 @@ Dodaje nową subdomenę, korzystając z danych przesłanych za pomocą JSONa w *
     "expiration_date" : data (w formie '2000-12-12')
     }
     
+*UWAGA* funkcja dodaje stronę zarówno do bazy danych jak i rekordów AWS - tzn. w pełni funkcjonalnie rejestruje subdomenę.
+    
 ### subdomains/\<int:subdomain_id\>
 
 #### PUT:
