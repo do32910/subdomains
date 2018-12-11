@@ -64,7 +64,7 @@ class AccountDetails extends Component{
     render(){
         console.log(this.props.userId);
         return (
-            <form className="user-data-form">
+            <div className="user-data-form">
                 <legend className="user-data-form_legend">Dane osobowe</legend>
                 <fieldset>
                     <label className="user-data-form_label" htmlFor="first_name">Imię</label>
@@ -87,7 +87,7 @@ class AccountDetails extends Component{
                     <input className="user-data-form_input" type="password" id="password" defaultValue={this.state.password} />
                     <button className="user-data-form_change-btn" onClick={(e) => this.changeUserData(e, "password")}>Z</button>
                 </fieldset>
-            </form>
+            </div>
         )
     }
 }

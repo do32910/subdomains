@@ -82,12 +82,10 @@ export default class RegistrationPage extends Component{
                 redirect: true
             })
         )
-
-
     }
 
     render(){
-
+        
         if(this.state.redirect === true){
             return (
                 <Redirect to="/login" />

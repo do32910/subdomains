@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import { Redirect } from 'react-router-dom';
 import './LoginPage.css';
-import TileTemplate from '../Layout/TileTemplate';
 import { doLogin } from "../../actions/auth";
-import { bindActionCreators, combineReducers } from  'redux';
+import { bindActionCreators } from  'redux';
 import { connect } from "react-redux";
 
 
@@ -110,14 +109,16 @@ class LoginPage extends Component{
         
     }
 
-
-
-
     render(){
         console.log(this.props.userId);
         const from = this.props.from ? this.props.from : '/';
         const auth = this.props;
-        const loginForm = (
+
+        if (auth.isLoggedIn === true) {
+            return <Redirect to={from} />
+        }
+        return (
+            <div className="loginContainer">
             <form className="loginForm">
                 <label htmlFor="loginName" className="loginForm__label">Nazwa użytkownika:</label>
                 <input type="text" className="loginForm__input" id="loginName" placeholder="Nazwa..." onChange={this.handleChange}/>
@@ -126,14 +127,7 @@ class LoginPage extends Component{
                 <input type="submit" className="loginForm__submitBtn" id="loginSubmit" onClick={this.verifyLoginData} value="Zaloguj się"/>
                 {(this.state.shouldMsgBeDisplayed) ? 
                     <span id="availabilityMsg">{this.state.validationMessage}</span> :  null}
-            </form>)
-
-        if (auth.isLoggedIn === true) {
-            return <Redirect to={from} />
-        }
-        return (
-            <div className="loginContainer">
-            <TileTemplate header={this.state.header} content={loginForm}/>
+            </form>
             </div>
         )
     }

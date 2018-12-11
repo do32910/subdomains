@@ -1,11 +1,8 @@
 @import '../../variables.scss';
 
 .loginContainer{
-    width: 700px;
-    margin: 100px auto;
-    @media(max-width: 768px){
-        width: 90%
-    }
+    width: 90%;
+    margin: 50px auto 20px auto;
 }
 
 .loginForm{

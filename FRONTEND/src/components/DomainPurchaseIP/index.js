@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './DomainPurchaseIP.css'
 import { connect } from "react-redux";
-import { bindActionCreators } from  'redux';
 
 
 class DomainPurchaseIP extends Component{
@@ -34,12 +33,12 @@ class DomainPurchaseIP extends Component{
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                "id_user" : 3,
-                "name" : "mniam",
+                "id_user" : this.state.userId,
+                "name" : this.state.domainToPurchase,
                 "at": "subdom.name",
-                "ip_address": "150.254.78.3",
-                "purchase_date": "2019-12-12",
-                "expiration_date": "2019-12-12"
+                "ip_address": domainIP,
+                "purchase_date": purchaseDate,
+                "expiration_date": expirationDate
             })
         }).then(
             (response) => response.json()

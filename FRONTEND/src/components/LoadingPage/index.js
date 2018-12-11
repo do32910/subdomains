@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import './LoadingPage.css';
-import Layout from '../Layout';
 import TileTemplate from '../Layout/TileTemplate';
 
 export default class LoadingPage extends Component{
