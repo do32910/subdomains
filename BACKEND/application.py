@@ -334,62 +334,97 @@ class API_Subdomains(MethodView):
     def post(self):
         id_user = request.get_json()['id_user']
         name = request.get_json()['name']
-        at = request.get_json()['at']
+        #at = request.get_json()['at']
         ip_address = request.get_json()['ip_address']
         purchase_date = request.get_json()['purchase_date']
         expiration_date = request.get_json()['expiration_date']
- 
+
         subdomname = name + '.subdom.name.'
-        boto3.set_stream_logger('botocore')
-        try:
-            response = client.change_resource_record_sets(
-                HostedZoneId=zone_id,
-                ChangeBatch={
-                    'Changes': [
-                        {
-                            'Action': 'UPSERT',
-                            'ResourceRecordSet': {
-                                'Name': subdomname,
-                                'Type': 'A',
-                                'TTL': 1,
-                                'ResourceRecords': [
-                                    {
-                                        'Value': ip_address
-                                    }
-                                ],
-                            }
-                        }
-                    ]
-                }
-            )
+        at = 'subdom.name'
+
+        records = client.list_resource_record_sets(HostedZoneId=zone_id)
+        recordslist = []
+        for record in records['ResourceRecordSets']:
+            if record['Type'] == 'A':
+                recordslist.append(record['Name'])
+
+        if not subdomname in recordslist:
+            boto3.set_stream_logger('botocore')
             try:
-                new_subdom = Subdomains(id_user, name, at, ip_address, purchase_date, expiration_date, 'ACTIVE')
-            except:
-                return json.dumps({'message' : 'error creating new_subdom'})
-            db.session.add(new_subdom)
-            db.session.commit()
+                response = client.change_resource_record_sets(
+                    HostedZoneId=zone_id,
+                    ChangeBatch={
+                        'Changes': [
+                            {
+                                'Action': 'UPSERT',
+                                'ResourceRecordSet': {
+                                    'Name': subdomname,
+                                    'Type': 'A',
+                                    'TTL': 1,
+                                    'ResourceRecords': [
+                                        {
+                                            'Value': ip_address
+                                        }
+                                    ],
+                                }
+                            }
+                        ]
+                    }
+                )
+                try:
+                    new_subdom = Subdomains(id_user, name, at, ip_address, purchase_date, expiration_date, 'ACTIVE')
+                except:
+                    return json.dumps({'message' : 'error creating new_subdom'})
+                db.session.add(new_subdom)
+                db.session.commit()
+     
+                return json.dumps({'message' : 'created record ' + subdomname}, ensure_ascii=False)
+            except botocore.exceptions.ClientError as e:
+                return json.dumps({'error' : str(e)}, ensure_ascii=False)
+        else:
+            return json.dumps({'error' : 'record already exists'}, ensure_ascii=False)
  
-            return json.dumps({'message' : 'created record'}, ensure_ascii=False)
-        except botocore.exceptions.ClientError as e:
-            return json.dumps({'error' : str(e)}, ensure_ascii=False)
- 
-    def put(self, subdomain_id):
+    def put(self):
+
+        id_user = request.get_json()['id_user']
+        name = request.get_json()['name']
+        new_ip = request.get_json()['ip_address']
+
         columns = request.get_json()['columns']
         values = request.get_json()['values']
         string = "UPDATE subdomains SET "
-        for i in range (len(columns) - 1):
-            string = string \
-                    + str(columns[i]) \
-                    + " = '" + str(values[i]) \
-                    + "', "
-        string = string \
-                + str(columns[len(columns) - 1]) \
-                + " = '" + str(values[len(columns) - 1]) \
-                + "' WHERE id_domain = " \
-                + str(subdomain_id)
-        result = db.engine.execute(string)
-       
-        return json.dumps({'message' : 'success'}, ensure_ascii=False)
+
+        # check if id_user fits the user the domain is registered by
+        subdomname = name + '.subdom.name.'
+        boto3.set_stream_logger('botocore')
+            try:
+                response = client.change_resource_record_sets(
+                    HostedZoneId=zone_id,
+                    ChangeBatch={
+                        'Changes': [
+                            {
+                                'Action': 'UPSERT',
+                                'ResourceRecordSet': {
+                                    'Name': subdomname,
+                                    'Type': 'A',
+                                    'TTL': 1,
+                                    'ResourceRecords': [
+                                        {
+                                            'Value': new_ip
+                                        }
+                                    ],
+                                }
+                            }
+                        ]
+                    }
+                )
+                # i don't really get the below but we had to make it so it only changes
+                # ip address for the given subdomain (by name?)
+                #sub = Subdomains.filter_by()
+
+                return json.dumps({'message' : 'created updated'}, ensure_ascii=False)
+            except botocore.exceptions.ClientError as e:
+                return json.dumps({'error' : str(e)}, ensure_ascii=False)
  
 class API_Names(MethodView):
     decorators = [limiter.limit("1/second")]
@@ -451,6 +486,27 @@ class DNS_test(MethodView):
                 return json.dumps({'error' : str(e)}, ensure_ascii=False)
         else:
             return json.dumps({'error' : 'no record'}, ensure_ascii=False)
+
+class admin(MethodView):
+    @jwt_refresh_token_required
+    def get(self, tag, tag_id)
+    # tag = [users, subdomains]
+    # tag_id = either user or subdomain id
+    if tag is not None:
+        if tag == 'users':
+            if tag_id is None:
+                # return all users data
+                return json.dumps({'message' : 'all users data'})
+            else:
+                # return specific user data
+                return json.dumps({'message' : 'specific user data'})
+        elif tag == 'subdomains' 
+            if tag_id is None:
+                # return all subdomains data (name, ip, login of a user it's registered to)
+                return json.dumps({'message' : 'all subdomains data'})
+            else:
+                # return specific domain data
+                return json.dumps({'message' : 'specific domain data'}) 
  
 ##############
 ### routes ###
@@ -473,7 +529,7 @@ application.add_url_rule('/users/<int:user_id>/subdomains/', view_func=subdom_vi
  
 application.add_url_rule('/subdomains/', defaults={'user_id':None},view_func=subdom_view, methods=['GET'])
 application.add_url_rule('/subdomains/',view_func=subdom_view, methods=['POST'])
-application.add_url_rule('/subdomains/<int:subdomain_id>',view_func=subdom_view, methods=['PUT'])
+application.add_url_rule('/subdomains/',view_func=subdom_view, methods=['PUT'])
  
 application.add_url_rule('/names/', defaults={'name':None},view_func=names_view, methods=['GET'])
 application.add_url_rule('/names/<string:name>', view_func=names_view, methods=['GET'])
