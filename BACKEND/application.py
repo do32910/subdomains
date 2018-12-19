@@ -397,34 +397,34 @@ class API_Subdomains(MethodView):
         # check if id_user fits the user the domain is registered by
         subdomname = name + '.subdom.name.'
         boto3.set_stream_logger('botocore')
-            try:
-                response = client.change_resource_record_sets(
-                    HostedZoneId=zone_id,
-                    ChangeBatch={
-                        'Changes': [
-                            {
-                                'Action': 'UPSERT',
-                                'ResourceRecordSet': {
-                                    'Name': subdomname,
-                                    'Type': 'A',
-                                    'TTL': 1,
-                                    'ResourceRecords': [
-                                        {
-                                            'Value': new_ip
-                                        }
-                                    ],
-                                }
+        try:
+            response = client.change_resource_record_sets(
+                HostedZoneId=zone_id,
+                ChangeBatch={
+                    'Changes': [
+                        {
+                            'Action': 'UPSERT',
+                            'ResourceRecordSet': {
+                                'Name': subdomname,
+                                'Type': 'A',
+                                'TTL': 1,
+                                'ResourceRecords': [
+                                    {
+                                        'Value': new_ip
+                                    }
+                                ],
                             }
-                        ]
-                    }
-                )
-                # i don't really get the below but we had to make it so it only changes
-                # ip address for the given subdomain (by name?)
-                #sub = Subdomains.filter_by()
+                        }
+                    ]
+                }
+            )
+            # i don't really get the below but we had to make it so it only changes
+            # ip address for the given subdomain (by name?)
+            #sub = Subdomains.filter_by()
 
-                return json.dumps({'message' : 'created updated'}, ensure_ascii=False)
-            except botocore.exceptions.ClientError as e:
-                return json.dumps({'error' : str(e)}, ensure_ascii=False)
+            return json.dumps({'message' : 'created updated'}, ensure_ascii=False)
+        except botocore.exceptions.ClientError as e:
+            return json.dumps({'error' : str(e)}, ensure_ascii=False)
  
 class API_Names(MethodView):
     decorators = [limiter.limit("1/second")]
@@ -489,24 +489,24 @@ class DNS_test(MethodView):
 
 class admin(MethodView):
     @jwt_refresh_token_required
-    def get(self, tag, tag_id)
+    def get(self, tag, tag_id):
     # tag = [users, subdomains]
     # tag_id = either user or subdomain id
-    if tag is not None:
-        if tag == 'users':
-            if tag_id is None:
-                # return all users data
-                return json.dumps({'message' : 'all users data'})
-            else:
-                # return specific user data
-                return json.dumps({'message' : 'specific user data'})
-        elif tag == 'subdomains' 
-            if tag_id is None:
-                # return all subdomains data (name, ip, login of a user it's registered to)
-                return json.dumps({'message' : 'all subdomains data'})
-            else:
-                # return specific domain data
-                return json.dumps({'message' : 'specific domain data'}) 
+        if tag is not None:
+            if tag == 'users':
+                if tag_id is None:
+                    # return all users data
+                    return json.dumps({'message' : 'all users data'})
+                else:
+                    # return specific user data
+                    return json.dumps({'message' : 'specific user data'})
+            elif tag == 'subdomains':
+                if tag_id is None:
+                    # return all subdomains data (name, ip, login of a user it's registered to)
+                    return json.dumps({'message' : 'all subdomains data'})
+                else:
+                    # return specific domain data
+                    return json.dumps({'message' : 'specific domain data'}) 
  
 ##############
 ### routes ###
