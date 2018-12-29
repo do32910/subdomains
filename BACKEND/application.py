@@ -394,6 +394,7 @@ class API_Subdomains(MethodView):
 
         # check if id_user fits the user the domain is registered by
         sub = Subdomains.query.get(id_domain)
+        # name = sub.name
         if sub.id_user == id_user:
             # if so change rout53 and bd record
             subdomname = name + '.subdom.name.'
@@ -426,7 +427,7 @@ class API_Subdomains(MethodView):
                 return json.dumps({'error' : str(e)}, ensure_ascii=False)
         else:
             return json.dumps({'error' : 'given user id didn\'t match the user id assigned to the subdomain'}, ensure_ascii=False)
- 
+
 class API_Names(MethodView):
     decorators = [limiter.limit("1/second")]
     def get(self, name):
@@ -437,14 +438,14 @@ class API_Names(MethodView):
             return json.dumps({'message' : 'free'}, ensure_ascii=False)
 
 class API_Admin(MethodView):
-    @jwt_refresh_token_required
+    @jwt_required
     def get(self):
 
         id_admin = request.get_json()['id_admin']  # id_user 
         tag = request.get_json()['tag']  # tag == users or subdomains
         tag_id = request.get_json()['tag'] # tag_id == 'all' or user/subdomain id
 
-        if id_admin == admin_id:
+        if str(id_admin) == admin_id:
             if tag == 'users':
                 if tag_id == 'all':
                     count = db.engine.execute("select count(id) from users")
