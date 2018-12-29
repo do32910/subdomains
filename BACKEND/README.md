@@ -100,6 +100,8 @@ wyświetla wszystkie subdomeny konkretnego użytkownika o id=user_id, w formie:
 ### subdomains/
 #### GET:
 Wyświetla wszystkie subdomeny, w formie takiej jak w users/<int:user_id>/subdomains
+### subdomains/\<int:subdomain_id\>
+Wyświetla dane konkretnej. 
 #### POST:
 Dodaje nową subdomenę, korzystając z danych przesłanych za pomocą JSONa w *takiej formie*:
 
@@ -113,9 +115,7 @@ Dodaje nową subdomenę, korzystając z danych przesłanych za pomocą JSONa w *
     }
     
 *UWAGA* funkcja dodaje stronę zarówno do bazy danych jak i rekordów AWS - tzn. w pełni funkcjonalnie rejestruje subdomenę.
-    
-### subdomains/\<int:subdomain_id\>
-
+   
 #### PUT:
 Edytuje subdomenę o id = subdomain_id korzystając z danych podanych w JSONie w *takiej formie*:
     
