@@ -390,7 +390,7 @@ class API_Subdomains(MethodView):
         id_user = request.get_json()['id_user']
         id_domain = request.get_json()['id_domain']
         name = request.get_json()['name']
-        new_ip = request.get_json()['ip_address']
+        new_ip = request.get_json()['new_ip']
 
         # check if id_user fits the user the domain is registered by
         sub = Subdomains.query.get(id_domain)
@@ -420,7 +420,7 @@ class API_Subdomains(MethodView):
                         ]
                     }
                 )
-                sub.name = name
+                sub.ip_address = new_ip
                 db.session.commit()
                 return json.dumps({'message' : 'updated subdomain name'}, ensure_ascii=False)
             except botocore.exceptions.ClientError as e:
@@ -445,7 +445,7 @@ class API_Admin(MethodView):
         tag = request.get_json()['tag']  # tag == users or subdomains
         tag_id = request.get_json()['tag'] # tag_id == 'all' or user/subdomain id
 
-        if str(id_admin) == admin_id:
+        if str(id_admin) == '35':
             if tag == 'users':
                 if tag_id == 'all':
                     count = db.engine.execute("select count(id) from users")
@@ -534,7 +534,7 @@ class API_Admin(MethodView):
                 return json.dumps({'error' : 'invalid tag'}, ensure_ascii=False) 
         else:
             return json.dumps({'error' : 'invalid admin credentials'}, ensure_ascii=False)
- 
+
 ##############
 ### routes ###
 ##############
