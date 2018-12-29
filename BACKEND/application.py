@@ -20,6 +20,7 @@ aws_access_key_id
 aws_secret_access_key
 db_uri
 jwt_key
+admin_id
 '''
 client = boto3.client(
             'route53',
@@ -387,65 +388,15 @@ class API_Subdomains(MethodView):
     def put(self):
 
         id_user = request.get_json()['id_user']
+        id_domain = request.get_json()['id_domain']
         name = request.get_json()['name']
         new_ip = request.get_json()['ip_address']
 
-        columns = request.get_json()['columns']
-        values = request.get_json()['values']
-        string = "UPDATE subdomains SET "
-
         # check if id_user fits the user the domain is registered by
-        subdomname = name + '.subdom.name.'
-        boto3.set_stream_logger('botocore')
-        try:
-            response = client.change_resource_record_sets(
-                HostedZoneId=zone_id,
-                ChangeBatch={
-                    'Changes': [
-                        {
-                            'Action': 'UPSERT',
-                            'ResourceRecordSet': {
-                                'Name': subdomname,
-                                'Type': 'A',
-                                'TTL': 1,
-                                'ResourceRecords': [
-                                    {
-                                        'Value': new_ip
-                                    }
-                                ],
-                            }
-                        }
-                    ]
-                }
-            )
-            # i don't really get the below but we had to make it so it only changes
-            # ip address for the given subdomain (by name?)
-            #sub = Subdomains.filter_by()
-
-            return json.dumps({'message' : 'created updated'}, ensure_ascii=False)
-        except botocore.exceptions.ClientError as e:
-            return json.dumps({'error' : str(e)}, ensure_ascii=False)
- 
-class API_Names(MethodView):
-    decorators = [limiter.limit("1/second")]
-    def get(self, name):
-        subd = Subdomains.query.filter(Subdomains.name==str(name)).filter(Subdomains.status=="ACTIVE").first()
-        if subd:
-            return json.dumps({'message' : 'taken'}, ensure_ascii=False)
-        else:
-            return json.dumps({'message' : 'free'}, ensure_ascii=False)
- 
- 
-class DNS_test(MethodView):
-    decorators = [limiter.limit("1/second")]
-    def get(self, record):
-        if record is not None:
- 
-            subdomname = record + '.subdom.name.'
-            ip = '150.254.78.3' # https://laboratoria.wmi.amu.edu.pl/en
- 
-            # creates a record set (or changes the IP if record already exists!)
- 
+        sub = Subdomains.query.get(id_domain)
+        if sub.id_user == id_user:
+            # if so change rout53 and bd record
+            subdomname = name + '.subdom.name.'
             boto3.set_stream_logger('botocore')
             try:
                 response = client.change_resource_record_sets(
@@ -460,7 +411,7 @@ class DNS_test(MethodView):
                                     'TTL': 1,
                                     'ResourceRecords': [
                                         {
-                                            'Value': ip
+                                            'Value': new_ip
                                         }
                                     ],
                                 }
@@ -468,45 +419,120 @@ class DNS_test(MethodView):
                         ]
                     }
                 )
-                id_user = '3'
-                name = record
-                at = 'eu.pl'
-                ip_address = ip
-                purchase_date = '2019-12-12'
-                expiration_date = '2019-12-31'
-                try:
-                    new_subdom = Subdomains(id_user, name, at, ip_address, purchase_date, expiration_date, 'ACTIVE')
-                except:
-                    return json.dumps({'message' : 'error creating new_subdom'})
-                db.session.add(new_subdom)
+                sub.name = name
                 db.session.commit()
- 
-                return json.dumps({'message' : 'created record'}, ensure_ascii=False)
+                return json.dumps({'message' : 'updated subdomain name'}, ensure_ascii=False)
             except botocore.exceptions.ClientError as e:
                 return json.dumps({'error' : str(e)}, ensure_ascii=False)
         else:
-            return json.dumps({'error' : 'no record'}, ensure_ascii=False)
+            return json.dumps({'error' : 'given user id didn\'t match the user id assigned to the subdomain'}, ensure_ascii=False)
+ 
+class API_Names(MethodView):
+    decorators = [limiter.limit("1/second")]
+    def get(self, name):
+        subd = Subdomains.query.filter(Subdomains.name==str(name)).filter(Subdomains.status=="ACTIVE").first()
+        if subd:
+            return json.dumps({'message' : 'taken'}, ensure_ascii=False)
+        else:
+            return json.dumps({'message' : 'free'}, ensure_ascii=False)
 
-class admin(MethodView):
+class API_Admin(MethodView):
     @jwt_refresh_token_required
-    def get(self, tag, tag_id):
-    # tag = [users, subdomains]
-    # tag_id = either user or subdomain id
-        if tag is not None:
+    def get(self):
+
+        id_admin = request.get_json()['id_admin']  # id_user 
+        tag = request.get_json()['tag']  # tag == users or subdomains
+        tag_id = request.get_json()['tag'] # tag_id == 'all' or user/subdomain id
+
+        if id_admin == admin_id:
             if tag == 'users':
-                if tag_id is None:
-                    # return all users data
-                    return json.dumps({'message' : 'all users data'})
+                if tag_id == 'all':
+                    count = db.engine.execute("select count(id) from users")
+                    count2 = count.fetchall()
+                    count = count2[0][0]
+                    result = db.engine.execute("select * from users")
+                    row = result.fetchall()
+                    list = []
+                    for i in range(count):
+                        subdom_dict = {
+                            'id' : row[i][0],
+                            'login' : row[i][1],
+                            #'password' : row[i][2],
+                            'email' : row[i][3],
+                            'last_login_date' : str(row[i][4]),
+                            'registration_date' : str(row[i][5]),
+                            'first_name' : row[i][6],
+                            'last_name' : row[i][7]}
+                        list.append(subdom_dict)
+                   
+                    return json.dumps(list, ensure_ascii=False)
                 else:
-                    # return specific user data
-                    return json.dumps({'message' : 'specific user data'})
+                    result = db.engine.execute("select * from users where id = '" + str(tag_id) + "'")
+                    row = result.fetchall()
+                    subdom_dict = {
+                        'id' : row[0][0],
+                        'login' : row[0][1],
+                        'password' : row[0][2],
+                        'email' : row[0][3],
+                        'last_login_date' : str(row[0][4]),
+                        'registration_date' : str(row[0][5]),
+                        'first_name' : row[0][6],
+                        'last_name' : row[0][7]}
+                   
+                    return json.dumps(subdom_dict, ensure_ascii=False)
+
             elif tag == 'subdomains':
-                if tag_id is None:
-                    # return all subdomains data (name, ip, login of a user it's registered to)
-                    return json.dumps({'message' : 'all subdomains data'})
+                if tag_id == 'all':
+                    count = db.engine.execute("select count(id_domain) from subdomains")
+                    count2 = count.fetchall()
+                    count = count2[0][0]
+                    result = db.engine.execute("select subdomains.*, users.login, users.first_name, users.last_name from subdomains right join users on subdomains.id_user = users.id")
+                    row = result.fetchall()
+                    list = []
+                    for i in range(count):
+                        subdom_dict = {
+                            'id_domain' : row[i][0],
+                            'id_user' : row[i][1],
+                            'name' : row[i][2],
+                            'at' : row[i][3],
+                            'ip_address' : row[i][4],
+                            'purchase_date' : str(row[i][5]),
+                            'expiration_date' : str(row[i][6]),
+                            'status' : row[i][7],
+                            'login' : row[i][8],
+                            'first_name' : row[i][9],
+                            'last_name' : row[i][10]}
+                        list.append(subdom_dict)
+                   
+                    return json.dumps(list, ensure_ascii=False)
+         
                 else:
-                    # return specific domain data
-                    return json.dumps({'message' : 'specific domain data'}) 
+                    count = db.engine.execute("select count(id_domain) from subdomains WHERE id_domain = '" + str(tag_id) + "'")
+                    count2 = count.fetchall()
+                    count = count2[0][0]
+                    result = db.engine.execute("select subdomains.*, users.login, users.first_name, users.last_name from subdomains right join users on subdomains.id_user = users.id where subdomains.id_domain = '" + str(tag_id) + "'")
+                    row = result.fetchall()
+                    list = []
+                    for i in range(count):
+                        subdom_dict = {
+                            'id_domain' : row[i][0],
+                            'id_user' : row[i][1],
+                            'name' : row[i][2],
+                            'at' : row[i][3],
+                            'ip_address' : row[i][4],
+                            'purchase_date' : str(row[i][5]),
+                            'expiration_date' : str(row[i][6]),
+                            'status' : row[i][7],
+                            'login' : row[i][8],
+                            'first_name' : row[i][9],
+                            'last_name' : row[i][10]}
+                        list.append(subdom_dict)
+                   
+                    return json.dumps(list, ensure_ascii=False)
+            else:
+                return json.dumps({'error' : 'invalid tag'}, ensure_ascii=False) 
+        else:
+            return json.dumps({'error' : 'invalid admin credentials'}, ensure_ascii=False)
  
 ##############
 ### routes ###
@@ -517,7 +543,7 @@ names_view = API_Names.as_view('names_api')
 adresses_view = API_Addresses.as_view('addresses_api')
 auth = Authorize.as_view('auth')
 refresh = TokenRefresh.as_view('refresh')
-dns_test_view = DNS_test.as_view('test_dns')
+admin_view = API_Admin.as_view('admin')
  
 application.add_url_rule('/login/', view_func=auth, methods=['POST'])
 application.add_url_rule('/refresh/', view_func=refresh, methods=['POST'])
@@ -536,10 +562,10 @@ application.add_url_rule('/names/<string:name>', view_func=names_view, methods=[
  
 application.add_url_rule('/addresses/', defaults={'user_id':None},view_func=adresses_view, methods=['GET'])
 application.add_url_rule('/addresses/<int:user_id>', view_func=adresses_view, methods=['GET'])
- 
-application.add_url_rule('/dnstest/', defaults={'record':None},view_func=dns_test_view, methods=['GET'])
-application.add_url_rule('/dnstest/<string:record>', view_func=dns_test_view, methods=['GET'])
- 
+
+application.add_url_rule('/admin/',view_func=admin_view, methods=['GET'])
+
+
 if __name__ == "__main__":
     # Setting debug to True enables debug output. This line should be
     # removed before deploying a production app.
