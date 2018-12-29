@@ -117,7 +117,16 @@ Dodaje nową subdomenę, korzystając z danych przesłanych za pomocą JSONa w *
 ### subdomains/\<int:subdomain_id\>
 
 #### PUT:
-Edytuje subdomenę o id = subdomain_id korzystając z danych podanych w JSONie w *takiej formie jak przy  users/\<int:user_id\> [PUT]*
+Edytuje subdomenę o id = subdomain_id korzystając z danych podanych w JSONie w *takiej formie*:
+    
+    {
+    "id_user" : int,
+    "id_domain" : int,
+    "name" : string,
+    "new_ip" : string (w formie '00.00.00.00')
+    }
+    
+*UWAGA* funkcja edytuje wpis zarówno w bazie danych jak w rekordów AWS - tzn. w pełni funkcjonalnie edytuje record.
 
 #### DELETE: not implemented yet
 
@@ -142,4 +151,14 @@ Wyświetla błąd, że nie podało się id użytkownika
     "house_nr" : int,
     "apartment_nr" : string,
     "postal_code" : int}
+    }
+
+### admin/
+#### GET:
+Zwraca potrzebne dane o uzytkownikach zalogowanemu adminowi korzystając z danych podanych w JSONie w *takiej formie*:
+    
+    {
+    "id_admin" : int,
+    "tag" : string ('users' lub 'subdomain'),
+    "tag_id" : string (albo 'all' albo id konkretnego użytkownika lub subdomeny)
     }
