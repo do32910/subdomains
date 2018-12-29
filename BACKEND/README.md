@@ -155,7 +155,7 @@ Wyświetla błąd, że nie podało się id użytkownika
 
 ### admin/
 #### GET:
-Zwraca potrzebne dane o uzytkownikach zalogowanemu adminowi korzystając z danych podanych w JSONie w *takiej formie*:
+Zwraca potrzebne dane o użytkownikach lub subdomenach zalogowanemu adminowi korzystając z danych podanych w JSONie w *takiej formie*:
     
     {
     "id_admin" : int,
