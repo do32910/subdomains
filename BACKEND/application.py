@@ -439,13 +439,13 @@ class API_Names(MethodView):
 
 class API_Admin(MethodView):
     @jwt_required
-    def get(self):
+    def post(self):
 
         id_admin = request.get_json()['id_admin']  # id_user 
         tag = request.get_json()['tag']  # tag == users or subdomains
-        tag_id = request.get_json()['tag'] # tag_id == 'all' or user/subdomain id
+        tag_id = request.get_json()['tag_id'] # tag_id == 'all' or user/subdomain id
 
-        if str(id_admin) == '35':
+        if str(id_admin) == admin_id:
             if tag == 'users':
                 if tag_id == 'all':
                     count = db.engine.execute("select count(id) from users")
@@ -487,7 +487,7 @@ class API_Admin(MethodView):
                     count = db.engine.execute("select count(id_domain) from subdomains")
                     count2 = count.fetchall()
                     count = count2[0][0]
-                    result = db.engine.execute("select subdomains.*, users.login, users.first_name, users.last_name from subdomains right join users on subdomains.id_user = users.id")
+                    result = db.engine.execute("select subdomains.*, users.login, users.first_name, users.last_name from subdomains left join users on subdomains.id_user = users.id")
                     row = result.fetchall()
                     list = []
                     for i in range(count):
@@ -564,7 +564,7 @@ application.add_url_rule('/names/<string:name>', view_func=names_view, methods=[
 application.add_url_rule('/addresses/', defaults={'user_id':None},view_func=adresses_view, methods=['GET'])
 application.add_url_rule('/addresses/<int:user_id>', view_func=adresses_view, methods=['GET'])
 
-application.add_url_rule('/admin/',view_func=admin_view, methods=['GET'])
+application.add_url_rule('/admin/',view_func=admin_view, methods=['POST'])
 
 
 if __name__ == "__main__":
