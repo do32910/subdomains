@@ -445,7 +445,7 @@ class API_Admin(MethodView):
         tag = request.get_json()['tag']  # tag == users or subdomains
         tag_id = request.get_json()['tag_id'] # tag_id == 'all' or user/subdomain id
 
-        if str(id_admin) == admin_id:
+        if id_admin == admin_id:
             if tag == 'users':
                 if tag_id == 'all':
                     count = db.engine.execute("select count(id) from users")
@@ -533,7 +533,8 @@ class API_Admin(MethodView):
             else:
                 return json.dumps({'error' : 'invalid tag'}, ensure_ascii=False) 
         else:
-            return json.dumps({'error' : 'invalid admin credentials'}, ensure_ascii=False)
+            return json.dumps({'error' : 'invalid admin credentials.'}, ensure_ascii=False)
+
 
 ##############
 ### routes ###
