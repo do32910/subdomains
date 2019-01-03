@@ -159,6 +159,6 @@ Zwraca potrzebne dane o użytkownikach lub subdomenach zalogowanemu adminowi kor
     
     {
     "id_admin" : int,
-    "tag" : string ('users' lub 'subdomain'),
+    "tag" : string ('users' lub 'subdomains'),
     "tag_id" : string (albo 'all' albo id konkretnego użytkownika lub subdomeny)
     }
