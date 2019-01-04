@@ -9,6 +9,7 @@ from flask_jwt_extended import (create_access_token, create_refresh_token, jwt_r
 from flask_restful import Resource, Api
 from sqlalchemy import text
 import datetime
+from apscheduler.schedulers.background import BackgroundScheduler
 from werkzeug.security import generate_password_hash, check_password_hash
 import boto3
 import botocore
@@ -119,6 +120,63 @@ class Address(db.Model):
         self.apartment_nr = apartment_nr
         self.postal_code = postal_code
  
+#################
+### db script ###
+#################
+import random
+def test():    
+
+    with open('logs.txt', 'a') as f:
+        f.write('Updated database at '+str(datetime.datetime.now())+'.\n')
+
+    subdomains = Subdomains.query.all()
+    for subdomain in subdomains:
+        exp = subdomain.expiration_date
+        today = datetime.datetime.now().date()
+
+        if(exp < today):
+            subdomname = subdomain.name + '.subdom.name.'
+            boto3.set_stream_logger('botocore')
+            try:
+                response = client.change_resource_record_sets(
+                    HostedZoneId=zone_id,
+                    ChangeBatch={
+                        'Changes': [
+                            {
+                                'Action': 'DELETE',
+                                'ResourceRecordSet': {
+                                    'Name': subdomname,
+                                    'Type': 'A',
+                                    'TTL': 1,
+                                    'ResourceRecords': [
+                                        {
+                                            'Value': subdomain.ip_address
+                                        }
+                                    ],
+                                }
+                            }
+                        ]
+                    }
+                )
+                
+                subdomain.status = 'INACTIVE'
+                db.session.commit()
+                with open('logs.txt', 'a') as f:
+                    f.write('Updated subdomain '+ str(subdomain.name) + ' - deleted from Route53. Status set to INACTIVE.\n')
+            except botocore.exceptions.ClientError as e:
+                if('Tried to delete' in str(e)):
+                    subdomain.status = 'INACTIVE'
+                    db.session.commit()
+                    with open('logs.txt', 'a') as f:
+                        f.write('Updated subdomain '+ str(subdomain.name) + ' - already not on Route53. Status set to INACTIVE.\n')
+
+    with open('logs.txt', 'a') as f:
+        f.write('******************************\n')
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(func=test, trigger="cron", hour='00')
+scheduler.start()
+
 ################
 ### API func ###
 ################
@@ -535,6 +593,11 @@ class API_Admin(MethodView):
         else:
             return json.dumps({'error' : 'invalid admin credentials.'}, ensure_ascii=False)
 
+class API_logs(MethodView):
+    def get(self):
+        with open("logs.txt", "r") as f:
+            content = f.read()
+        return content
 
 ##############
 ### routes ###
@@ -546,6 +609,9 @@ adresses_view = API_Addresses.as_view('addresses_api')
 auth = Authorize.as_view('auth')
 refresh = TokenRefresh.as_view('refresh')
 admin_view = API_Admin.as_view('admin')
+
+logs = API_logs.as_view('logs')
+application.add_url_rule('/logs/', view_func=logs, methods=['GET'])
  
 application.add_url_rule('/login/', view_func=auth, methods=['POST'])
 application.add_url_rule('/refresh/', view_func=refresh, methods=['POST'])
