@@ -184,7 +184,7 @@ scheduler.start()
 class Authorize(MethodView):
     def post(self):
         if request.content_type != 'application/json':
-            abort(415)
+            abort(415, {'message': 'the content type has to be application/json'})
 
         login = str(request.get_json()['login'])
         password = str(request.get_json()['password'])
@@ -212,7 +212,7 @@ class TokenRefresh(MethodView):
     @jwt_refresh_token_required
     def post(self):
         if request.content_type != 'application/json':
-            abort(415)
+            abort(415, {'message': 'the content type has to be application/json'})
 
         current_user = get_jwt_identity()
         access_token = create_access_token(identity = current_user)
@@ -223,9 +223,6 @@ class TokenRefresh(MethodView):
 class API_Addresses(MethodView):
     @jwt_required
     def get(self, user_id):
-        if request.content_type != 'application/json':
-            abort(415)
-
         if user_id is None:
             return json.dumps({'message' : 'no user id'}, ensure_ascii=False)
  
@@ -254,9 +251,6 @@ class API_Addresses(MethodView):
 class API_Users(MethodView):
     # @jwt_required
     def get(self, user_id):
-        if request.content_type != 'application/json':
-            abort(415)
-
         if user_id is None:
             count = db.engine.execute("select count(id) from users")
             count2 = count.fetchall()
@@ -297,7 +291,7 @@ class API_Users(MethodView):
         # return str(request.get_json())
         #def __init__(self, login, password, email, last_login_date, registration_date, subdomains, first_name, last_name):
         if request.content_type != 'application/json':
-            abort(415)
+            abort(415, {'message': 'the content type has to be application/json'})
 
         now = datetime.datetime.now()
         try:
@@ -330,13 +324,13 @@ class API_Users(MethodView):
  
     def delete(self, user_id):
         if request.content_type != 'application/json':
-            abort(415)
+            abort(415, {'message': 'the content type has to be application/json'})
 
         return 'delete user with id == ' + str(user_id)
  
     def put(self, user_id):
         if request.content_type != 'application/json':
-            abort(415)
+            abort(415, {'message': 'the content type has to be application/json'})
 
         columns = request.get_json()['columns']
         values = request.get_json()['values']
@@ -367,9 +361,6 @@ class API_Users(MethodView):
 class API_Subdomains(MethodView):
     @jwt_required
     def get(self,user_id):
-        if request.content_type != 'application/json':
-            abort(415)
-
         if user_id is None:
             count = db.engine.execute("select count(id_domain) from subdomains")
             count2 = count.fetchall()
@@ -414,7 +405,7 @@ class API_Subdomains(MethodView):
  
     def post(self):
         if request.content_type != 'application/json':
-            abort(415)
+            abort(415, {'message': 'the content type has to be application/json'})
             
         id_user = request.get_json()['id_user']
         name = request.get_json()['name']
@@ -470,7 +461,7 @@ class API_Subdomains(MethodView):
  
     def put(self):
         if request.content_type != 'application/json':
-            abort(415)
+            abort(415, {'message': 'the content type has to be application/json'})
 
         id_user = request.get_json()['id_user']
         id_domain = request.get_json()['id_domain']
@@ -516,9 +507,6 @@ class API_Subdomains(MethodView):
 class API_Names(MethodView):
     decorators = [limiter.limit("1/second")]
     def get(self, name):
-        if request.content_type != 'application/json':
-            abort(415)
-
         if name == 'www':
             return json.dumps({'message' : 'taken'}, ensure_ascii=False)
         if name == 'api':
@@ -533,7 +521,7 @@ class API_Admin(MethodView):
     @jwt_required
     def post(self):
         if request.content_type != 'application/json':
-            abort(415)
+            abort(415, {'message': 'the content type has to be application/json'})
 
         id_admin = request.get_json()['id_admin']  # id_user 
         tag = request.get_json()['tag']  # tag == users or subdomains
@@ -631,9 +619,6 @@ class API_Admin(MethodView):
 
 class API_logs(MethodView):
     def get(self):
-        if request.content_type != 'application/json':
-            abort(415)
-
         with open("logs.txt", "r") as f:
             content = f.read()
         return content
