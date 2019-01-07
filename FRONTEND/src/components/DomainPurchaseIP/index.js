@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './DomainPurchaseIP.css'
 import { connect } from "react-redux";
+import { Redirect } from 'react-router';
 
 
 class DomainPurchaseIP extends Component{
@@ -10,23 +11,24 @@ class DomainPurchaseIP extends Component{
             url: `https://api.subdom.name`,
             domainToPurchase: this.props.domainToPurchase,
             selectedPlan: this.props.selectedPlan,
-            userId: this.props.userId
-
+            userId: this.props.userId,
+            proceed: false
+            
         }
     }
-
+    
     domainPOST(e){
         e.preventDefault();
         var domainIP = document.getElementById("ipInput").value;
         var currentDate = new Date();
         var purchaseDate = currentDate.getFullYear() + "-" + (currentDate.getMonth()+1) + "-" + currentDate.getDate();
         var expirationDate = (currentDate.getFullYear() + this.state.selectedPlan) + "-" + (currentDate.getMonth()+1) + "-" + currentDate.getDate();
-
+        
         if(!/^([1-2]?[0-9]?[0-9]\.){3}([1-2]?[0-9]?[0-9])$/.test(domainIP)){
             console.log("wrong IP");
             return 0;
         }
-
+        
         fetch(`${this.state.url}/subdomains/`, {
             method: 'post',
             headers: {
@@ -42,29 +44,38 @@ class DomainPurchaseIP extends Component{
             })
         }).then(
             (response) => response.json()
-        ).then(
-            res => console.log(res)
-        )
-    }
-
-    render(){
-        return (
-            <div>
-                <label>Kupujesz domenę: {this.state.domainToPurchase}</label>
-                <div className="ipInput-container">
+            ).then(
+                res => {
+                    console.log(res);
+                    this.setState({
+                        proceed: true
+                    })
+                }
+                )
+            }
+            
+            render(){
+                console.log(this.state.proceed);
+                if(this.state.proceed){
+                    <Redirect to="/domainlist" />
+                }
+                return (
+                    <div>
+                    <label>Kupujesz domenę: {this.state.domainToPurchase}</label>
+                    <div className="ipInput-container">
                     <input placeholder="Tutaj wprowadź IP..." id="ipInput" /> 
                     <button onClick={(e) => this.domainPOST(e)}>Zatwierdź IP i kup</button>   
-                </div>
-            </div>
-        )
-    }
-}
-
-
-function mapStateToProps(state){
-    return {
-      userId: state.userId
-    }
-}
-
-export default connect(mapStateToProps)(DomainPurchaseIP); 
+                    </div>
+                    </div>
+                    )
+                }
+            }
+            
+            
+            function mapStateToProps(state){
+                return {
+                    userId: state.userId
+                }
+            }
+            
+            export default connect(mapStateToProps)(DomainPurchaseIP); 

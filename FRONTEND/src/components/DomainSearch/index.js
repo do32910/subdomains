@@ -105,7 +105,7 @@ class DomainSearch extends Component{
         if(this.state.shouldPlanFormBeDisplayed){
             return (
                 <div className="tile-template">
-                    <PlanForm domainToPurchase={this.state.domainToPurchase}/>
+                    <PlanForm domainToPurchase={this.state.domainToPurchase} operationType={"purchase"}/>
                 </div>
             )
         }

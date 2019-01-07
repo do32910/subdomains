@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './RegistrationPage.css';
-import { Redirect } from 'react-router'
+import { Redirect } from 'react-router';
 
 export default class RegistrationPage extends Component{
     constructor(props){
