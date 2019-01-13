@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './RegistrationPage.css';
-import { Redirect } from 'react-router'
+import { Redirect } from 'react-router';
 
 export default class RegistrationPage extends Component{
     constructor(props){
@@ -76,7 +76,7 @@ export default class RegistrationPage extends Component{
                 "last_name": "Chew"
              })
         }).then(
-            (response) => response.json()
+            (response) => {response.json(); console.log(response);}
         ).then(
             this.setState({
                 redirect: true

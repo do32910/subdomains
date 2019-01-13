@@ -4,6 +4,7 @@ import './LoginPage.css';
 import { doLogin } from "../../actions/auth";
 import { bindActionCreators } from  'redux';
 import { connect } from "react-redux";
+import TileTemplateSmall from '../Layout/TileTemplateSmall';
 
 
 class LoginPage extends Component{
@@ -118,6 +119,7 @@ class LoginPage extends Component{
             return <Redirect to={from} />
         }
         return (
+            <TileTemplateSmall header="Zaloguj siem" content={
             <div className="loginContainer">
             <form className="loginForm">
                 <label htmlFor="loginName" className="loginForm__label">Nazwa użytkownika:</label>
@@ -128,8 +130,7 @@ class LoginPage extends Component{
                 {(this.state.shouldMsgBeDisplayed) ? 
                     <span id="availabilityMsg">{this.state.validationMessage}</span> :  null}
             </form>
-            </div>
-        )
+            </div>} />)
     }
 }
 
