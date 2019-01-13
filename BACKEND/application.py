@@ -273,17 +273,16 @@ class API_Users(MethodView):
             return json.dumps(list, ensure_ascii=False)
  
         else:
-            result = db.engine.execute("select * from users where id = '" + str(user_id) + "'")
-            row = result.fetchall()
+            user = Users.query.get(user_id)
             subdom_dict = {
-                'id' : row[0][0],
-                'login' : row[0][1],
-                'password' : row[0][2],
-                'email' : row[0][3],
-                'last_login_date' : str(row[0][4]),
-                'registration_date' : str(row[0][5]),
-                'first_name' : row[0][6],
-                'last_name' : row[0][7]}
+                'id' : user.id,
+                'login' : user.login,
+                'password' : user.password,
+                'email' : user.email,
+                'last_login_date' : user.last_login_date,
+                'registration_date' : user.registration_date,
+                'first_name' : user.first_name,
+                'last_name' : user.last_name}
            
             return json.dumps(subdom_dict, ensure_ascii=False)
  
