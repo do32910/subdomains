@@ -11,9 +11,9 @@ export default class TileTemplate extends Component{
     }
     render(){
         return (
-            <div className="tile-template">
-                <header className="tile-header">{this.state.header}</header>
-                <div className="tile-content">{this.state.content}</div>
+            <div className="small-tile-template">
+                <header className="small-tile-header">{this.state.header}</header>
+                <div className="small-tile-content">{this.state.content}</div>
             </div>
         )
     }

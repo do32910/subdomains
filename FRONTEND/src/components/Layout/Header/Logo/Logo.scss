@@ -15,3 +15,16 @@ img{
         color: $rustyred;
     }
 }
+
+@media(max-width: 768px){
+    .logo{
+        font-size: 56px;
+        padding: 0;
+    }
+}
+
+@media(max-width: 480px){
+    .logo{
+        font-size: 32px;
+    }
+}

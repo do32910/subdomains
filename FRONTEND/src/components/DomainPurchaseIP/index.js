@@ -60,8 +60,8 @@ class DomainPurchaseIP extends Component{
                     <Redirect to="/domainlist" />
                 }
                 return (
-                    <div>
-                    <label>Kupujesz domenę: {this.state.domainToPurchase}</label>
+                    <div id="ip-info-container">
+                    <label className="ip-info-label">Kupujesz domenę: {this.state.domainToPurchase}</label>
                     <div className="ipInput-container">
                     <input placeholder="Tutaj wprowadź IP..." id="ipInput" /> 
                     <button onClick={(e) => this.domainPOST(e)}>Zatwierdź IP i kup</button>   

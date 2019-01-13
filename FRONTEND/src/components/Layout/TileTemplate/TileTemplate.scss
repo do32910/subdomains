@@ -3,7 +3,9 @@
 .tile-template{
     background-color: $honeydew;
     padding: 60px;
-    margin: 50px;
+    margin: 100px auto;
+    width: 80%;
+    min-height: 200px;
 }
 
 .tile-header{
@@ -11,12 +13,33 @@
     background-color: transparent;
     padding-left: 10px;
     color: #222725;
-    font-size: 2rem;
+    font-size: 32px;
     margin-bottom: 20px;
-    @media (max-width: 768px){
-        font-size: 1.7rem;
+}
+
+.tile-content{
+    // min-height: 200px;    
+}
+
+@media(max-width: 768px){
+    .tile-template{
+        padding: 5px 20px;
+        min-height: 200px;
+        margin-top: 50px;
     }
-    @media (max-width: 320px){
-        font-size: 1.1rem;
+    .tile-header{
+        font-size: 20px;
+    }
+}
+
+@media(max-width: 480px){
+    .tile-template{
+        padding: 5px 20px;
+        min-height: 180px;
+        margin-top: 0px;
+        width: 100%;
+    }
+    .tile-header{
+        font-size: 16px;
     }
 }

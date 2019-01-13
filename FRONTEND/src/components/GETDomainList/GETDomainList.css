@@ -37,3 +37,33 @@
 .inactive-domain {
   color: #D52941;
   font-weight: bold; }
+
+fieldset {
+  border: none;
+  display: flex; }
+
+.ipInput {
+  width: 80px;
+  float: right;
+  border: none;
+  border-radius: 2px;
+  padding: 5px;
+  height: 30px; }
+  .ipInput:focus {
+    border-left: 1px solid #899878;
+    border-top: 1px solid #899878;
+    border-bottom: 1px solid #899878;
+    outline: none; }
+  .ipInput_button {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    color: #F1F7EE;
+    font-size: 10px;
+    background-color: #466365;
+    padding: 4px;
+    transition: 0.3s all; }
+    .ipInput_button:hover {
+      background-color: #8C7284; }

@@ -10,6 +10,7 @@ import PlanFormView from './PlanFormView';
 import LoadingPage from './LoadingPage';
 import AccountDetailsView from './AccountDetailsView';
 import RegistrationPageView from './RegistrationPageView';
+import SubdomainList from './admin/SubdomainList';
 
 class App extends Component {
 
@@ -17,12 +18,18 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div>
+          {/* general */}
         <Route exact path="/" render={() => (  this.props.isLoggedIn ? ( <Redirect to="/account"/> ) : ( <Redirect to={{pathname: "/login", state: { from: "/dashboard"}}}/> ) ) }/>
         <Route exact path="/dashboard" render={() => (  this.props.isLoggedIn ? ( <Dashboard /> ) : ( <Redirect to={{pathname: "/login", state: { from: "/dashboard"}}}/> ) ) }/>
         <Route exact path="/domains" render={() => (  this.props.isLoggedIn ? ( <DomainList username={this.props.username} token={this.props.token}/> ) : ( <Redirect to={{pathname: "/login", state: { from: "/dashboard"}}}/> ) ) }/>
         <Route exact path='/login' render={() => <LoginPage isLoggedIn={this.props.isLoggedIn} username={this.props.username} token={this.props.token} userId={this.props.userId}/>} />
         <Route exact path="/account" render={() => (  this.props.isLoggedIn ? ( <AccountDetailsView /> ) : ( <Redirect to={{pathname: "/login", state: { from: "/dashboard"}}}/> ) ) }/>
         <Route exact path="/register" component={RegistrationPageView} />
+
+        {/* admin */}
+        <Route exact path="/subdomains" component={SubdomainList} />
+
+
 
         {/* the ones below are for testing only; delete after using */}
         <Route exact path='/load' component={LoadingPage} />

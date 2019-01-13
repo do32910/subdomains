@@ -1,9 +1,9 @@
 @import "../../../../variables.scss";
 
 .logged-info{
-    display: inline-block;
+    display: inline;
     .user-name{
-        color: $artichoke;
+        color: $rocketmetallic;
         font-weight: bold;
     }
 }
@@ -20,6 +20,21 @@
     align-self: center;
     transition: 0.4s all;
     &:hover{
-        background-color: $blackolive;
+        background-color: $deepspacesparkle;
+    }
+}
+
+
+@media(max-width: 768px){
+}
+
+@media(max-width: 480px){
+    .logged-info{
+        font-size: 10px;
+    }
+    #logoutBtn, #loginBtn{
+        padding: 5px;
+        font-size: 0.6rem;
+        margin: 15px auto 10px 10px;
     }
 }

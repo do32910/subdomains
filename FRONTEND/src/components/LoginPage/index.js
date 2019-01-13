@@ -45,10 +45,12 @@ class LoginPage extends Component{
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                "login": loginToVerify,
-                "password": psswdToVerify
+                // "login": loginToVerify,
+                // "password": psswdToVerify
             //  "login": "Dabi",
             //  "password": "endeavorsuccs"
+            "login": "melon",
+            "password": "superkudas"
             })
         }).then(
             (response) => response.json()
@@ -119,7 +121,7 @@ class LoginPage extends Component{
             return <Redirect to={from} />
         }
         return (
-            <TileTemplateSmall header="Zaloguj siem" content={
+            <TileTemplateSmall header="Zaloguj się" content={
             <div className="loginContainer">
             <form className="loginForm">
                 <label htmlFor="loginName" className="loginForm__label">Nazwa użytkownika:</label>

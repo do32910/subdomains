@@ -5,10 +5,11 @@
 
 .plan-form__option {
   background-color: #CCC5B9;
-  padding: 20px; }
+  padding: 20px;
+  width: 50%; }
   .plan-form__option-header {
-    color: #B49A67;
-    border-bottom: 3px solid #466365;
+    color: #466365;
+    border-bottom: 3px solid #B49A67;
     padding-bottom: 10px; }
   .plan-form__option:first-child {
     margin-right: 5px; }
@@ -20,7 +21,7 @@
 .plan-form__option-pricing {
   color: #403d39; }
   .plan-form__option-pricing-price {
-    font-size: 250%;
+    font-size: 36px;
     color: #D52941;
     font-weight: bold; }
 
@@ -43,7 +44,10 @@
   border: none;
   border-radius: 1px;
   margin: 20px;
-  margin-left: calc(100% - 150px); }
+  margin-left: calc(100% - 150px);
+  transition: 0.3s all; }
+  .form-submit-btn:hover {
+    background-color: #222725; }
 
 .selected {
   background-color: #899878; }
@@ -51,3 +55,9 @@
     color: #403d39; }
   .selected > .plan-form__option-btn {
     background-color: #403d39; }
+
+@media (max-width: 768px) {
+  .plan-form__option-pricing {
+    font-size: 10px; }
+    .plan-form__option-pricing-price {
+      font-size: 24px; } }

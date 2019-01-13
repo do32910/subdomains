@@ -40,7 +40,7 @@ export default class PlanForm extends Component{
             if(this.state.operationType === "purchase"){
                 return <DomainPurchaseIP domainToPurchase={this.props.domainToPurchase} selectedPlan={this.state.selectedPlan}/>
             }else if(this.state.operationType === "prolong"){
-                return <DomainProlong domainToPurchase={this.props.domainToPurchase} />
+                return <DomainProlong domainToPurchase={this.props.domainToPurchase} selectedPlan={this.state.selectedPlan}/>
             }
         }
         return (

@@ -1,8 +1,8 @@
 /*honeydew / artichoke / raisinblack*/
 .logged-info {
-  display: inline-block; }
+  display: inline; }
   .logged-info .user-name {
-    color: #899878;
+    color: #8C7284;
     font-weight: bold; }
 
 #logoutBtn, #loginBtn {
@@ -17,4 +17,12 @@
   align-self: center;
   transition: 0.4s all; }
   #logoutBtn:hover, #loginBtn:hover {
-    background-color: #403d39; }
+    background-color: #466365; }
+
+@media (max-width: 480px) {
+  .logged-info {
+    font-size: 10px; }
+  #logoutBtn, #loginBtn {
+    padding: 5px;
+    font-size: 0.6rem;
+    margin: 15px auto 10px 10px; } }

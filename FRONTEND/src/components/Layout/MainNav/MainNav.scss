@@ -1,21 +1,56 @@
 @import "../../../variables.scss";
 
+
+.main-nav__list{
+    display: flex; 
+    flex-direction: column;   
+}
 .main-nav{
+    // border-top: 2px solid $honeydew;
     margin: 0;
     padding: 0;
     background-color: $artichoke;
+    height: calc(100vh - 110px);
+    width: 20%;
+    display: block;
     &__item{
         color: $honeydew;
         list-style: none;
         padding: 30px;
-        width: 200px;
+        // width: 300px;
         transition: background-color 0.3s;
         &:hover{
             background-color: #222725;
+            color: $deepspacesparkle;
         }
         &-link{
             color: $honeydew;
             text-decoration: none;
         }
+    }
+}
+
+@media(max-width: 768px){
+    .main-nav{
+        height: calc(100vh - 80px);
+        &__item{
+            padding: 20px;
+            font-size: 0.8rem;
+        }
+    }
+}
+
+@media(max-width: 480px){
+    .main-nav{
+        height: auto;
+        width: 100%;
+    }
+    .main-nav__list{
+        flex-direction: row;
+        align-content: stretch;
+    }
+    .main-nav__item-link{
+        width: 33.33%;
+        text-align: center;
     }
 }

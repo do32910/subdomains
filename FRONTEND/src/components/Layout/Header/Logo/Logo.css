@@ -11,3 +11,12 @@ img {
   color: #F1F7EE; }
   .logo span {
     color: #D52941; }
+
+@media (max-width: 768px) {
+  .logo {
+    font-size: 56px;
+    padding: 0; } }
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 32px; } }

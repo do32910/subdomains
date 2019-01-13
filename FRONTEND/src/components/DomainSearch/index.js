@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './DomainSearch.css';
 import { connect } from "react-redux";
+import TileTemplate from '../Layout/TileTemplate';
 
 import PlanForm from '../PlanForm';
 
@@ -109,6 +110,8 @@ class DomainSearch extends Component{
                 </div>
             )
         }
+        
+
 
         return (
             <div className="tile-template">

@@ -14,7 +14,7 @@ class LoggedInAs extends Component{
     }
     render(){
         return (
-                <div>
+                <div className="logged-container">
                     {this.props.isLoggedIn ? (
                     <div className="logged-info">Zalogowany/a jako: <span className="user-name">{this.state.loggedUser}</span> <button id="logoutBtn" onClick={this.props.doLogout}>Wyloguj</button></div>
                     ) : (<div className="logged-info">Nie jesteś zalogowany <Link id="loginBtn" to="/login">Zaloguj</Link></div>)}

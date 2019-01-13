@@ -25,32 +25,66 @@
         }
     }
     // & td:last-child{
-    //     background-color: $honeydew;
-    // }
-    & td{
-        padding: 10px;
-    }
-}
-
-.domain-list-element{
-    &__name{
-    font-weight: bold;
-    }
-    &__prolong-button{
-        border: none;
-        background-color: $deepspacesparkle;
-        padding: 10px;
-        color: $honeydew;
-        border-radius: 3px;
-        cursor: pointer;
-        transition: 0.4s all;
-        &:hover{
-            background-color: $rocketmetallic;
+        //     background-color: $honeydew;
+        // }
+        & td{
+            padding: 10px;
         }
     }
-}
-
-.inactive-domain{
-    color: $rustyred;
-    font-weight: bold;
-}
+    
+    .domain-list-element{
+        &__name{
+            font-weight: bold;
+        }
+        &__prolong-button{
+            border: none;
+            background-color: $deepspacesparkle;
+            padding: 10px;
+            color: $honeydew;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: 0.4s all;
+            &:hover{
+                background-color: $rocketmetallic;
+            }
+        }
+    }
+    
+    .inactive-domain{
+        color: $rustyred;
+        font-weight: bold;
+    }
+    fieldset{
+        border: none;
+        display: flex;
+    }
+    .ipInput{
+        width: 80px;
+        float: right;
+        border: none;
+        border-radius: 2px;
+        padding: 5px;
+        height: 30px;
+        &:focus{
+            border-left: 1px solid $artichoke; 
+            border-top: 1px solid $artichoke;
+            border-bottom: 1px solid $artichoke;
+            outline: none;
+        }
+        &_button{
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+            width: 30px;
+            height: 30px;
+            border: none;
+            color: $honeydew;
+            font-size: 10px;
+            background-color: $deepspacesparkle;
+            padding: 4px;
+            transition: 0.3s all;
+            &:hover{
+                background-color: $rocketmetallic;
+            }
+        }
+    }
+    

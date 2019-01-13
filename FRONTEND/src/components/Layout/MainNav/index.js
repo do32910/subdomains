@@ -7,13 +7,9 @@ export default class MainNav extends Component{
         return (
             <nav className="main-nav">
                 <ul className="main-nav__list">
-                    <li className="main-nav__item"><NavLink to="/dashboard" className="main-nav__item-link">Wykup domenę</NavLink></li>
-                    <li className="main-nav__item"><NavLink to="/domains" className="main-nav__item-link">Twoje domeny</NavLink></li>
-                    <li className="main-nav__item"><NavLink to="/account" className="main-nav__item-link">Dane konta</NavLink></li>
-                    <li className="main-nav__item">list item 3</li>
-                    <li className="main-nav__item">list item 1</li>
-                    <li className="main-nav__item">list item 4</li>
-                    <li className="main-nav__item">list item 5</li>
+                <NavLink to="/dashboard" className="main-nav__item-link"><li className="main-nav__item">Wykup domenę</li></NavLink>
+                <NavLink to="/domains" className="main-nav__item-link"><li className="main-nav__item">Twoje domeny</li></NavLink>
+                <NavLink to="/account" className="main-nav__item-link"><li className="main-nav__item">Dane konta</li></NavLink>
                 </ul>
             </nav>
         )

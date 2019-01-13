@@ -1,6 +1,6 @@
 @import "../../../variables.scss";
 
-.tile-template{
+.small-tile-template{
     background-color: $honeydew;
     padding: 60px;
     max-width: 700px;
@@ -14,7 +14,7 @@
 
 }
 
-.tile-header{
+.small-tile-header{
     border-bottom: 3px solid $artichoke;
     background-color: transparent;
     padding-left: 10px;

@@ -1,11 +1,26 @@
 @import "../../../variables.scss";
 
 header{
+    border-bottom: 2px solid $woodbrown;
     background-color: $raisinblack;
     color: $honeydew;
-    height: 120px;
+    height: 110px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 40px;
+}
+
+@media(max-width: 768px){
+    header{
+        padding: 5px 20px;
+        height: 80px;
+    }
+}
+
+@media(max-width: 480px){
+    header{
+        padding: 5px 20px;
+        height: 50px;
+    }
 }

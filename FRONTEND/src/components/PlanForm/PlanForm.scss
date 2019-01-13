@@ -8,9 +8,10 @@
     &__option{
         background-color: $palesilver;
         padding: 20px;
+        width: 50%;
         &-header{
-            color: $woodbrown;
-            border-bottom: 3px solid $deepspacesparkle;
+            color: $deepspacesparkle;
+            border-bottom: 3px solid $woodbrown;
             padding-bottom: 10px;
         }
         &:first-child{
@@ -25,7 +26,7 @@
 
     &__option-pricing{
         &-price{
-            font-size: 250%;
+            font-size: 36px;
             color: $rustyred;
             font-weight: bold;
         }
@@ -54,6 +55,10 @@
     border-radius: 1px;
     margin: 20px;
     margin-left: calc(100% - 150px);
+    transition: 0.3s all;
+    &:hover{
+        background-color: $raisinblack;
+    }
 }
 
 .selected{
@@ -63,5 +68,14 @@
     }
     & > .plan-form__option-btn{
         background-color: $blackolive;
+    }
+}
+
+@media(max-width: 768px){
+    .plan-form__option-pricing{
+        font-size: 10px;
+            &-price{
+                font-size: 24px;
+            }
     }
 }
