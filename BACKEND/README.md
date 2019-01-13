@@ -70,8 +70,8 @@ Wyświetla dane konkretnego usera o id = user_id, w takiej samej formie jak GET 
 zmienia dane użytkownika o id = user_id na podstawie JSONa otrzymanego *w danej formie:*
 
       {
-      "columns" : ['lista stringów', 'z nazwami kolumn do zmiany'],
-      "values" : ['lista stringów', 'z wartościami na które mają się zmienić']
+      "columns" : ['lista stringów','z nazwami kolumn do zmiany'],  //!!!! brak spacji między stringami jest ISTOTNY
+      "values" : ['lista stringów','z wartościami na które mają się zmienić'] //!!!! brak spacji między stringami jest ISTOTNY
       }
 
 **! UWAGA ! - kolejność elementów w obu listach musi się zgadzać! Tzn. jeżeli mamy columns : [1,2,3] i values : [a,b,c] to kolumna 1 = a, 2 = b, 3 = c.**
