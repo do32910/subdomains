@@ -13,16 +13,19 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from werkzeug.security import generate_password_hash, check_password_hash
 import boto3
 import botocore
-from credentials import *
- 
-'''
-imported variables:
-aws_access_key_id
-aws_secret_access_key
-db_uri
-jwt_key
-admin_id
-'''
+
+# importing env variables - or setting None if not avaliable
+import os
+aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID', '')
+aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY', '')
+zone_id=os.environ.get('ZONE_ID', '')
+db_uri=os.environ.get('DB_URI', '')
+jwt_key=os.environ.get('JWT_KEY', '')
+admin_id=os.environ.get('ADMIN_ID', '')
+# if any of above values are None
+# make the application return message
+# that app config is invalid
+
 client = boto3.client(
             'route53',
             aws_access_key_id=aws_access_key_id,
@@ -562,7 +565,7 @@ class API_Admin(MethodView):
         tag = request.get_json()['tag']  # tag == users or subdomains
         tag_id = request.get_json()['tag_id'] # tag_id == 'all' or user/subdomain id
 
-        if id_admin == admin_id:
+        if str(id_admin) == admin_id:
             if tag == 'users':
                 if tag_id == 'all':
                     count = db.engine.execute("select count(id) from users")
