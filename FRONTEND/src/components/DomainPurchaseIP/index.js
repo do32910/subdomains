@@ -12,8 +12,20 @@ class DomainPurchaseIP extends Component{
             domainToPurchase: this.props.domainToPurchase,
             selectedPlan: this.props.selectedPlan,
             userId: this.props.userId,
-            proceed: false
+            proceed: false,
+            wrongIPerror: "Błędny format IP",
+            shouldMsgBeDisplayed: false
             
+        };
+        this.hideMessage = this.hideMessage.bind(this);
+    }
+    
+    hideMessage(){
+        if(this.state.shouldMsgBeDisplayed === true){
+            this.setState({
+                shouldMsgBeDisplayed: false,
+                shouldPurchaseBtnBeDisplayed: false
+            })
         }
     }
     
@@ -26,6 +38,9 @@ class DomainPurchaseIP extends Component{
         
         if(!/^([1-2]?[0-9]?[0-9]\.){3}([1-2]?[0-9]?[0-9])$/.test(domainIP)){
             console.log("wrong IP");
+            this.setState({
+                shouldMsgBeDisplayed: true,
+            })
             return 0;
         }
         
@@ -63,9 +78,10 @@ class DomainPurchaseIP extends Component{
                     <div id="ip-info-container">
                     <label className="ip-info-label">Kupujesz domenę: {this.state.domainToPurchase}</label>
                     <div className="ipInput-container">
-                    <input placeholder="Tutaj wprowadź IP..." id="ipInput" /> 
+                    <input placeholder="Tutaj wprowadź IP..." id="ipInput" onChange={this.hideMessage}/> 
                     <button onClick={(e) => this.domainPOST(e)}>Zatwierdź IP i kup</button>   
                     </div>
+                    {(this.state.shouldMsgBeDisplayed) ? <span id="wrongIpMsg" style={{color: this.state.messageColor}}>{this.state.wrongIPerror}</span> : null}
                     </div>
                     )
                 }

@@ -10,14 +10,14 @@
     flex-direction: column;
     &__label{
         color: $raisinblack;
-        font-size: 1.2rem;
+        font-size: 20px;
         padding: 10px;
     }
     &__input{
         padding: 10px;
         color: $blackolive;
         border: none;
-        font-size: 1.1rem;
+        font-size: 18px;
         margin: 7px;
         &::placeholder{
             color: $palesilver;
@@ -31,7 +31,7 @@
         border-radius: 3px;
         margin: 40px auto 20px auto;
         width: 60%;
-        font-size: 1.2rem;
+        font-size: 20px;
         align-self: center;
         transition: 0.4s all;
         &:hover{
@@ -48,4 +48,31 @@
     display: block;
     text-align: right;
     padding: 10px 20px 0 0;
+}
+
+@media(max-width: 768px){
+    .loginContainer{
+        margin: 30px auto 10px auto;
+    }
+    .loginForm{
+        &__label, &__input{
+            padding: 5px;
+            font-size: 16px;
+        }
+        &__submitBtn{
+            padding: 5px;
+            font-size: 16px;
+        }
+    }
+}
+
+@media(max-width: 480px){
+    .loginContainer{
+        margin: 0 auto 5px auto;
+    }
+    .loginForm{
+        &__submitBtn{
+            font-size: 12px;
+        }
+    }
 }

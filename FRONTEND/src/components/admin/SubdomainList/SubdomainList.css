@@ -1,0 +1,38 @@
+/*honeydew / artichoke / raisinblack*/
+.domain-list {
+  width: 100%; }
+
+.domain-list__header tr td {
+  color: #B49A67;
+  font-weight: bold;
+  padding-bottom: 20px; }
+
+.domain-list__body tr {
+  color: #466365; }
+
+.domain-list__body tr:nth-child(2n) {
+  background-color: #899878;
+  color: #F1F7EE; }
+  .domain-list__body tr:nth-child(2n) .domain-list-element__prolong-button {
+    background-color: #CCC5B9;
+    color: #466365; }
+    .domain-list__body tr:nth-child(2n) .domain-list-element__prolong-button:hover {
+      background-color: #8C7284;
+      color: #F1F7EE; }
+
+.domain-list__body td {
+  padding: 10px; }
+
+.domain-list-element__name {
+  font-weight: bold; }
+
+.domain-list-element__prolong-button {
+  border: none;
+  background-color: #466365;
+  padding: 10px;
+  color: #F1F7EE;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: 0.4s all; }
+  .domain-list-element__prolong-button:hover {
+    background-color: #8C7284; }

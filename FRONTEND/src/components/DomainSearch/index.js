@@ -28,7 +28,7 @@ class DomainSearch extends Component{
                 shouldMsgBeDisplayed: false
             });
         }else{
-            if(availability === "free"){
+            if(availability === "freetest"){
                 this.setState({
                     availabilityMessage: "Ta domena jest dostępna!",
                     shouldMsgBeDisplayed: true,
@@ -85,6 +85,7 @@ class DomainSearch extends Component{
             }})
             .then( resp => resp.text())
             .then( msg => { 
+                console.log(msg);
                 msg = msg.substr(13,).slice(0,-2);  
                 this.setState({
                     availability: msg}, 

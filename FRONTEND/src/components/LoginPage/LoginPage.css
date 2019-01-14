@@ -8,13 +8,13 @@
   flex-direction: column; }
   .loginForm__label {
     color: #222725;
-    font-size: 1.2rem;
+    font-size: 20px;
     padding: 10px; }
   .loginForm__input {
     padding: 10px;
     color: #403d39;
     border: none;
-    font-size: 1.1rem;
+    font-size: 18px;
     margin: 7px; }
     .loginForm__input::placeholder {
       color: #CCC5B9; }
@@ -26,7 +26,7 @@
     border-radius: 3px;
     margin: 40px auto 20px auto;
     width: 60%;
-    font-size: 1.2rem;
+    font-size: 20px;
     align-self: center;
     transition: 0.4s all; }
     .loginForm__submitBtn:hover {
@@ -40,3 +40,19 @@
   display: block;
   text-align: right;
   padding: 10px 20px 0 0; }
+
+@media (max-width: 768px) {
+  .loginContainer {
+    margin: 30px auto 10px auto; }
+  .loginForm__label, .loginForm__input {
+    padding: 5px;
+    font-size: 16px; }
+  .loginForm__submitBtn {
+    padding: 5px;
+    font-size: 16px; } }
+
+@media (max-width: 480px) {
+  .loginContainer {
+    margin: 0 auto 5px auto; }
+  .loginForm__submitBtn {
+    font-size: 12px; } }

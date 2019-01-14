@@ -13,7 +13,7 @@ export default class DomainList extends Component{
     
     render(){
         return (
-                <Layout content={<TileTemplate header={this.state.header}content={<GETDomainList />}/>}/>
+                <Layout content={<TileTemplate header={this.state.header} content={<GETDomainList />}/>}/>
         )
     }
 }

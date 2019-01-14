@@ -39,3 +39,12 @@
     padding-top: 30px; }
   .ip-info-label {
     padding-bottom: 10px; } }
+
+#wrongIpMsg {
+  color: #D52941;
+  font-weight: bold;
+  width: 100%;
+  font-size: 0.8rem;
+  display: block;
+  text-align: right;
+  padding: 10px 20px 0 0; }

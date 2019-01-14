@@ -45,12 +45,12 @@ class LoginPage extends Component{
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                // "login": loginToVerify,
-                // "password": psswdToVerify
+                "login": loginToVerify,
+                "password": psswdToVerify
             //  "login": "Dabi",
             //  "password": "endeavorsuccs"
-            "login": "melon",
-            "password": "superkudas"
+            // "login": "melon",
+            // "password": "superkudas"
             })
         }).then(
             (response) => response.json()

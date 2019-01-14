@@ -4,23 +4,24 @@
   padding: 60px;
   max-width: 700px;
   margin: 50px auto 0 auto; }
-  @media (max-width: 768px) {
-    .small-tile-template {
-      width: 70%; } }
-  @media (max-width: 320px) {
-    .small-tile-template {
-      width: 95%; } }
 
 .small-tile-header {
   border-bottom: 3px solid #899878;
   background-color: transparent;
   padding-left: 10px;
   color: #222725;
-  font-size: 2rem;
+  font-size: 32px;
   margin-bottom: 20px; }
-  @media (max-width: 768px) {
-    .small-tile-header {
-      font-size: 1.7rem; } }
-  @media (max-width: 320px) {
-    .small-tile-header {
-      font-size: 1.1rem; } }
+
+@media (max-width: 768px) {
+  .small-tile-template {
+    width: 70%;
+    padding: 30px 40px;
+    margin-top: 40px; } }
+
+@media (max-width: 480px) {
+  .small-tile-template {
+    width: 95%;
+    margin-top: 10px; }
+  .small-tile-header {
+    font-size: 20px; } }

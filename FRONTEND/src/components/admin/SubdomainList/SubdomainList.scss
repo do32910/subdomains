@@ -1,0 +1,56 @@
+@import '../../../variables.scss';
+
+.domain-list{
+    width: 100%;
+}
+
+.domain-list__header{
+    & tr td{
+        color: $woodbrown;
+        font-weight: bold;
+        padding-bottom: 20px;
+    }
+}
+
+.domain-list__body{
+    & tr{
+        color: $deepspacesparkle;
+    }
+    & tr:nth-child(2n){
+        background-color: $artichoke;
+        color: $honeydew;
+        & .domain-list-element__prolong-button{
+            background-color: $palesilver;
+            color: $deepspacesparkle;
+            &:hover{
+                background-color: $rocketmetallic;
+                color: $honeydew;
+            }
+        }
+    }
+    // & td:last-child{
+        //     background-color: $honeydew;
+        // }
+        & td{
+            padding: 10px;
+        }
+    }
+    
+    .domain-list-element{
+        &__name{
+            font-weight: bold;
+        }
+        &__prolong-button{
+            border: none;
+            background-color: $deepspacesparkle;
+            padding: 10px;
+            color: $honeydew;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: 0.4s all;
+            &:hover{
+                background-color: $rocketmetallic;
+            }
+        }
+    }
+    
