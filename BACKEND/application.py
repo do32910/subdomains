@@ -1,3 +1,4 @@
+from functools import wraps
 from flask import Flask, jsonify, json, request, abort
 from flask.views import MethodView
 from flask_sslify import SSLify
@@ -22,9 +23,19 @@ zone_id=os.environ.get('ZONE_ID', '')
 db_uri=os.environ.get('DB_URI', '')
 jwt_key=os.environ.get('JWT_KEY', '')
 admin_id=os.environ.get('ADMIN_ID', '')
-# if any of above values are None
-# make the application return message
-# that app config is invalid
+# decorator checking if all above env variables existed
+# if not, methodviews will return msg instead of what they're supposed to
+def env_variables_required(fn):
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        flag = False
+        if '' in [aws_access_key_id, aws_secret_access_key, zone_id, db_uri, jwt_key, admin_id]:
+            return json.dumps({'message' : 'You don\'t have required environment variables set!'}, ensure_ascii=False)
+        else:
+            return fn(*args, **kwargs)
+    return wrapper
+
+
 
 client = boto3.client(
             'route53',
@@ -185,6 +196,7 @@ scheduler.start()
 ################
  
 class Authorize(MethodView):
+    @env_variables_required
     def post(self):
         if request.content_type != 'application/json':
             abort(415, {'message': 'the content type has to be application/json'})
@@ -212,6 +224,7 @@ class Authorize(MethodView):
             })
  
 class TokenRefresh(MethodView):
+    @env_variables_required
     @jwt_refresh_token_required
     def post(self):
         if request.content_type != 'application/json':
@@ -224,6 +237,7 @@ class TokenRefresh(MethodView):
             })
  
 class API_Addresses(MethodView):
+    @env_variables_required
     @jwt_required
     def get(self, user_id):
         if user_id is None:
@@ -252,7 +266,8 @@ class API_Addresses(MethodView):
                 return json.dumps({'message' : "user doesn't have an address"}, ensure_ascii=False)
  
 class API_Users(MethodView):
-    # @jwt_required
+    @env_variables_required
+    @jwt_required
     def get(self, user_id):
         if user_id is None:
             count = db.engine.execute("select count(id) from users")
@@ -289,6 +304,7 @@ class API_Users(MethodView):
            
             return json.dumps(subdom_dict, ensure_ascii=False)
  
+    @env_variables_required
     def post(self):
         # return str(request.get_json())
         #def __init__(self, login, password, email, last_login_date, registration_date, subdomains, first_name, last_name):
@@ -323,13 +339,15 @@ class API_Users(MethodView):
         access_token = create_access_token(identity = str(request.get_json()['login']))
         refresh_token = create_refresh_token(identity = str(request.get_json()['login']))
         return json.dumps({'message' : 'success', 'user_id' : x.id, 'access_token' : access_token, 'refresh_token' : refresh_token})
- 
+
+    @env_variables_required 
     def delete(self, user_id):
         if request.content_type != 'application/json':
             abort(415, {'message': 'the content type has to be application/json'})
 
         return 'delete user with id == ' + str(user_id)
- 
+
+    @env_variables_required 
     def put(self, user_id):
         if request.content_type != 'application/json':
             abort(415, {'message': 'the content type has to be application/json'})
@@ -361,6 +379,7 @@ class API_Users(MethodView):
         return json.dumps({'message' : 'success'}, ensure_ascii=False)
  
 class API_Subdomains(MethodView):
+    @env_variables_required
     @jwt_required
     def get(self,user_id):
         if user_id is None:
@@ -405,6 +424,7 @@ class API_Subdomains(MethodView):
            
             return json.dumps(list, ensure_ascii=False)
  
+    @env_variables_required
     def post(self):
         if request.content_type != 'application/json':
             abort(415, {'message': 'the content type has to be application/json'})
@@ -461,6 +481,7 @@ class API_Subdomains(MethodView):
         else:
             return json.dumps({'error' : 'record already exists'}, ensure_ascii=False)
  
+    @env_variables_required
     def put(self):
         if request.content_type != 'application/json':
             abort(415, {'message': 'the content type has to be application/json'})
@@ -544,6 +565,7 @@ class API_Subdomains(MethodView):
 
 class API_Names(MethodView):
     decorators = [limiter.limit("1/second")]
+    @env_variables_required
     def get(self, name):
         if name == 'www':
             return json.dumps({'message' : 'taken'}, ensure_ascii=False)
@@ -556,6 +578,7 @@ class API_Names(MethodView):
             return json.dumps({'message' : 'free'}, ensure_ascii=False)
 
 class API_Admin(MethodView):
+    @env_variables_required
     @jwt_required
     def post(self):
         if request.content_type != 'application/json':
