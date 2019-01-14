@@ -464,42 +464,48 @@ class API_Subdomains(MethodView):
 
         id_user = request.get_json()['id_user']
         id_domain = request.get_json()['id_domain']
-        name = request.get_json()['name']
-        new_ip = request.get_json()['new_ip']
+        tag = request.get_json()['tag'] # either 'ip' or 'date'
+        new_value = request.get_json()['new_value']
 
         # check if id_user fits the user the domain is registered by
         sub = Subdomains.query.get(id_domain)
-        # name = sub.name
         if sub.id_user == id_user:
-            # if so change rout53 and bd record
-            subdomname = name + '.subdom.name.'
-            boto3.set_stream_logger('botocore')
-            try:
-                response = client.change_resource_record_sets(
-                    HostedZoneId=zone_id,
-                    ChangeBatch={
-                        'Changes': [
-                            {
-                                'Action': 'UPSERT',
-                                'ResourceRecordSet': {
-                                    'Name': subdomname,
-                                    'Type': 'A',
-                                    'TTL': 1,
-                                    'ResourceRecords': [
-                                        {
-                                            'Value': new_ip
-                                        }
-                                    ],
+            if tag == 'ip':
+                # if so change rout53 and bd record
+                subdomname = sub.name + '.subdom.name.'
+                boto3.set_stream_logger('botocore')
+                try:
+                    response = client.change_resource_record_sets(
+                        HostedZoneId=zone_id,
+                        ChangeBatch={
+                            'Changes': [
+                                {
+                                    'Action': 'UPSERT',
+                                    'ResourceRecordSet': {
+                                        'Name': subdomname,
+                                        'Type': 'A',
+                                        'TTL': 1,
+                                        'ResourceRecords': [
+                                            {
+                                                'Value': new_value
+                                            }
+                                        ],
+                                    }
                                 }
-                            }
-                        ]
-                    }
-                )
-                sub.ip_address = new_ip
+                            ]
+                        }
+                    )
+                    sub.ip_address = new_value
+                    db.session.commit()
+                    return json.dumps({'message' : 'updated subdomain name'}, ensure_ascii=False)
+                except botocore.exceptions.ClientError as e:
+                    return json.dumps({'error' : str(e)}, ensure_ascii=False)
+            else:
+                # change db record
+                sub.expiration_date = new_value
+                sub.status = 'ACTIVE'
                 db.session.commit()
-                return json.dumps({'message' : 'updated subdomain name'}, ensure_ascii=False)
-            except botocore.exceptions.ClientError as e:
-                return json.dumps({'error' : str(e)}, ensure_ascii=False)
+                return json.dumps({'message' : 'updated subdomain expiration date'}, ensure_ascii=False)
         else:
             return json.dumps({'error' : 'given user id didn\'t match the user id assigned to the subdomain'}, ensure_ascii=False)
 
