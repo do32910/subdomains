@@ -503,9 +503,39 @@ class API_Subdomains(MethodView):
             else:
                 # change db record
                 sub.expiration_date = new_value
-                sub.status = 'ACTIVE'
-                db.session.commit()
-                return json.dumps({'message' : 'updated subdomain expiration date'}, ensure_ascii=False)
+                if sub.status == 'INACTIVE':
+                    sub.status = 'ACTIVE'
+                    db.session.commit()
+                    # readd rout53 record
+                    subdomname = sub.name + '.subdom.name.'
+                    boto3.set_stream_logger('botocore')
+                    try:
+                        response = client.change_resource_record_sets(
+                            HostedZoneId=zone_id,
+                            ChangeBatch={
+                                'Changes': [
+                                    {
+                                        'Action': 'UPSERT',
+                                        'ResourceRecordSet': {
+                                            'Name': subdomname,
+                                            'Type': 'A',
+                                            'TTL': 1,
+                                            'ResourceRecords': [
+                                                {
+                                                    'Value': new_value
+                                                }
+                                            ],
+                                        }
+                                    }
+                                ]
+                            }
+                        )
+                        return json.dumps({'message' : 'updated subdomain expiration date'}, ensure_ascii=False)
+                    except botocore.exceptions.ClientError as e:
+                        return json.dumps({'error' : str(e)}, ensure_ascii=False)
+                else:
+                    db.session.commit()
+                    return json.dumps({'message' : 'updated subdomain expiration date'}, ensure_ascii=False)
         else:
             return json.dumps({'error' : 'given user id didn\'t match the user id assigned to the subdomain'}, ensure_ascii=False)
 
