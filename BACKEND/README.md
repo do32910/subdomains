@@ -41,10 +41,10 @@ wyświetla dane wszystkich użytkowników w formie:
 
     {
     "email": string (Unicode),
-    "last_login_date": string (format daty: "2018-06-04"),
+    "last_login_date": string (format daty: "yyyy-mm-dd"),
     "login": string (Unicode),
     "password": string (Unicode),
-    "registration_date": string (format daty: "2018-06-04"),
+    "registration_date": string (format daty: "yyyy-mm-dd"),
     "first_name": string (Unicode),
     "last_name": string (Unicode)
     },
@@ -85,12 +85,12 @@ wyświetla wszystkie subdomeny konkretnego użytkownika o id=user_id, w formie:
 
     {
     "at": string (Unicode),
-    "expiration_date": string (format daty: "2019-06-01"),
+    "expiration_date": string (format daty: "yyyy-mm-dd"),
     "id_domain": int,
     "id_user": int,
     "ip_address": string (format: "77.65.89.81"),
     "name": "string (Unicode),
-    "purchase_date": string (format daty: "2018-06-01"),
+    "purchase_date": string (format daty: "yyyy-mm-dd"),
     "status": string (Unicode)"
     },
      ...
@@ -110,8 +110,8 @@ Dodaje nową subdomenę, korzystając z danych przesłanych za pomocą JSONa w *
     "name" : string,
     "at" : string,
     "ip_address" : string (w formie '00.00.00.00'),
-    "purchase_date" : data (w formie '2000-12-12'),
-    "expiration_date" : data (w formie '2000-12-12')
+    "purchase_date" : data (w formie 'yyyy-mm-dd'),
+    "expiration_date" : data (w formie 'yyyy-mm-dd')
     }
     
 *UWAGA* funkcja dodaje stronę zarówno do bazy danych jak i rekordów AWS - tzn. w pełni funkcjonalnie rejestruje subdomenę.
@@ -122,8 +122,8 @@ Edytuje subdomenę o id = subdomain_id korzystając z danych podanych w JSONie w
     {
     "id_user" : int,
     "id_domain" : int,
-    "name" : string,
-    "new_ip" : string (w formie '00.00.00.00')
+    "tag" : string, ('ip' lub 'date' w zależności co chcemy edytować)
+    "new_value" : string (w formie '00.00.00.00' jeśli ip 'yyyy-mm-dd' jeśli date) 
     }
     
 *UWAGA* funkcja edytuje wpis zarówno w bazie danych jak w rekordów AWS - tzn. w pełni funkcjonalnie edytuje record.
