@@ -1,5 +1,10 @@
 # API
 
+### UWAGA
+Do poprawnego działania aplikacji potrzebne są zmienne środowiskowe. Zaimplementowana jest metoda sprawdzająca czy wszystkie wymagane zmienne są poprawnie pobrane ze środowiska. Jeśli nie, każda podstrona aplikacji zwróci:
+
+{'message' : 'You don't have required environment variables set!'}
+
 ### Główna strona:
 https://api.subdom.name <br/>
 Wszystkie adresy podane poniżej trzeba dopisać do tego adresu, po '/'.
