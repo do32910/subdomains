@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import './MainNav.css';
 import {NavLink} from 'react-router-dom';
+import { connect } from "react-redux";
 
-export default class MainNav extends Component{
+class MainNav extends Component{
     render(){
+        console.log("hii im " , this.props.username);
         return (
             <nav className="main-nav">
                 <ul className="main-nav__list">
@@ -11,10 +13,27 @@ export default class MainNav extends Component{
                 <NavLink to="/domains" className="main-nav__item-link"><li className="main-nav__item">Twoje domeny</li></NavLink>
                 <NavLink to="/account" className="main-nav__item-link"><li className="main-nav__item">Dane konta</li></NavLink>
                 {/* admin */}
-                <NavLink to="/subdomains" className="main-nav__item-link"><li className="main-nav__item">Wszystkie domeny</li></NavLink>
-                
+                {
+                    this.props.userId == 35 ? 
+                    (
+                    <NavLink to="/subdomains" className="main-nav__item-link"><li className="main-nav__item">Wszystkie domeny</li></NavLink>
+                    ) : null
+                }
                 </ul>
             </nav>
         )
     }
 }
+
+
+        
+function mapStateToProps(state){
+    return {
+        isLoggedIn: state.isLoggedIn,
+        username: state.username,
+        token: state.token,
+        userId: state.userId
+    }
+}
+
+export default connect(mapStateToProps)(MainNav); 

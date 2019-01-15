@@ -72,8 +72,8 @@ export default class RegistrationPage extends Component{
                 "login": userName,
                 "password": password,
                 "email": userEmail,
-                "first_name": "Mar",
-                "last_name": "Chew"
+                "first_name": "",
+                "last_name": ""
              })
         }).then(
             (response) => {response.json(); console.log(response);}

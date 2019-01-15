@@ -28,7 +28,7 @@ class DomainSearch extends Component{
                 shouldMsgBeDisplayed: false
             });
         }else{
-            if(availability === "freetest"){
+            if(availability === "free"){
                 this.setState({
                     availabilityMessage: "Ta domena jest dostępna!",
                     shouldMsgBeDisplayed: true,
@@ -65,6 +65,14 @@ class DomainSearch extends Component{
             })
             return 0;
         }
+        if(searchInput.length >= 50){
+            this.setState({
+                availabilityMessage: "Nazwa nie może być dłuższa niż 50 znaków",
+                shouldMsgBeDisplayed: true,
+                messageColor: "#D52941"
+            })
+            return 0;
+        }
         if(!/^[a-z0-9\-]+$/.test(searchInput)){
             this.setState({
                 availabilityMessage: "Niepoprawna nazwa domeny. Nazwa może zawierać tylko litery, cyfry oraz myślnik",
@@ -85,7 +93,6 @@ class DomainSearch extends Component{
             }})
             .then( resp => resp.text())
             .then( msg => { 
-                console.log(msg);
                 msg = msg.substr(13,).slice(0,-2);  
                 this.setState({
                     availability: msg}, 

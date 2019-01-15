@@ -1,18 +1,22 @@
-import React, {Component} from 'react';
 import './SubdomainList.css';
-import Layout from '../../Layout';
-import TileTemplate from '../../Layout/TileTemplate';
+import React, {Component} from 'react';
+// import '../../GETDomainList/GETDomainList.css';
 import { connect } from "react-redux";
 
+import Layout from '../../Layout';
+import TileTemplate from '../../Layout/TileTemplate';
 class SubdomainList extends Component{
     constructor(props){
         super(props);
-        this.state = {
-            url: 'https://api.subdom.name',
-            loggedUserId: this.props.userId,
+        this.state= {
+            url: "https://api.subdom.name",
+            userId: this.props.userId,
             token: this.props.token,
             domainList: [],
-            showList: false
+            domainToProlong: undefined,
+            wrongIPerror: "Błędny format IP",
+            shouldMsgBeDisplayed: false,
+            shouldProceedBtnBeEnabled: false
         }
     }
     
@@ -40,57 +44,72 @@ class SubdomainList extends Component{
         })
     }
     
+    
+    changeIP(e, id, userId){
+        e.preventDefault();
+        let newIP = document.querySelector(`#input-${id}`).value;
+        if(!/^([1-2]?[0-9]?[0-9]\.){3}([1-2]?[0-9]?[0-9])$/.test(newIP)){
+            console.log("wrong IP");
+            this.setState({
+                shouldMsgBeDisplayed: true
+            })
+            return 0;
+        }
+        fetch(`${this.state.url}/subdomains/`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                "id_user" : userId,
+                "id_domain" : id,
+                "tag" : "ip",
+                "new_value" : newIP 
+            }),
+            headers:{
+                'Authorization': `Bearer ${this.state.token}`,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }})
+            this.setState({
+                shouldProceedBtnBeDisabled: true
+            });  
+        }
+        
+
     componentDidMount(){
         this.getList();
     }
-
-
-//     at: "eu.pl"
-// expiration_date: "2016-06-29"
-// first_name: "Touya"
-// id_domain: 72
-// id_user: 3
-// ip_address: "3.11.0.33"
-// last_name: "Todoroki"
-// login: "Dabi"
-// name: "test3"
-// purchase_date: "2015-06-29"
-// status: "INACTIVE"
     
     render(){
-        console.log('hey im long ' , this.state.domainList.length);
         console.log(this.state.domainList[0]);
-        return(
-            <Layout content={<TileTemplate header={"Stas"} content={
-                <table className="domain-list">
-                <thead className="domain-list__header">
-                <tr>
-                <td>Nazwa
-                    <span>{this.state.domainList[0]}</span></td>
-                <td>Status</td>
-                <td>Właściciel</td>
-                <td>Data wygaśnięcia</td>
-                <td>Operacje</td>
-                </tr>
-                </thead>
-                <tbody className="domain-list__body">
-                {
-                    this.state.domainList.map((element) => {
-                        return (
-                            <tr key={element.id_domain}>
-                            <td className="domain-list-element__name">{element.name}.{element.at}</td>
-                            {/* <td><fieldset><input defaultValue={element.ip_address} className="ipInput" id={`input-${element.id_domain}`}/><button className="ipInput_button" onClick={(e) => this.changeIP(e, element.id_domain)}>Z</button></fieldset></td>
-                            <td>{element.expiration_date}</td>
-                            <td className={element.status === "INACTIVE" ? "inactive-domain" : ""}>{element.status === "ACTIVE" ? "Aktywna" : "Nieaktywna"}</td>
-                            <td><button disabled={this.state.shouldProceedBtnBeDisabled} className="domain-list-element__prolong-button" onClick={(e) => this.prolongDomain(e, element.name)}>Przedłuż ważność</button></td> */}
-                            </tr>
-                            )
-                        })
-                    }
-                    </tbody>
-                    </table>
-                }/>}/>
-                );
+        return (
+            <table className="domain-list">
+            <thead className="domain-list__header">
+            <tr>
+            <td className="td-name">Nazwa domeny</td>
+            <td className="td-ip">Adres IP</td>
+            <td className="td-owner">Właściciel (Login)</td>
+            <td className="td-date">Data wygaśnięcia</td>
+            <td className="td-state">Status</td>
+            <td></td>
+            </tr>
+            </thead>
+            <tbody className="domain-list__body">
+            {
+                this.state.domainList.map((element) => {
+                    return (
+                        <tr key={element.id_domain}>
+                        <td className="domain-list-element__name">{element.name}.{element.at}</td>
+                        <td><fieldset><input defaultValue={element.ip_address} className="ipInput" id={`input-${element.id_domain}`}/><button onClick={(e) => this.changeIP(e, element.id_domain, element.id_user)} className="ipInput_button">Z</button></fieldset></td>
+                        <td>{element.first_name} {element.last_name} ({element.login})</td>
+                        <td>{element.expiration_date}</td>
+                        <td className={element.status === "INACTIVE" ? "inactive-domain" : ""}>{element.status === "ACTIVE" ? "Aktywna" : "Nieaktywna"}</td>
+                        <td><button disabled={this.state.shouldProceedBtnBeDisabled} className="domain-list-element__prolong-button">Przedłuż ważność</button></td>
+                        </tr>
+                        )
+                    })
+                }
+                </tbody>
+                </table>            
+                )
             }
         }
         

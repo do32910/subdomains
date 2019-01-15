@@ -1,6 +1,8 @@
 /*honeydew / artichoke / raisinblack*/
 .domain-list {
-  width: 100%; }
+  table-layout: fixed;
+  width: 100%;
+  font-size: 12px; }
 
 .domain-list__header tr td {
   color: #B49A67;
@@ -36,3 +38,18 @@
   transition: 0.4s all; }
   .domain-list-element__prolong-button:hover {
     background-color: #8C7284; }
+
+.td-name {
+  width: 15%; }
+
+.td-ip {
+  width: 15%; }
+
+.td-owner {
+  width: 15%; }
+
+.td-date {
+  width: 15%; }
+
+.td-state {
+  width: 15%; }

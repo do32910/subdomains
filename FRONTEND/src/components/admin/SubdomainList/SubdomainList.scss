@@ -1,7 +1,9 @@
 @import '../../../variables.scss';
 
 .domain-list{
+    table-layout: fixed;
     width: 100%;
+    font-size: 12px;
 }
 
 .domain-list__header{
@@ -54,3 +56,13 @@
         }
     }
     
+
+
+
+.td{
+   &-name{ width: 15%; } 
+   &-ip{ width: 15%; } 
+   &-owner{ width: 15%; } 
+   &-date{ width: 15%; } 
+   &-state{ width: 15%; } 
+}

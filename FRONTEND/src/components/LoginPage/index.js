@@ -72,48 +72,7 @@ class LoginPage extends Component{
         });
     }
 
-    // verifyLoginData = (e) => {
-    //     e.preventDefault();
-    //     var loginToVerify = document.querySelector("#loginName").value;
-    //     var psswdToVerify = document.querySelector("#password").value;
-
-    //     fetch(`${this.state.url}/login/`, {
-    //         method: 'post',
-    //         headers:{
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             "login": "Dabi",
-    //             "password": "endeavorsuccs"
-    //         })
-    //     }).then(
-    //         (response) => response.json()
-    //     ).then(
-    //         responseData => {
-    //             this.props.doLogin("Dabi", responseData.access_token, responseData.user_id)
-    //         }
-    //     )
-        
-    // }
-
-    testingtesting = (e) => {
-        e.preventDefault();
-        fetch(`${this.state.url}/users/`, {
-        method: 'get',
-        withCredentials: true,
-        credentials: 'include',
-        headers:{
-            'Authorization': `Bearer ${this.state.token}`,
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        }})
-            .then(r => r.json())
-            .then(q => console.log(q))
-        
-    }
-
     render(){
-        console.log(this.props.userId);
         const from = this.props.from ? this.props.from : '/';
         const auth = this.props;
 
@@ -121,7 +80,6 @@ class LoginPage extends Component{
             return <Redirect to={from} />
         }
         return (
-            <TileTemplateSmall header="Zaloguj się" content={
             <div className="loginContainer">
             <form className="loginForm">
                 <label htmlFor="loginName" className="loginForm__label">Nazwa użytkownika:</label>
@@ -132,7 +90,8 @@ class LoginPage extends Component{
                 {(this.state.shouldMsgBeDisplayed) ? 
                     <span id="availabilityMsg">{this.state.validationMessage}</span> :  null}
             </form>
-            </div>} />)
+            </div>
+            )
     }
 }
 
