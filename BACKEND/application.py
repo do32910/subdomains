@@ -521,7 +521,7 @@ class API_Subdomains(MethodView):
                     )
                     sub.ip_address = new_value
                     db.session.commit()
-                    return json.dumps({'message' : 'updated subdomain name'}, ensure_ascii=False)
+                    return json.dumps({'message' : 'updated subdomain ip address'}, ensure_ascii=False)
                 except botocore.exceptions.ClientError as e:
                     return json.dumps({'error' : str(e)}, ensure_ascii=False)
             else:
@@ -546,7 +546,7 @@ class API_Subdomains(MethodView):
                                             'TTL': 1,
                                             'ResourceRecords': [
                                                 {
-                                                    'Value': new_value
+                                                    'Value': sub.ip_address
                                                 }
                                             ],
                                         }
