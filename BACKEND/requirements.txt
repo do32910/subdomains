@@ -16,3 +16,4 @@ SQLAlchemy==1.2.8
 Werkzeug==0.14.1
 boto3==1.9.62
 boto==2.49.0
+flask-cors==3.0.7

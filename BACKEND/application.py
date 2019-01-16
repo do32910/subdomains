@@ -8,6 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from flask_jwt_extended import (create_access_token, create_refresh_token, jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt)
 from flask_restful import Resource, Api
+from flask_cors import CORS
 from sqlalchemy import text
 import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -44,6 +45,7 @@ client = boto3.client(
  )
  
 application = Flask(__name__)
+CORS(application, origins=["https://subdom.name/*", "https://www.subdom.name/*"], supports_credentials=True)
 sslify = SSLify(application)
 jwt = JWTManager(application)
 limiter = Limiter(
