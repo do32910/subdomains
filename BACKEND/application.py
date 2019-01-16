@@ -297,7 +297,7 @@ class API_Users(MethodView):
             subdom_dict = {
                 'id' : user.id,
                 'login' : user.login,
-                'password' : user.password,
+                #'password' : user.password,
                 'email' : user.email,
                 'last_login_date' : user.last_login_date,
                 'registration_date' : user.registration_date,
