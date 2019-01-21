@@ -541,35 +541,38 @@ class API_Subdomains(MethodView):
         sub = Subdomains.query.get(id_domain)
         if sub.id_user == id_user:
             if tag == 'ip':
-                # if so change rout53 and bd record
-                subdomname = sub.name + '.subdom.name.'
-                boto3.set_stream_logger('botocore')
-                try:
-                    response = client.change_resource_record_sets(
-                        HostedZoneId=zone_id,
-                        ChangeBatch={
-                            'Changes': [
-                                {
-                                    'Action': 'UPSERT',
-                                    'ResourceRecordSet': {
-                                        'Name': subdomname,
-                                        'Type': 'A',
-                                        'TTL': 1,
-                                        'ResourceRecords': [
-                                            {
-                                                'Value': new_value
-                                            }
-                                        ],
+                if sub.status == 'ACTIVE':
+                    # if so change rout53 and bd record
+                    subdomname = sub.name + '.subdom.name.'
+                    boto3.set_stream_logger('botocore')
+                    try:
+                        response = client.change_resource_record_sets(
+                            HostedZoneId=zone_id,
+                            ChangeBatch={
+                                'Changes': [
+                                    {
+                                        'Action': 'UPSERT',
+                                        'ResourceRecordSet': {
+                                            'Name': subdomname,
+                                            'Type': 'A',
+                                            'TTL': 1,
+                                            'ResourceRecords': [
+                                                {
+                                                    'Value': new_value
+                                                }
+                                            ],
+                                        }
                                     }
-                                }
-                            ]
-                        }
-                    )
-                    sub.ip_address = new_value
-                    db.session.commit()
-                    return json.dumps({'message' : 'updated subdomain ip address'}, ensure_ascii=False)
-                except botocore.exceptions.ClientError as e:
-                    return json.dumps({'error' : str(e)}, ensure_ascii=False)
+                                ]
+                            }
+                        )
+                        sub.ip_address = new_value
+                        db.session.commit()
+                        return json.dumps({'message' : 'updated subdomain ip address'}, ensure_ascii=False)
+                    except botocore.exceptions.ClientError as e:
+                        return json.dumps({'error' : str(e)}, ensure_ascii=False)
+                else:
+                    return json.dumps({'error' : 'You can\'t change the IP of an INACTIVE domain.'}, ensure_ascii=False) 
             else:
                 # change db record
                 sub.expiration_date = new_value
