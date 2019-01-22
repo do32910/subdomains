@@ -17,14 +17,16 @@
   margin-bottom: 12px;
   float: right;
   border: none;
-  border-radius: 2px;
   padding: 5px;
-  height: 30px; }
+  height: 30px;
+  color: #222725;
+  border: 2px solid #466365; }
   .user-data-form_input:focus {
-    border-left: 1px solid #899878;
-    border-top: 1px solid #899878;
-    border-bottom: 1px solid #899878;
     outline: none; }
+  .user-data-form_input:disabled {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #466365; }
 
 .user-data-form_label {
   width: 50%;
@@ -32,8 +34,6 @@
   display: inline-block; }
 
 .user-data-form_change-btn {
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
   width: 30px;
   height: 30px;
   border: none;

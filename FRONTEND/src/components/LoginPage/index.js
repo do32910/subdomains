@@ -5,7 +5,7 @@ import { doLogin } from "../../actions/auth";
 import { bindActionCreators } from  'redux';
 import { connect } from "react-redux";
 import TileTemplateSmall from '../Layout/TileTemplateSmall';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class LoginPage extends Component{
     constructor(props){

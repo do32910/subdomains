@@ -19,14 +19,18 @@
         margin-bottom: 12px;
         float: right;
         border: none;
-        border-radius: 2px;
+        // border-radius: 2px;
         padding: 5px;
         height: 30px;
+        color: $raisinblack;
+        border: 2px solid $deepspacesparkle;
         &:focus{
-            border-left: 1px solid $artichoke; 
-            border-top: 1px solid $artichoke;
-            border-bottom: 1px solid $artichoke;
             outline: none;
+        }
+        &:disabled{
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid $deepspacesparkle;
         }
     }
     &_label{
@@ -35,8 +39,8 @@
         display: inline-block;
     }
     &_change-btn{
-        border-top-right-radius: 3px;
-        border-bottom-right-radius: 3px;
+        // border-top-right-radius: 3px;
+        // border-bottom-right-radius: 3px;
         width: 30px;
         height: 30px;
         border: none;

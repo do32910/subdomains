@@ -27,7 +27,7 @@ export default class RegistrationPage extends Component{
         var userName = document.querySelector('#userName').value;
 
         var nameReg = /^[a-z0-9]+$/;
-        var emailReg = /^[a-z0-9]+@[a-z0-9]+\.[a-z0-9]+$/;
+        var emailReg = /^[a-z0-9\.\-]+@[a-z0-9]+\.[a-z0-9]+$/;
 
         var password = document.querySelector('#password').value;
         var passwordRpt = document.querySelector('#passwordRpt').value;

@@ -71,27 +71,29 @@ class DomainPurchaseIP extends Component{
             
             render(){
                 console.log(this.state.proceed);
-                if(this.state.proceed){
-                    <Redirect to="/domainlist" />
+                if(this.state.proceed === true){
+                    return (
+                        <Redirect to="/domains" />
+                        )
+                    }
+                    return (
+                        <div id="ip-info-container">
+                        <label className="ip-info-label">Kupujesz domenę: {this.state.domainToPurchase}</label>
+                        <div className="ipInput-container">
+                        <input placeholder="Tutaj wprowadź IP..." id="ipInput" onChange={this.hideMessage}/> 
+                        <button onClick={(e) => this.domainPOST(e)}>Zatwierdź IP i kup</button>   
+                        </div>
+                        {(this.state.shouldMsgBeDisplayed) ? <span id="wrongIpMsg" style={{color: this.state.messageColor}}>{this.state.wrongIPerror}</span> : null}
+                        </div>
+                        )
+                    }
                 }
-                return (
-                    <div id="ip-info-container">
-                    <label className="ip-info-label">Kupujesz domenę: {this.state.domainToPurchase}</label>
-                    <div className="ipInput-container">
-                    <input placeholder="Tutaj wprowadź IP..." id="ipInput" onChange={this.hideMessage}/> 
-                    <button onClick={(e) => this.domainPOST(e)}>Zatwierdź IP i kup</button>   
-                    </div>
-                    {(this.state.shouldMsgBeDisplayed) ? <span id="wrongIpMsg" style={{color: this.state.messageColor}}>{this.state.wrongIPerror}</span> : null}
-                    </div>
-                    )
+                
+                
+                function mapStateToProps(state){
+                    return {
+                        userId: state.userId
+                    }
                 }
-            }
-            
-            
-            function mapStateToProps(state){
-                return {
-                    userId: state.userId
-                }
-            }
-            
-            export default connect(mapStateToProps)(DomainPurchaseIP); 
+                
+                export default connect(mapStateToProps)(DomainPurchaseIP); 

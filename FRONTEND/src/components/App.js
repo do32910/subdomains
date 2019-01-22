@@ -14,6 +14,12 @@ import SubdomainList from './admin/SubdomainList';
 import SubdomainListView from './admin/SubdomainListView';
 import UserList from './admin/UserList';
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faIgloo } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faIgloo)
+
 class App extends Component {
 
   render() {

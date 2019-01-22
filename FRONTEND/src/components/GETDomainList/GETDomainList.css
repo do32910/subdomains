@@ -28,7 +28,6 @@
   background-color: #466365;
   padding: 10px;
   color: #F1F7EE;
-  border-radius: 3px;
   cursor: pointer;
   transition: 0.4s all; }
   .domain-list-element__prolong-button:hover {
@@ -46,7 +45,6 @@ fieldset {
   width: 80px;
   float: right;
   border: none;
-  border-radius: 2px;
   padding: 5px;
   height: 30px; }
   .ipInput:focus {
@@ -55,8 +53,6 @@ fieldset {
     border-bottom: 1px solid #899878;
     outline: none; }
   .ipInput_button {
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
     width: 30px;
     height: 30px;
     border: none;
