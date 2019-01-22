@@ -1,5 +1,12 @@
 @import '../../variables.scss';
 
+.domain-list{
+    table-layout: fixed;
+    width: 100%;
+    font-size: 12px;
+    word-wrap: break-word;
+}
+
 .domain-list__header{
     & tr td{
         color: $woodbrown;
@@ -10,80 +17,138 @@
 
 .domain-list__body{
     & tr{
-        color: $deepspacesparkle;
+        color: $palesilver;
+        background-color: $blackolive;
     }
     & tr:nth-child(2n){
         background-color: $artichoke;
         color: $honeydew;
         & .domain-list-element__prolong-button{
             background-color: $palesilver;
-            color: $deepspacesparkle;
-            &:hover{
-                background-color: $rocketmetallic;
-                color: $honeydew;
-            }
+            color: $artichoke;
         }
     }
-    // & td:last-child{
-        //     background-color: $honeydew;
-        // }
-        & td{
-            padding: 10px;
-        }
+    & td{
+        padding: 10px;
     }
-    
-    .domain-list-element{
-        &__name{
-            font-weight: bold;
-        }
-        &__prolong-button{
-            border: none;
-            background-color: $deepspacesparkle;
-            padding: 10px;
-            color: $honeydew;
-            cursor: pointer;
-            transition: 0.4s all;
-            &:hover{
-                background-color: $rocketmetallic;
-            }
-        }
-    }
-    
-    .inactive-domain{
-        color: $rustyred;
+}
+
+.domain-list-element{
+    &__name{
         font-weight: bold;
     }
-    fieldset{
-        border: none;
-        display: flex;
+}
+
+.domain-list__prolong-button{
+    border: none;
+    background-color: $deepspacesparkle;
+    padding: 10px;
+    color: $honeydew;
+    cursor: pointer;
+    transition: 0.4s all;
+    &:hover{
+        background-color: $honeydew;
+        color: $deepspacesparkle;
     }
-    .ipInput{
-        width: 80px;
-        float: right;
-        border: none;
-        // border-radius: 2px;
-        padding: 5px;
+}
+
+.inactive-domain{
+    color: $rustyred;
+    font-weight: bold;
+}
+fieldset{
+    border: none;
+    display: flex;
+}
+.ipInput-userList{
+    width: 60%;
+    float: right;
+    border: none;
+    // border-radius: 2px;
+    padding: 5px;
+    height: 30px;
+    &:focus{
+        border-left: 1px solid $artichoke; 
+        border-top: 1px solid $artichoke;
+        border-bottom: 1px solid $artichoke;
+        outline: none;
+    }
+    &_button{
+        // border-top-right-radius: 3px;
+        // border-bottom-right-radius: 3px;
+        width: 30px;
         height: 30px;
-        &:focus{
-            border-left: 1px solid $artichoke; 
-            border-top: 1px solid $artichoke;
-            border-bottom: 1px solid $artichoke;
-            outline: none;
+        border: none;
+        color: $honeydew;
+        font-size: 10px;
+        background-color: $deepspacesparkle;
+        padding: 4px;
+        transition: 0.3s all;
+        &:hover{
+            background-color: $blackolive;
         }
+    }
+}
+#availabilityMsg{
+    float: right;
+}
+
+
+@media(max-width: 768px){
+    .domain-list__header{
+        font-size: 10px;
+        padding: 5px;
+        & tr td{
+            padding: 5px;
+        }
+    }
+    .domain-list__body{
+        font-size: 10px;
+        padding: 5px;
+        & tr td{
+            padding: 5px;
+        }
+        
+    }
+    .domain-list__prolong-button{
+        font-size: 8px;
+        padding: 5px;
+    }
+    .ipInput-userList{
+        height: 20px;
+        font-size: 10px;
         &_button{
-            // border-top-right-radius: 3px;
-            // border-bottom-right-radius: 3px;
-            width: 30px;
-            height: 30px;
-            border: none;
-            color: $honeydew;
-            font-size: 10px;
-            background-color: $deepspacesparkle;
-            padding: 4px;
-            transition: 0.3s all;
-            &:hover{
-                background-color: $rocketmetallic;
-            }
+            height: 20px;
         }
+    }
+    .td{
+        &-name{ width: 15%; } 
+        &-ip{ width: 15%; } 
+        &-owner{ width: 25%; } 
+        &-date{ width: 10%; } 
+        &-state{ width: 10%; } 
     }
     
+}
+@media(max-width: 489){
+    .domain-list__header{
+        font-size: 6px;
+        padding: 3px;
+        & td{
+            padding: 6px;
+        }
+    }
+    .domain-list__body{
+        font-size: 6px;
+        padding: 3px;           
+    }
+}
+.ipInput{
+    height: 10px;
+    font-size: 8px;
+    &_button{
+        height: 10px;
+        font-size: 3px;
+        padding: 0;
+    }
+}

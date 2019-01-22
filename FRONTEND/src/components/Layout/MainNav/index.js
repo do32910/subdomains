@@ -16,7 +16,10 @@ class MainNav extends Component{
                 {
                     this.props.userId == 35 ? 
                     (
+                    <div>
                     <NavLink to="/subdomains" className="main-nav__item-link"><li className="main-nav__item">Wszystkie domeny</li></NavLink>
+                    <NavLink to="/users" className="main-nav__item-link"><li className="main-nav__item">Użytkownicy</li></NavLink>
+                    </div>
                     ) : null
                 }
                 </ul>

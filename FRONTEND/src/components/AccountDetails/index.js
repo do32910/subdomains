@@ -39,11 +39,8 @@ class AccountDetails extends Component{
             })
         }
         
-        
         changeUserData = (e, selectedInputId) => {
             e.preventDefault();
-            // var newValue = document.querySelector(`#${selectedInputId}`).value;
-            // var currentValue = document.querySelector(`#${selectedInputId}`).defaultValue;
             var inputToChange = document.querySelector(`#${selectedInputId}`);
             
             console.log(inputToChange.disabled)

@@ -6,7 +6,7 @@
     border: none;
     padding: 20px 10px;
     font-size: 0.9rem;
-    border: 2px solid #899878; }
+    border: 2px solid #466365; }
   .searchbar-container input {
     width: 75%;
     background-color: #F1F7EE;
@@ -14,13 +14,13 @@
     border-right: none; }
   .searchbar-container button {
     width: 25%;
-    background-color: #121113;
-    color: #B49A67;
+    background-color: #466365;
+    color: #CCC5B9;
     border-left: none;
     transition: 0.3s all;
     font-size: 14px; }
     .searchbar-container button:hover, .searchbar-container button:focus {
-      background-color: #466365; }
+      background-color: #403d39; }
 
 .tile-template {
   background-color: #F1F7EE;

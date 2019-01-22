@@ -4,6 +4,7 @@
     table-layout: fixed;
     width: 100%;
     font-size: 12px;
+    word-wrap: break-word;
 }
 
 .domain-list__header{
@@ -11,19 +12,20 @@
         color: $woodbrown;
         font-weight: bold;
         padding-bottom: 20px;
+        text-align: center;
     }
 }
 
 .domain-list__body{
     & tr{
-        color: $deepspacesparkle;
+        color: $palesilver;
     }
     & tr:nth-child(2n){
         background-color: $artichoke;
         color: $honeydew;
         & .domain-list-element__prolong-button{
             background-color: $palesilver;
-            color: $deepspacesparkle;
+            color: $artichoke;
             &:hover{
                 background-color: $rocketmetallic;
                 color: $honeydew;
@@ -44,25 +46,103 @@
         }
         &__prolong-button{
             border: none;
-            background-color: $deepspacesparkle;
+            background-color: $palesilver;
             padding: 10px;
-            color: $honeydew;
-            border-radius: 3px;
+            color: $blackolive;
+            
+            // border-radius: 3px;
             cursor: pointer;
             transition: 0.4s all;
             &:hover{
                 background-color: $rocketmetallic;
+                color: $honeydew;
             }
         }
     }
     
-
-
-
-.td{
-   &-name{ width: 15%; } 
-   &-ip{ width: 15%; } 
-   &-owner{ width: 15%; } 
-   &-date{ width: 15%; } 
-   &-state{ width: 15%; } 
-}
+    .ipInput{
+        width: 60%;
+        float: right;
+        border: none;
+        // border-radius: 2px;
+        padding: 5px;
+        height: 30px;
+        font-size: 12px;
+        &:focus{
+            border-left: 1px solid $artichoke; 
+            border-top: 1px solid $artichoke;
+            border-bottom: 1px solid $artichoke;
+            outline: none;
+        }
+        &_button{
+            width: 30px;
+            height: 30px;
+            border: none;
+            color: $honeydew;
+            font-size: 10px;
+            background-color: $deepspacesparkle;
+            padding: 4px;
+            transition: 0.3s all;
+            &:hover{
+                background-color: $licorice;
+            }
+        }
+    }
+    
+    .btn-td{
+        margin: 0 auto;
+    }
+    
+    
+    .td{
+        &-name{ width: 25%; } 
+        &-ip{ width: 20%; } 
+        &-owner{ width: 25%; } 
+        &-date{ width: 15%; } 
+        &-state{ width: 15%; } 
+    }
+    
+    @media(max-width: 920px){
+        .domain-list__header{
+            font-size: 10px;
+            padding: 5px;
+        }
+        .domain-list__body{
+            font-size: 10px;
+            padding: 5px;
+        }
+        .domain-list-element__prolong-button{
+            font-size: 10px;
+        }
+        .ipInput{
+            height: 20px;
+            font-size: 10px;
+            &_button{
+                height: 20px;
+            }
+        }
+    }
+    
+    
+    @media(max-width: 768px){
+        .domain-list__header{
+            font-size: 8px;
+            padding: 5px;
+        }
+        .domain-list__body{
+            font-size: 8px;
+            padding: 5px;
+        }
+        .domain-list-element__prolong-button{
+            font-size: 8px;
+        }
+        .ipInput{
+            height: 20px;
+            font-size: 8px;
+            &_button{
+                height: 20px;
+            }
+        }
+    }
+    
+    

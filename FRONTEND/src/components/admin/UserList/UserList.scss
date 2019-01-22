@@ -1,0 +1,72 @@
+@import '../../../variables.scss';
+
+.user-list{
+    table-layout: fixed;
+    width: 100%;
+    font-size: 12px;
+    word-wrap: break-word;
+}
+
+.user-list__header{
+    & tr td{
+        color: $woodbrown;
+        font-weight: bold;
+        padding-bottom: 20px;
+        text-align: center;
+    }
+}
+
+
+.user-list__body{
+    & tr{
+        color: $palesilver;
+        background-color: $blackolive;
+    }
+    & tr:nth-child(2n){
+        background-color: $artichoke;
+        color: $honeydew;
+        & .user-list-element__prolong-button{
+            background-color: $palesilver;
+            color: $artichoke;
+            &:hover{
+                background-color: $rocketmetallic;
+                color: $honeydew;
+            }
+        }
+    }
+        & td{
+            padding: 10px;
+        }
+    }
+
+    .td-username{width: 20%;}
+    .td-login{width: 20%;}
+    .td-email{width: 20%;}
+    .td-registration-date{width: 20%;}
+    .td-last-login-date{width: 20%;}
+
+    
+    @media(max-width: 920px){
+        .user-list__header{
+            font-size: 10px;
+            padding: 5px;
+        }
+        .user-list__body{
+            font-size: 10px;
+            padding: 5px;
+        }
+    }
+    
+    
+    @media(max-width: 768px){
+        .user-list__header{
+            font-size: 8px;
+            padding: 5px;
+        }
+        .user-list__body{
+            font-size: 8px;
+            padding: 5px;
+        }
+    }
+    
+    

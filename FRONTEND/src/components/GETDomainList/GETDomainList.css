@@ -1,21 +1,25 @@
 /*honeydew / artichoke / raisinblack*/
+.domain-list {
+  table-layout: fixed;
+  width: 100%;
+  font-size: 12px;
+  word-wrap: break-word; }
+
 .domain-list__header tr td {
   color: #B49A67;
   font-weight: bold;
   padding-bottom: 20px; }
 
 .domain-list__body tr {
-  color: #466365; }
+  color: #CCC5B9;
+  background-color: #403d39; }
 
 .domain-list__body tr:nth-child(2n) {
   background-color: #899878;
   color: #F1F7EE; }
   .domain-list__body tr:nth-child(2n) .domain-list-element__prolong-button {
     background-color: #CCC5B9;
-    color: #466365; }
-    .domain-list__body tr:nth-child(2n) .domain-list-element__prolong-button:hover {
-      background-color: #8C7284;
-      color: #F1F7EE; }
+    color: #899878; }
 
 .domain-list__body td {
   padding: 10px; }
@@ -23,15 +27,16 @@
 .domain-list-element__name {
   font-weight: bold; }
 
-.domain-list-element__prolong-button {
+.domain-list__prolong-button {
   border: none;
   background-color: #466365;
   padding: 10px;
   color: #F1F7EE;
   cursor: pointer;
   transition: 0.4s all; }
-  .domain-list-element__prolong-button:hover {
-    background-color: #8C7284; }
+  .domain-list__prolong-button:hover {
+    background-color: #F1F7EE;
+    color: #466365; }
 
 .inactive-domain {
   color: #D52941;
@@ -41,18 +46,18 @@ fieldset {
   border: none;
   display: flex; }
 
-.ipInput {
-  width: 80px;
+.ipInput-userList {
+  width: 60%;
   float: right;
   border: none;
   padding: 5px;
   height: 30px; }
-  .ipInput:focus {
+  .ipInput-userList:focus {
     border-left: 1px solid #899878;
     border-top: 1px solid #899878;
     border-bottom: 1px solid #899878;
     outline: none; }
-  .ipInput_button {
+  .ipInput-userList_button {
     width: 30px;
     height: 30px;
     border: none;
@@ -61,5 +66,56 @@ fieldset {
     background-color: #466365;
     padding: 4px;
     transition: 0.3s all; }
-    .ipInput_button:hover {
-      background-color: #8C7284; }
+    .ipInput-userList_button:hover {
+      background-color: #403d39; }
+
+#availabilityMsg {
+  float: right; }
+
+@media (max-width: 768px) {
+  .domain-list__header {
+    font-size: 10px;
+    padding: 5px; }
+    .domain-list__header tr td {
+      padding: 5px; }
+  .domain-list__body {
+    font-size: 10px;
+    padding: 5px; }
+    .domain-list__body tr td {
+      padding: 5px; }
+  .domain-list__prolong-button {
+    font-size: 8px;
+    padding: 5px; }
+  .ipInput-userList {
+    height: 20px;
+    font-size: 10px; }
+    .ipInput-userList_button {
+      height: 20px; }
+  .td-name {
+    width: 15%; }
+  .td-ip {
+    width: 15%; }
+  .td-owner {
+    width: 25%; }
+  .td-date {
+    width: 10%; }
+  .td-state {
+    width: 10%; } }
+
+@media (max-width: 489) {
+  .domain-list__header {
+    font-size: 6px;
+    padding: 3px; }
+    .domain-list__header td {
+      padding: 6px; }
+  .domain-list__body {
+    font-size: 6px;
+    padding: 3px; } }
+
+.ipInput {
+  height: 10px;
+  font-size: 8px; }
+  .ipInput_button {
+    height: 10px;
+    font-size: 3px;
+    padding: 0; }

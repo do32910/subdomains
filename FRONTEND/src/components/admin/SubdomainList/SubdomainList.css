@@ -2,22 +2,24 @@
 .domain-list {
   table-layout: fixed;
   width: 100%;
-  font-size: 12px; }
+  font-size: 12px;
+  word-wrap: break-word; }
 
 .domain-list__header tr td {
   color: #B49A67;
   font-weight: bold;
-  padding-bottom: 20px; }
+  padding-bottom: 20px;
+  text-align: center; }
 
 .domain-list__body tr {
-  color: #466365; }
+  color: #CCC5B9; }
 
 .domain-list__body tr:nth-child(2n) {
   background-color: #899878;
   color: #F1F7EE; }
   .domain-list__body tr:nth-child(2n) .domain-list-element__prolong-button {
     background-color: #CCC5B9;
-    color: #466365; }
+    color: #899878; }
     .domain-list__body tr:nth-child(2n) .domain-list-element__prolong-button:hover {
       background-color: #8C7284;
       color: #F1F7EE; }
@@ -30,26 +32,83 @@
 
 .domain-list-element__prolong-button {
   border: none;
-  background-color: #466365;
+  background-color: #CCC5B9;
   padding: 10px;
-  color: #F1F7EE;
-  border-radius: 3px;
+  color: #403d39;
   cursor: pointer;
   transition: 0.4s all; }
   .domain-list-element__prolong-button:hover {
-    background-color: #8C7284; }
+    background-color: #8C7284;
+    color: #F1F7EE; }
+
+.ipInput {
+  width: 60%;
+  float: right;
+  border: none;
+  padding: 5px;
+  height: 30px;
+  font-size: 12px; }
+  .ipInput:focus {
+    border-left: 1px solid #899878;
+    border-top: 1px solid #899878;
+    border-bottom: 1px solid #899878;
+    outline: none; }
+  .ipInput_button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    color: #F1F7EE;
+    font-size: 10px;
+    background-color: #466365;
+    padding: 4px;
+    transition: 0.3s all; }
+    .ipInput_button:hover {
+      background-color: #121113; }
+
+.btn-td {
+  margin: 0 auto; }
 
 .td-name {
-  width: 15%; }
+  width: 25%; }
 
 .td-ip {
-  width: 15%; }
+  width: 20%; }
 
 .td-owner {
-  width: 15%; }
+  width: 25%; }
 
 .td-date {
   width: 15%; }
 
 .td-state {
   width: 15%; }
+
+@media (max-width: 920px) {
+  .domain-list__header {
+    font-size: 10px;
+    padding: 5px; }
+  .domain-list__body {
+    font-size: 10px;
+    padding: 5px; }
+  .domain-list-element__prolong-button {
+    font-size: 10px; }
+  .ipInput {
+    height: 20px;
+    font-size: 10px; }
+    .ipInput_button {
+      height: 20px; } }
+
+@media (max-width: 768px) {
+  .domain-list__header {
+    font-size: 8px;
+    padding: 5px; }
+  .domain-list__body {
+    font-size: 8px;
+    padding: 5px; }
+  .domain-list-element__prolong-button {
+    font-size: 8px; }
+  .ipInput {
+    height: 20px;
+    font-size: 8px; }
+    .ipInput_button {
+      height: 20px; } }

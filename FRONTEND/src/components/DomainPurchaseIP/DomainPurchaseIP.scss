@@ -9,7 +9,7 @@
         border: none;
         padding: 20px 20px;
         font-size: 0.9rem;
-        border: 2px solid $artichoke;
+        border: 2px solid $deepspacesparkle;
     }
     input{
         width: 75%;
@@ -21,13 +21,13 @@
     button{
         width: 25%;
         // border-radius: 0 30px 30px 0;
-        background-color: $licorice;
+        background-color: $deepspacesparkle;
         color: $woodbrown;
         border-left: none;
         transition: 0.3s all;
         font-size: 90%;
         &:hover, &:focus{
-            background-color: $deepspacesparkle;
+            background-color: $blackolive;
         }
         @media (max-width: 768px){
             font-size: 60%;

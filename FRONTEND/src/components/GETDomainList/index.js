@@ -16,6 +16,7 @@ class GETDomainList extends Component{
             shouldMsgBeDisplayed: false,
             shouldProceedBtnBeEnabled: false
         }
+        this.hideMessage = this.hideMessage.bind(this);
     }
     
     getList(){
@@ -41,7 +42,13 @@ class GETDomainList extends Component{
                 domainToProlong: domain
             })
         }
-        
+        hideMessage(){
+            if(this.state.shouldMsgBeDisplayed === true){
+                this.setState({
+                    shouldMsgBeDisplayed: false
+                })
+            }
+        }
         changeIP(e, id){
             e.preventDefault();
             let ipInput = document.querySelector(`#input-${id}`);
@@ -90,7 +97,7 @@ class GETDomainList extends Component{
                         )
                     }
                     return (
-                        <table>
+                        <table className="domain-list">
                         <thead className="domain-list__header">
                         <tr>
                         <td>Nazwa domeny</td>
@@ -108,18 +115,20 @@ class GETDomainList extends Component{
                                     <td className="domain-list-element__name">{element.name}.{element.at}</td>
                                     <td>
                                     <fieldset>
-                                    <input defaultValue={element.ip_address} className="ipInput" id={`input-${element.id_domain}`} disabled={true}/>
-                                    <button className="ipInput_button" onClick={(e) => this.changeIP(e, element.id_domain)}>Z</button>
+                                    <input defaultValue={element.ip_address} className="ipInput-userList" id={`input-${element.id_domain}`} disabled={true} onChange={this.hideMessage}/>
+                                    <button className="ipInput-userList_button" onClick={(e) => this.changeIP(e, element.id_domain)}>Z</button>
                                     </fieldset>
                                     </td>
                                     <td>{element.expiration_date}</td>
                                     <td className={element.status === "INACTIVE" ? "inactive-domain" : ""}>{element.status === "ACTIVE" ? "Aktywna" : "Nieaktywna"}</td>
-                                    <td><button disabled={this.state.shouldProceedBtnBeDisabled} className="domain-list-element__prolong-button" onClick={(e) => this.prolongDomain(e, element.name)}>Przedłuż ważność</button></td>
+                                    <td><button disabled={this.state.shouldProceedBtnBeDisabled} className="domain-list__prolong-button" onClick={(e) => this.prolongDomain(e, element.name)}>Przedłuż ważność</button></td>
                                     </tr>
                                     )
                                 })
                             }
                             </tbody>
+                            {(this.state.shouldMsgBeDisplayed) ? 
+                            <span id="availabilityMsg">Błędny format IP</span> : null}
                             </table>            
                             )
                         }

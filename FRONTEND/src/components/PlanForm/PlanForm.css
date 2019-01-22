@@ -27,7 +27,7 @@
 
 .plan-form__option-btn {
   border: none;
-  background-color: #899878;
+  background-color: #466365;
   color: #F1F7EE;
   padding: 10px;
   border-radius: 1px;
@@ -39,7 +39,7 @@
 .form-submit-btn {
   padding: 20px 30px;
   width: 150px;
-  background-color: #403d39;
+  background-color: #466365;
   color: #CCC5B9;
   border: none;
   border-radius: 1px;
@@ -47,7 +47,7 @@
   margin-left: calc(100% - 150px);
   transition: 0.3s all; }
   .form-submit-btn:hover {
-    background-color: #222725; }
+    background-color: #403d39; }
 
 .selected {
   background-color: #899878; }

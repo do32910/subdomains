@@ -6,7 +6,7 @@
     border: none;
     padding: 20px 20px;
     font-size: 0.9rem;
-    border: 2px solid #899878; }
+    border: 2px solid #466365; }
   .ipInput-container input {
     width: 75%;
     background-color: #F1F7EE;
@@ -14,13 +14,13 @@
     border-right: none; }
   .ipInput-container button {
     width: 25%;
-    background-color: #121113;
+    background-color: #466365;
     color: #B49A67;
     border-left: none;
     transition: 0.3s all;
     font-size: 90%; }
     .ipInput-container button:hover, .ipInput-container button:focus {
-      background-color: #466365; }
+      background-color: #403d39; }
     @media (max-width: 768px) {
       .ipInput-container button {
         font-size: 60%;

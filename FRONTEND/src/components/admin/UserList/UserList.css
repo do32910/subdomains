@@ -1,0 +1,60 @@
+/*honeydew / artichoke / raisinblack*/
+.user-list {
+  table-layout: fixed;
+  width: 100%;
+  font-size: 12px;
+  word-wrap: break-word; }
+
+.user-list__header tr td {
+  color: #B49A67;
+  font-weight: bold;
+  padding-bottom: 20px;
+  text-align: center; }
+
+.user-list__body tr {
+  color: #CCC5B9;
+  background-color: #403d39; }
+
+.user-list__body tr:nth-child(2n) {
+  background-color: #899878;
+  color: #F1F7EE; }
+  .user-list__body tr:nth-child(2n) .user-list-element__prolong-button {
+    background-color: #CCC5B9;
+    color: #899878; }
+    .user-list__body tr:nth-child(2n) .user-list-element__prolong-button:hover {
+      background-color: #8C7284;
+      color: #F1F7EE; }
+
+.user-list__body td {
+  padding: 10px; }
+
+.td-username {
+  width: 20%; }
+
+.td-login {
+  width: 20%; }
+
+.td-email {
+  width: 20%; }
+
+.td-registration-date {
+  width: 20%; }
+
+.td-last-login-date {
+  width: 20%; }
+
+@media (max-width: 920px) {
+  .user-list__header {
+    font-size: 10px;
+    padding: 5px; }
+  .user-list__body {
+    font-size: 10px;
+    padding: 5px; } }
+
+@media (max-width: 768px) {
+  .user-list__header {
+    font-size: 8px;
+    padding: 5px; }
+  .user-list__body {
+    font-size: 8px;
+    padding: 5px; } }

@@ -12,7 +12,7 @@ import AccountDetailsView from './AccountDetailsView';
 import RegistrationPageView from './RegistrationPageView';
 import SubdomainList from './admin/SubdomainList';
 import SubdomainListView from './admin/SubdomainListView';
-import UserList from './admin/UserList';
+import UserListView from './admin/UserListView';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -36,7 +36,7 @@ class App extends Component {
 
         {/* admin */}
         <Route exact path="/subdomains" component={SubdomainListView} />
-        <Route exact path="/users" component={UserList} />
+        <Route exact path="/users" component={UserListView} />
 
         {/* the ones below are for testing only; delete after using */}
         <Route exact path='/load' component={LoadingPage} />
