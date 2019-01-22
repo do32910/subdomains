@@ -45,10 +45,9 @@ Wysyłamy header `Authorization: Bearer REFRESH_TOKEN`, otrzymujemy w odpowiedzi
 wyświetla dane wszystkich użytkowników w formie:
 
     {
+    "login": string (Unicode),
     "email": string (Unicode),
     "last_login_date": string (format daty: "yyyy-mm-dd"),
-    "login": string (Unicode),
-    "password": string (Unicode),
     "registration_date": string (format daty: "yyyy-mm-dd"),
     "first_name": string (Unicode),
     "last_name": string (Unicode)
@@ -70,7 +69,7 @@ Tworzy nowego użytkownika w bazie danych na podstawie otrzymanych informacji. F
 
 ### users/\<int:user_id\>
 #### GET:
-Wyświetla dane konkretnego usera o id = user_id, w takiej samej formie jak GET users/ + id i hasło
+Wyświetla dane konkretnego usera o id = user_id, w takiej samej formie jak GET users/ + id
 #### PUT:
 zmienia dane użytkownika o id = user_id na podstawie JSONa otrzymanego *w danej formie:*
 

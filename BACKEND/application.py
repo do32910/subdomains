@@ -10,27 +10,32 @@ from flask_jwt_extended import (create_access_token, create_refresh_token, jwt_r
 from flask_restful import Resource, Api
 from flask_cors import CORS
 from sqlalchemy import text
-import datetime
+import smtplib
+from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 from werkzeug.security import generate_password_hash, check_password_hash
 import boto3
 import botocore
+import os
 
 # importing env variables - or setting None if not avaliable
-import os
+
 aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID', '')
 aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY', '')
 zone_id=os.environ.get('ZONE_ID', '')
 db_uri=os.environ.get('DB_URI', '')
 jwt_key=os.environ.get('JWT_KEY', '')
 admin_id=os.environ.get('ADMIN_ID', '')
+EMAIL_ADDRESS=os.environ.get('EMAIL_ADDRESS', '')
+PASSWORD=os.environ.get('PASSWORD', '')
+
 # decorator checking if all above env variables existed
 # if not, methodviews will return msg instead of what they're supposed to
 def env_variables_required(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
         flag = False
-        if '' in [aws_access_key_id, aws_secret_access_key, zone_id, db_uri, jwt_key, admin_id]:
+        if '' in [aws_access_key_id, aws_secret_access_key, zone_id, db_uri, jwt_key, admin_id, EMAIL_ADDRESS, PASSWORD]:
             return json.dumps({'message' : 'You don\'t have required environment variables set!'}, ensure_ascii=False)
         else:
             return fn(*args, **kwargs)
@@ -140,15 +145,12 @@ class Address(db.Model):
 ### db script ###
 #################
 import random
-def test():    
-
-    with open('logs.txt', 'a') as f:
-        f.write('Updated database at '+str(datetime.datetime.now())+'.\n')
+def deactivate():
 
     subdomains = Subdomains.query.filter_by(status = 'ACTIVE')
     for subdomain in subdomains:
         exp = subdomain.expiration_date
-        today = datetime.datetime.now().date()
+        today = datetime.now().date()
 
         if(exp < today):
             subdomname = subdomain.name + '.subdom.name.'
@@ -177,21 +179,63 @@ def test():
                 
                 subdomain.status = 'INACTIVE'
                 db.session.commit()
-                with open('logs.txt', 'a') as f:
-                    f.write('Updated subdomain '+ str(subdomain.name) + ' - deleted from Route53. Status set to INACTIVE.\n')
             except botocore.exceptions.ClientError as e:
                 if('Tried to delete' in str(e)):
                     subdomain.status = 'INACTIVE'
                     db.session.commit()
-                    with open('logs.txt', 'a') as f:
-                        f.write('Updated subdomain '+ str(subdomain.name) + ' - already not on Route53. Status set to INACTIVE.\n')
-
-    with open('logs.txt', 'a') as f:
-        f.write('******************************\n')
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(func=test, trigger="cron", hour='00')
+scheduler.add_job(func=deactivate, trigger="cron", hour='00')
 scheduler.start()
+
+def send_emails():
+    subject = "Zbliża się termin wygaśnięcia Twojej domeny na subdom.name"
+    subdomains = Subdomains.query.filter_by(status = 'ACTIVE')
+    for subdomain in subdomains:
+        exp = subdomain.expiration_date
+        today = datetime.now().date()
+        delta = exp - today
+        i = delta.days
+        if i == 1 or i == 7:
+            user = Users.query.get(subdomain.id_user)
+            recipient = user.email
+            headers = {
+                'Content-Type': 'text/html; charset=utf-8',
+                'Content-Disposition': 'inline',
+                'Content-Transfer-Encoding': '8bit',
+                'From': EMAIL_ADDRESS,
+                'To': recipient,
+                'Date': datetime.now().strftime('%a, %d %b %Y  %H:%M:%S %Z'),
+                'X-Mailer': 'python',
+                'Subject': subject
+            }
+            # create the message
+            msg = ''
+            for key, value in headers.items():
+                msg += "%s: %s\n" % (key, value)
+
+            content = "Dzień dobry, drogi Użytkowniku! "
+            if i == 1:
+                content += "Dziś jest ostatni dzień aktywności Twojej domeny " + subdomain.name + ".subdom.name."
+            elif i == 7:
+                content += "Twoja domena " + subdomain.name + ".subdom.name będzie aktywna jeszcze tylko przez tydzień."
+            content += " Przedłuż ważność domeny by nadal hostować pod tym adresem swoją stronę. Pozdrawiamy, zespół subdom.name."
+            
+            # add contents
+            msg += "%s" % (content)
+            try:
+                server = smtplib.SMTP('smtp.gmail.com:587')
+                server.ehlo()
+                server.starttls()
+                server.login(EMAIL_ADDRESS, PASSWORD)
+                server.sendmail(headers['From'], headers['To'], msg.encode("utf8"))
+                server.quit()
+            except Exception as e:
+                return False
+
+scheduler_mails = BackgroundScheduler()
+scheduler_mails.add_job(func=send_emails, trigger="cron", hour='22', minute='*/2', second='00')
+scheduler_mails.start()
 
 ################
 ### API func ###
@@ -210,7 +254,7 @@ class Authorize(MethodView):
         if (current_user and current_user.check_password(password)):
             access_token = create_access_token(identity = str(request.get_json()['login']))
             refresh_token = create_refresh_token(identity = str(request.get_json()['login']))           
-            now = datetime.datetime.now()  
+            now = datetime.now()  
             current_user.last_login_date = now.strftime('%Y-%m-%d')
             db.session.commit()
             
@@ -313,7 +357,7 @@ class API_Users(MethodView):
         if request.content_type != 'application/json':
             abort(415, {'message': 'the content type has to be application/json'})
 
-        now = datetime.datetime.now()
+        now = datetime.now()
         try:
             login = request.get_json()['login']
             password = request.get_json()['password']
@@ -497,35 +541,38 @@ class API_Subdomains(MethodView):
         sub = Subdomains.query.get(id_domain)
         if sub.id_user == id_user:
             if tag == 'ip':
-                # if so change rout53 and bd record
-                subdomname = sub.name + '.subdom.name.'
-                boto3.set_stream_logger('botocore')
-                try:
-                    response = client.change_resource_record_sets(
-                        HostedZoneId=zone_id,
-                        ChangeBatch={
-                            'Changes': [
-                                {
-                                    'Action': 'UPSERT',
-                                    'ResourceRecordSet': {
-                                        'Name': subdomname,
-                                        'Type': 'A',
-                                        'TTL': 1,
-                                        'ResourceRecords': [
-                                            {
-                                                'Value': new_value
-                                            }
-                                        ],
+                if sub.status == 'ACTIVE':
+                    # if so change rout53 and bd record
+                    subdomname = sub.name + '.subdom.name.'
+                    boto3.set_stream_logger('botocore')
+                    try:
+                        response = client.change_resource_record_sets(
+                            HostedZoneId=zone_id,
+                            ChangeBatch={
+                                'Changes': [
+                                    {
+                                        'Action': 'UPSERT',
+                                        'ResourceRecordSet': {
+                                            'Name': subdomname,
+                                            'Type': 'A',
+                                            'TTL': 1,
+                                            'ResourceRecords': [
+                                                {
+                                                    'Value': new_value
+                                                }
+                                            ],
+                                        }
                                     }
-                                }
-                            ]
-                        }
-                    )
-                    sub.ip_address = new_value
-                    db.session.commit()
-                    return json.dumps({'message' : 'updated subdomain ip address'}, ensure_ascii=False)
-                except botocore.exceptions.ClientError as e:
-                    return json.dumps({'error' : str(e)}, ensure_ascii=False)
+                                ]
+                            }
+                        )
+                        sub.ip_address = new_value
+                        db.session.commit()
+                        return json.dumps({'message' : 'updated subdomain ip address'}, ensure_ascii=False)
+                    except botocore.exceptions.ClientError as e:
+                        return json.dumps({'error' : str(e)}, ensure_ascii=False)
+                else:
+                    return json.dumps({'error' : 'You can\'t change the IP of an INACTIVE domain.'}, ensure_ascii=False) 
             else:
                 # change db record
                 sub.expiration_date = new_value
@@ -680,12 +727,6 @@ class API_Admin(MethodView):
         else:
             return json.dumps({'error' : 'invalid admin credentials.'}, ensure_ascii=False)
 
-class API_logs(MethodView):
-    def get(self):
-        with open("logs.txt", "r") as f:
-            content = f.read()
-        return content
-
 ##############
 ### routes ###
 ##############
@@ -696,9 +737,6 @@ adresses_view = API_Addresses.as_view('addresses_api')
 auth = Authorize.as_view('auth')
 refresh = TokenRefresh.as_view('refresh')
 admin_view = API_Admin.as_view('admin')
-
-logs = API_logs.as_view('logs')
-application.add_url_rule('/logs/', view_func=logs, methods=['GET'])
  
 application.add_url_rule('/login/', view_func=auth, methods=['POST'])
 application.add_url_rule('/refresh/', view_func=refresh, methods=['POST'])
