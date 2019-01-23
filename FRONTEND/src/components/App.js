@@ -17,9 +17,9 @@ import LandingPage from '../components/LandingPage';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faIgloo } from '@fortawesome/free-solid-svg-icons'
+import { faPen } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faIgloo)
+library.add(faPen)
 
 class App extends Component {
 

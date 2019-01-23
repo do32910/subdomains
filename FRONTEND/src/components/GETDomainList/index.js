@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import './GETDomainList.css';
 import { connect } from "react-redux";
 import PlanForm from '../PlanForm';
+import DomainProlong from '../DomainProlong';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class GETDomainList extends Component{
     constructor(props){
@@ -12,6 +14,7 @@ class GETDomainList extends Component{
             token: this.props.token,
             domainList: [],
             domainToProlong: undefined,
+            domainExpDate: undefined,
             wrongIPerror: "Błędny format IP",
             shouldMsgBeDisplayed: false,
             shouldProceedBtnBeEnabled: false
@@ -31,15 +34,17 @@ class GETDomainList extends Component{
             }})
             .then(resp => resp.json())
             .then(list => {
+                console.log(list);
                 this.setState({
                     domainList: list
                 })
             })
         }
         
-        prolongDomain(e, domain){
+        prolongDomain(e, domain, expDate){
             this.setState({
-                domainToProlong: domain
+                domainToProlong: domain,
+                domainExpDate: expDate
             })
         }
         hideMessage(){
@@ -89,11 +94,10 @@ class GETDomainList extends Component{
             }
             
             render(){
+                console.log("to prolg", this.state.domainToProlong)
                 if(this.state.domainToProlong){
                     return (
-                        <div className="tile-template">
-                        <PlanForm domainToPurchase={this.state.domainToProlong} operationType={"prolong"}/>
-                        </div>
+                        <DomainProlong domainToPurchase={this.state.domainToProlong} userId={this.state.userId} expDate={this.state.domainExpDate}/>
                         )
                     }
                     return (
@@ -116,12 +120,12 @@ class GETDomainList extends Component{
                                     <td>
                                     <span className="fieldset-container">
                                     <input defaultValue={element.ip_address} className="ipInput-userList" id={`input-${element.id_domain}`} disabled={true} onChange={this.hideMessage}/>
-                                    <button className="ipInput-userList_button" onClick={(e) => this.changeIP(e, element.id_domain)}>Z</button>
+                                    <button className="ipInput-userList_button" onClick={(e) => this.changeIP(e, element.id_domain)}><FontAwesomeIcon icon="pen" /></button>
                                     </span>
                                     </td>
                                     <td>{element.expiration_date}</td>
                                     <td className={element.status === "INACTIVE" ? "inactive-domain" : ""}>{element.status === "ACTIVE" ? "Aktywna" : "Nieaktywna"}</td>
-                                    <td><button disabled={this.state.shouldProceedBtnBeDisabled} className="domain-list__prolong-button" onClick={(e) => this.prolongDomain(e, element.name)}>Przedłuż ważność</button></td>
+                                    <td><button disabled={this.state.shouldProceedBtnBeDisabled} className="domain-list__prolong-button" onClick={(e) => this.prolongDomain(e, element.id_domain, element.expiration_date)}>Przedłuż ważność</button></td>
                                     </tr>
                                     )
                                 })
@@ -129,7 +133,7 @@ class GETDomainList extends Component{
                             </tbody>
                             {(this.state.shouldMsgBeDisplayed) ? 
                             <span id="availabilityMsg">Błędny format IP</span> : null}
-                            </table>            
+                            </table>    
                             )
                         }
                     }
@@ -145,3 +149,7 @@ class GETDomainList extends Component{
                     }
                     
                     export default connect(mapStateToProps)(GETDomainList); 
+
+
+
+
