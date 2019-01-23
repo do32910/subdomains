@@ -4,9 +4,10 @@ import './LoginPage.css';
 import { doLogin } from "../../actions/auth";
 import { bindActionCreators } from  'redux';
 import { connect } from "react-redux";
-import TileTemplateSmall from '../Layout/TileTemplateSmall';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+//
+import {reactLocalStorage} from 'reactjs-localstorage';
+//
 class LoginPage extends Component{
     constructor(props){
         super(props);
@@ -17,7 +18,7 @@ class LoginPage extends Component{
             redirectToReferrer: false,
             username: this.props.username,
             shouldMsgBeDisplayed: false,
-            validationMessage: "aaa"
+            validationMessage: "aaa",
         }
     }
 
@@ -60,6 +61,9 @@ class LoginPage extends Component{
                     this.printMessage("Niepoprawne dane logowania");
                     return 0;
                 }
+                localStorage.setItem('login', loginToVerify);
+                localStorage.setItem('userId', responseData.user_id);
+                localStorage.setItem('token', responseData.access_token);
                 this.props.doLogin(loginToVerify, responseData.access_token, responseData.user_id)
             }
         )
@@ -73,6 +77,10 @@ class LoginPage extends Component{
     }
 
     render(){
+        if(localStorage.getItem('token')){
+            this.props.doLogin(localStorage.getItem('login'), localStorage.getItem('token'), localStorage.getItem('userId'))
+        }
+        console.log(this.state.isLoggedMaybe)
         const from = this.props.from ? this.props.from : '/';
         const auth = this.props;
 

@@ -5,6 +5,7 @@ import TileTemplate from '../Layout/TileTemplate';
 
 import PlanForm from '../PlanForm';
 
+import {reactLocalStorage} from 'reactjs-localstorage';
 class DomainSearch extends Component{
     constructor(props){
         super(props);

@@ -35,8 +35,8 @@ class App extends Component {
         <Route exact path="/register" component={RegistrationPageView} />
 
         {/* admin */}
-        <Route exact path="/subdomains" component={SubdomainListView} />
-        <Route exact path="/users" component={UserListView} />
+        <Route exact path="/subdomains" render={() => (  this.props.isLoggedIn ? ( <SubdomainListView /> ) : ( <Redirect to={{pathname: "/login", state: { from: "/subdomains"}}}/> ) ) } />
+        <Route exact path="/users" render={() => (  this.props.isLoggedIn ? ( <UserListView /> ) : ( <Redirect to={{pathname: "/login", state: { from: "/subdomains"}}}/> ) ) } />
 
         {/* the ones below are for testing only; delete after using */}
         <Route exact path='/load' component={LoadingPage} />

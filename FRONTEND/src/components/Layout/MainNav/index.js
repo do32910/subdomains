@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 
 class MainNav extends Component{
     render(){
-        console.log("hii im " , this.props.username);
         return (
             <nav className="main-nav">
                 <ul className="main-nav__list">
