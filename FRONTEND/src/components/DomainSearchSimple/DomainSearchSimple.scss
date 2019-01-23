@@ -1,0 +1,131 @@
+@import '../../variables.scss';
+
+.searchbar-container{
+    display: flex;
+    width: 100%;
+    input, button{
+        // border-radius: 0;
+        border: none;
+        padding: 20px 10px;
+        font-size: 0.9rem;
+        border: 2px solid $deepspacesparkle;
+    }
+    input{
+        width: 75%;
+        // border-radius: 30px 0 0 30px;
+        background-color: $honeydew;
+        color: $woodbrown;
+        border-right: none;
+    }
+    button{
+        width: 25%;
+        // border-radius: 0 30px 30px 0;
+        background-color: $deepspacesparkle;
+        color: $palesilver;
+        border-left: none;
+        transition: 0.3s all;
+        font-size: 14px;
+        &:hover, &:focus{
+            background-color: $blackolive;
+        }
+        
+    }
+}
+
+.tile-template{
+    background-color: $honeydew;
+    padding: 60px;
+    margin: 100px auto;
+    width: 80%;
+    min-height: 200px;
+}
+
+.tile-header{
+    border-bottom: 3px solid $artichoke;
+    background-color: transparent;
+    padding-left: 10px;
+    color: #222725;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.tile-content{
+    min-height: 150px;    
+}
+
+@media(max-width: 768px){
+    .tile-template{
+        padding: 5px 20px;
+        min-height: 200px;
+        margin-top: 50px;
+    }
+    .tile-header{
+        font-size: 20px;
+    }
+}
+
+@media(max-width: 480px){
+    .tile-template{
+        padding: 5px 20px;
+        min-height: 180px;
+        margin-top: 0px;
+        width: 100%;
+    }
+    .tile-header{
+        font-size: 16px;
+    }
+}
+
+#availabilityMsg{
+    color: $artichoke;
+    font-weight: bold;
+    width: 100%;
+    font-size: 0.8rem;
+    display: block;
+    text-align: right;
+    padding: 10px 20px 0 0;
+}
+
+.addToCart-button{
+    border: none;
+    color: $palesilver;
+    background-color: $licorice;
+    text-decoration: none;
+    font-size: 12px;
+    padding: 10px;
+    // border-radius: 3px;
+    transition: 0.4s all;
+    float: right;
+    margin-right: 10px;
+    margin-top: 10px;
+    
+    &:hover{
+        background-color: $deepspacesparkle;
+    }
+}
+
+
+
+@media (max-width: 768px){
+    .searchbar-container{
+        button{
+            padding-left: 3px;
+            font-size: 11px;
+            overflow: hidden;
+        }
+    }
+}
+
+
+@media (max-width: 480px){
+    .searchbar-container{
+        input, {
+            // border-radius: 20px 0 0 20px;
+        }
+        button{
+            // border-radius: 0 20px 20px 0;
+            font-size: 10px;
+            overflow: hidden;
+        }
+    }
+}

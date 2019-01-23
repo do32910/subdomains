@@ -1,0 +1,43 @@
+/*honeydew / artichoke / raisinblack*/
+#container {
+  display: flex;
+  flex-direction: column; }
+
+.main-page-tile {
+  padding: 60px;
+  margin: 10px auto;
+  width: 80%;
+  background-color: #F1F7EE; }
+
+.main-page-title {
+  display: inline-block;
+  width: 100vw;
+  font-size: 40px;
+  background-color: #899878;
+  padding: 70px; }
+
+.white-font {
+  color: #F1F7EE; }
+
+.red-font {
+  color: #D52941; }
+
+.tile-header {
+  border-bottom: 3px solid #899878;
+  background-color: transparent;
+  padding-left: 10px;
+  color: #222725;
+  font-size: 32px;
+  width: 100%;
+  margin-bottom: 20px;
+  display: inline-block; }
+
+.tile-small-header {
+  background-color: transparent;
+  padding-left: 10px;
+  color: #222725;
+  font-size: 20px;
+  width: 100%;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  display: inline-block; }

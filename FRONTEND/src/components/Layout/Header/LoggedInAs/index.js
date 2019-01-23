@@ -12,7 +12,8 @@ class LoggedInAs extends Component{
         super(props);
         this.state = {
             loggedUser: this.props.username,
-            loggedOut: false
+            loggedOut: false,
+            isLoggedIn: this.props.isLoggedIn
         }
         this.logout = this.logout.bind(this);
     }
@@ -32,9 +33,9 @@ class LoggedInAs extends Component{
         }
         return (
                 <div className="logged-container">
-                    {this.props.isLoggedIn ? (
+                    {this.state.isLoggedIn ? (
                     <div className="logged-info">Zalogowany/a jako: <span className="user-name">{this.state.loggedUser}</span> <button id="logoutBtn" onClick={this.logout}>Wyloguj</button></div>
-                    ) : (<div className="logged-info">Nie jesteś zalogowany <Link id="loginBtn" to="/login">Zaloguj</Link></div>)}
+                    ) : (<div className="logged-info"><Link className="loginBtn" to="/login">Zaloguj</Link> <Link className="loginBtn" to="/register">Utwórz konto</Link></div>)}
                 </div>
             ) 
     }

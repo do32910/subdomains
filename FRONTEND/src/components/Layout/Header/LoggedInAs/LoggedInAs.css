@@ -5,7 +5,7 @@
     color: #8C7284;
     font-weight: bold; }
 
-#logoutBtn, #loginBtn {
+#logoutBtn, .loginBtn {
   border: none;
   background-color: #899878;
   color: #F1F7EE;
@@ -15,7 +15,7 @@
   font-size: 0.8rem;
   align-self: center;
   transition: 0.4s all; }
-  #logoutBtn:hover, #loginBtn:hover {
+  #logoutBtn:hover, .loginBtn:hover {
     background-color: #466365; }
 
 @media (max-width: 480px) {

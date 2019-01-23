@@ -13,6 +13,7 @@ import RegistrationPageView from './RegistrationPageView';
 import SubdomainList from './admin/SubdomainList';
 import SubdomainListView from './admin/SubdomainListView';
 import UserListView from './admin/UserListView';
+import LandingPage from '../components/LandingPage';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -27,7 +28,7 @@ class App extends Component {
       <BrowserRouter>
         <div>
           {/* general */}
-        <Route exact path="/" render={() => (  this.props.isLoggedIn ? ( <Redirect to="/dashboard"/> ) : ( <Redirect to={{pathname: "/login", state: { from: "/dashboard"}}}/> ) ) }/>
+        <Route exact path="/" component={LandingPage} />
         <Route exact path="/dashboard" render={() => (  this.props.isLoggedIn ? ( <Dashboard /> ) : ( <Redirect to={{pathname: "/login", state: { from: "/dashboard"}}}/> ) ) }/>
         <Route exact path="/domains" render={() => (  this.props.isLoggedIn ? ( <DomainList username={this.props.username} token={this.props.token}/> ) : ( <Redirect to={{pathname: "/login", state: { from: "/dashboard"}}}/> ) ) }/>
         <Route exact path='/login' render={() => ( this.props.isLoggedIn ? (<Redirect to="/dashboard"/>) : (<LoginPageView isLoggedIn={this.props.isLoggedIn} username={this.props.username} token={this.props.token} userId={this.props.userId}/> )) }/>
