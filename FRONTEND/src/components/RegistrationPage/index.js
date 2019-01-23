@@ -76,7 +76,7 @@ export default class RegistrationPage extends Component{
                 "last_name": ""
              })
         }).then(
-            (response) => {response.json(); console.log(response);}
+            (response) => {response.json();}
         ).then(
             this.setState({
                 redirect: true

@@ -6,7 +6,7 @@ import AccountDetails from '../AccountDetails';
 
 export default class AccountDetailsView extends Component{
     render(){
-        console.log(this.props.username);
+        // console.log(this.props.username);
         return (
             <Layout content={<TileTemplate header="Twoje konto" content={<AccountDetails />}/>}/>
         )

@@ -37,7 +37,7 @@ class DomainPurchaseIP extends Component{
         var expirationDate = (currentDate.getFullYear() + this.state.selectedPlan) + "-" + (currentDate.getMonth()+1) + "-" + currentDate.getDate();
         
         if(!/^([1-2]?[0-9]?[0-9]\.){3}([1-2]?[0-9]?[0-9])$/.test(domainIP)){
-            console.log("wrong IP");
+            // console.log("wrong IP");
             this.setState({
                 shouldMsgBeDisplayed: true,
             })
@@ -70,7 +70,7 @@ class DomainPurchaseIP extends Component{
             }
             
             render(){
-                console.log(this.state.proceed);
+                // console.log(this.state.proceed);
                 if(this.state.proceed === true){
                     return (
                         <Redirect to="/domains" />

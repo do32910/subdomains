@@ -6,7 +6,7 @@ import UserList from '../UserList';
 
 export default class AccountDetailsView extends Component{
     render(){
-        console.log(this.props.username);
+        // console.log(this.props.username);
         return (
             <Layout content={<TileTemplate header="Twoje konto" content={<UserList />}/>}/>
         )

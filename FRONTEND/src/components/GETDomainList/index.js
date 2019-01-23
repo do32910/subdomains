@@ -57,7 +57,7 @@ class GETDomainList extends Component{
             }else{
                 let newIP = ipInput.value;
                 if(!/^([1-2]?[0-9]?[0-9]\.){3}([1-2]?[0-9]?[0-9])$/.test(newIP)){
-                    console.log("wrong IP");
+                    // console.log("wrong IP");
                     this.setState({
                         shouldMsgBeDisplayed: true
                     })

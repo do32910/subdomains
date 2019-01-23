@@ -30,7 +30,7 @@ class SubdomainList extends Component{
             })
         }).then(resp => resp.json())
         .then(list => {
-            console.log(list);
+            // console.log(list);
             this.setState({
                 userList: list,
                 showList: true

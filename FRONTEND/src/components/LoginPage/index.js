@@ -80,7 +80,6 @@ class LoginPage extends Component{
         if(localStorage.getItem('token')){
             this.props.doLogin(localStorage.getItem('login'), localStorage.getItem('token'), localStorage.getItem('userId'))
         }
-        console.log(this.state.isLoggedMaybe)
         const from = this.props.from ? this.props.from : '/';
         const auth = this.props;
 

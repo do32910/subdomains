@@ -6,7 +6,7 @@ import SubdomainList from '../SubdomainList';
 
 export default class AccountDetailsView extends Component{
     render(){
-        console.log(this.props.username);
+        // console.log(this.props.username);
         return (
             <Layout content={<TileTemplate header="Zarejestrowane domeny" content={<SubdomainList />}/>}/>
         )

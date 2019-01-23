@@ -43,7 +43,7 @@ class AccountDetails extends Component{
             e.preventDefault();
             var inputToChange = document.querySelector(`#${selectedInputId}`);
             
-            console.log(inputToChange.disabled)
+            // console.log(inputToChange.disabled)
             if(inputToChange.disabled){
                 inputToChange.disabled = false;
             }else{
@@ -85,7 +85,7 @@ class AccountDetails extends Component{
         }
         //  IMPORTANT: INPUT IDS HAVE TO BE EXACTLY THE SAME AS NAMES OF VALUES FROM THE STATE THEY ARE TAKEN FROM, OTHERWISE CHANGEUSERDATA FUNCTION WILL BREAK
         render(){
-            console.log(this.props.userId);
+            // console.log(this.props.userId);
             return (
                 <div className="user-data-form">
                 <legend className="user-data-form_legend">Dane osobowe</legend>
