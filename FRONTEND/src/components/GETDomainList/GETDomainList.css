@@ -42,7 +42,7 @@
   color: #D52941;
   font-weight: bold; }
 
-fieldset {
+.fieldset-container {
   border: none;
   display: flex; }
 

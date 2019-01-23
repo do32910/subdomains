@@ -46,7 +46,7 @@ export default class PlanForm extends Component{
         return (
             <form className="plan-form">
             <header className="tile-header">Wybór abonamentu</header>
-            <fieldset>
+            <span className="fieldset-container">
             <div className="plan-form__option" id="plan-0">
             <h2 className="plan-form__option-header">{this.state.availablePlans[0].duration}</h2>
             <span className="plan-form__option-pricing"><span className="plan-form__option-pricing-price">{this.state.availablePlans[0].price} zł</span> (w tym 23% VAT)</span>
@@ -59,7 +59,7 @@ export default class PlanForm extends Component{
             <span className="plan-form__option-annual-pricing">{(this.state.availablePlans[1].price / 5).toFixed(2)}/rok</span>
             <button className="plan-form__option-btn" onClick={(e) => this.selectPlan(e, 1)}>Wybieram ten!</button>
             </div>
-            </fieldset>
+            </span>
             <button className="form-submit-btn" onClick={(e) => this.submitForm(e)}>Przejdź dalej</button>
             </form>
             )

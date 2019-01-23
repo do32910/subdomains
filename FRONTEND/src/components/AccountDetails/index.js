@@ -89,31 +89,31 @@ class AccountDetails extends Component{
             return (
                 <div className="user-data-form">
                 <legend className="user-data-form_legend">Dane osobowe</legend>
-                <fieldset>
+                <span className="fieldset-container">
                 <label className="user-data-form_label" htmlFor="first_name">Imię</label>
                 <input className="user-data-form_input" type="text" id="first_name" defaultValue={this.state.first_name} disabled={true}/>
                 {/* <span className="user-data-form_input" id="first_name" contentEditable={true}>{this.state.first_name}</span> */}
                 <button className="user-data-form_change-btn" onClick={(e) => this.changeUserData(e, "first_name")}>Z</button>
-                </fieldset>
-                <fieldset>
+                </span>
+                <span className="fieldset-container">
                 <label className="user-data-form_label" htmlFor="last_name">Nazwisko</label>
                 <input className="user-data-form_input" type="text" id="last_name" defaultValue={this.state.last_name}  disabled={true}/>
                 {/* <span className="user-data-form_input" id="last_name" contentEditable={false}>{this.state.last_name}</span> */}
                 <button className="user-data-form_change-btn" onClick={(e) => this.changeUserData(e, "last_name")}>Z</button>
-                </fieldset>
+                </span>
                 <legend className="user-data-form_legend">Dane konta</legend>
-                <fieldset>
+                <span className="fieldset-container">
                 <label className="user-data-form_label" htmlFor="email">E-mail</label>
                 <input className="user-data-form_input" type="email" id="email" defaultValue={this.state.email}  disabled={true}/>
                 {/* <span className="user-data-form_input" id="email" contentEditable={false}>{this.state.email}</span> */}
                 <button className="user-data-form_change-btn" onClick={(e) => this.changeUserData(e, "email")}>Z</button>
-                </fieldset>
-                <fieldset>
+                </span>
+                <span className="fieldset-container">
                 <label className="user-data-form_label" htmlFor="password">Hasło</label>
                 {/* <span className="user-data-form_input" id="password" contentEditable={false}>{this.state.password}</span> */}
                 <input className="user-data-form_input" type="password" id="password" placeholder="********"  disabled={true}/>
                 <button className="user-data-form_change-btn" onClick={(e) => this.changeUserData(e, "password")}>Z</button>
-                </fieldset>
+                </span>
                 </div>
                 )
             }

@@ -114,10 +114,10 @@ class GETDomainList extends Component{
                                     <tr key={element.id_domain}>
                                     <td className="domain-list-element__name">{element.name}.{element.at}</td>
                                     <td>
-                                    <fieldset>
+                                    <span className="fieldset-container">
                                     <input defaultValue={element.ip_address} className="ipInput-userList" id={`input-${element.id_domain}`} disabled={true} onChange={this.hideMessage}/>
                                     <button className="ipInput-userList_button" onClick={(e) => this.changeIP(e, element.id_domain)}>Z</button>
-                                    </fieldset>
+                                    </span>
                                     </td>
                                     <td>{element.expiration_date}</td>
                                     <td className={element.status === "INACTIVE" ? "inactive-domain" : ""}>{element.status === "ACTIVE" ? "Aktywna" : "Nieaktywna"}</td>

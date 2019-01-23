@@ -1,7 +1,7 @@
 @import '../../variables.scss';
 
 .plan-form{
-    & fieldset{
+    & .fieldset-container{
         display: flex;
         border: none;
     }

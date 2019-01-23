@@ -9,7 +9,7 @@ export default class Layout extends Component {
         return (
             <div>
             <Header />
-            <div id="container">
+            <div id="main-page-container">
             <span className="main-page-title">Zarejestruj swoją stronę w domenie <span className="white-font">eu.</span><span className="red-font">pl</span>!</span>
             
             <DomainSearchSimple/> 

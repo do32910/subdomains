@@ -105,7 +105,7 @@ class SubdomainList extends Component{
                     return (
                         <tr key={element.id_domain}>
                         <td className="domain-list-element__name td-name">{element.name}.{element.at}</td>
-                        <td className="td-ip"><fieldset><input defaultValue={element.ip_address} className="ipInput" id={`input-${element.id_domain}`} disabled={true} /><button onClick={(e) => this.changeIP(e, element.id_domain, element.id_user)} className="ipInput_button">Z</button></fieldset></td>
+                        <td className="td-ip"><span className="fieldset-container"><input defaultValue={element.ip_address} className="ipInput" id={`input-${element.id_domain}`} disabled={true} /><button onClick={(e) => this.changeIP(e, element.id_domain, element.id_user)} className="ipInput_button">Z</button></span></td>
                         <td className="td-owner">{element.first_name} {element.last_name} ({element.login})</td>
                         <td className="td-date">{element.expiration_date}</td>
                         <td className={element.status === "INACTIVE" ? "inactive-domain" : ""}>{element.status === "ACTIVE" ? "Aktywna" : "Nieaktywna"}</td>

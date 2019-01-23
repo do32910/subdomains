@@ -1,5 +1,5 @@
 /*honeydew / artichoke / raisinblack*/
-.plan-form fieldset {
+.plan-form .fieldset-container {
   display: flex;
   border: none; }
 
