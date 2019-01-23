@@ -15,7 +15,7 @@
     padding: 10px; }
   .registrationForm__input {
     padding: 10px;
-    color: #403d39;
+    color: #424242;
     border: none;
     font-size: 1.1rem;
     margin: 7px; }
@@ -23,7 +23,7 @@
       color: #CCC5B9; }
   .registrationForm__submitBtn {
     border: none;
-    background-color: #403d39;
+    background-color: #424242;
     color: #F1F7EE;
     padding: 10px;
     margin: 40px auto 20px auto;

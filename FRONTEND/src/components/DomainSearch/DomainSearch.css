@@ -20,7 +20,7 @@
     transition: 0.3s all;
     font-size: 14px; }
     .searchbar-container button:hover, .searchbar-container button:focus {
-      background-color: #403d39; }
+      background-color: #424242; }
 
 .tile-template {
   background-color: #F1F7EE;
@@ -30,7 +30,7 @@
   min-height: 200px; }
 
 .tile-header {
-  border-bottom: 3px solid #899878;
+  border-bottom: 3px solid #849887;
   background-color: transparent;
   padding-left: 10px;
   color: #222725;
@@ -58,7 +58,7 @@
     font-size: 16px; } }
 
 #availabilityMsg {
-  color: #899878;
+  color: #849887;
   font-weight: bold;
   width: 100%;
   font-size: 0.8rem;

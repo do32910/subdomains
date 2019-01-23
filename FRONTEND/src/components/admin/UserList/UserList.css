@@ -11,17 +11,16 @@
   padding-bottom: 20px;
   text-align: center; }
 
-.user-list__body tr {
-  color: #CCC5B9;
-  background-color: #403d39; }
+.user-list__body tr td {
+  color: #424242;
+  border-bottom: 2px solid #466365; }
 
-.user-list__body tr:nth-child(2n) {
-  background-color: #899878;
-  color: #F1F7EE; }
-  .user-list__body tr:nth-child(2n) .user-list-element__prolong-button {
+.user-list__body tr:nth-child(2n) td {
+  color: #121113; }
+  .user-list__body tr:nth-child(2n) td .user-list-element__prolong-button {
     background-color: #CCC5B9;
-    color: #899878; }
-    .user-list__body tr:nth-child(2n) .user-list-element__prolong-button:hover {
+    color: #849887; }
+    .user-list__body tr:nth-child(2n) td .user-list-element__prolong-button:hover {
       background-color: #8C7284;
       color: #F1F7EE; }
 

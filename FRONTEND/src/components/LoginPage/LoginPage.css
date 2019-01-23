@@ -12,7 +12,7 @@
     padding: 10px; }
   .loginForm__input {
     padding: 10px;
-    color: #403d39;
+    color: #424242;
     border: none;
     font-size: 18px;
     margin: 7px; }
@@ -20,7 +20,7 @@
       color: #CCC5B9; }
   .loginForm__submitBtn {
     border: none;
-    background-color: #403d39;
+    background-color: #424242;
     color: #F1F7EE;
     padding: 10px;
     margin: 40px auto 20px auto;

@@ -18,11 +18,11 @@
 
 .domain-list__body{
     & tr{
-        color: $palesilver;
+        color: $blackolive;
     }
     & tr:nth-child(2n){
-        background-color: $artichoke;
-        color: $honeydew;
+        // background-color: $artichoke;
+        color: $licorice;
         & .domain-list-element__prolong-button{
             background-color: $palesilver;
             color: $artichoke;

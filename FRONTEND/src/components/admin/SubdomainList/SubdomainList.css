@@ -12,14 +12,13 @@
   text-align: center; }
 
 .domain-list__body tr {
-  color: #CCC5B9; }
+  color: #424242; }
 
 .domain-list__body tr:nth-child(2n) {
-  background-color: #899878;
-  color: #F1F7EE; }
+  color: #121113; }
   .domain-list__body tr:nth-child(2n) .domain-list-element__prolong-button {
     background-color: #CCC5B9;
-    color: #899878; }
+    color: #849887; }
     .domain-list__body tr:nth-child(2n) .domain-list-element__prolong-button:hover {
       background-color: #8C7284;
       color: #F1F7EE; }
@@ -34,7 +33,7 @@
   border: none;
   background-color: #CCC5B9;
   padding: 10px;
-  color: #403d39;
+  color: #424242;
   cursor: pointer;
   transition: 0.4s all; }
   .domain-list-element__prolong-button:hover {
@@ -49,9 +48,9 @@
   height: 30px;
   font-size: 12px; }
   .ipInput:focus {
-    border-left: 1px solid #899878;
-    border-top: 1px solid #899878;
-    border-bottom: 1px solid #899878;
+    border-left: 1px solid #849887;
+    border-top: 1px solid #849887;
+    border-bottom: 1px solid #849887;
     outline: none; }
   .ipInput_button {
     width: 30px;

@@ -20,7 +20,7 @@
     transition: 0.3s all;
     font-size: 90%; }
     .ipInput-container button:hover, .ipInput-container button:focus {
-      background-color: #403d39; }
+      background-color: #424242; }
     @media (max-width: 768px) {
       .ipInput-container button {
         font-size: 60%;

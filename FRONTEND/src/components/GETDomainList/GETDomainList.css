@@ -10,16 +10,14 @@
   font-weight: bold;
   padding-bottom: 20px; }
 
-.domain-list__body tr {
-  color: #CCC5B9;
-  background-color: #403d39; }
+.domain-list__body tr td {
+  border-bottom: 2px solid #466365; }
 
-.domain-list__body tr:nth-child(2n) {
-  background-color: #899878;
-  color: #F1F7EE; }
-  .domain-list__body tr:nth-child(2n) .domain-list-element__prolong-button {
+.domain-list__body tr:nth-child(2n) td {
+  border-bottom: 2px solid #466365; }
+  .domain-list__body tr:nth-child(2n) td .domain-list-element__prolong-button {
     background-color: #CCC5B9;
-    color: #899878; }
+    color: #849887; }
 
 .domain-list__body td {
   padding: 10px; }
@@ -53,9 +51,9 @@
   padding: 5px;
   height: 30px; }
   .ipInput-userList:focus {
-    border-left: 1px solid #899878;
-    border-top: 1px solid #899878;
-    border-bottom: 1px solid #899878;
+    border-left: 1px solid #849887;
+    border-top: 1px solid #849887;
+    border-bottom: 1px solid #849887;
     outline: none; }
   .ipInput-userList_button {
     width: 30px;
@@ -67,7 +65,7 @@
     padding: 4px;
     transition: 0.3s all; }
     .ipInput-userList_button:hover {
-      background-color: #403d39; }
+      background-color: #424242; }
 
 #availabilityMsg {
   float: right; }

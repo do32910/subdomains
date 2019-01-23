@@ -18,13 +18,16 @@
 
 
 .user-list__body{
-    & tr{
-        color: $palesilver;
-        background-color: $blackolive;
+    & tr td{
+        // color: $palesilver;
+        // background-color: $blackolive;
+        color: $blackolive;
+        border-bottom: 2px solid $deepspacesparkle;
     }
-    & tr:nth-child(2n){
-        background-color: $artichoke;
-        color: $honeydew;
+    & tr:nth-child(2n) td{
+        // background-color: $artichoke;
+        // color: $honeydew;
+        color: $licorice;
         & .user-list-element__prolong-button{
             background-color: $palesilver;
             color: $artichoke;

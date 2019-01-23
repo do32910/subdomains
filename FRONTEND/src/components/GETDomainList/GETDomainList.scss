@@ -16,16 +16,19 @@
 }
 
 .domain-list__body{
-    & tr{
-        color: $palesilver;
-        background-color: $blackolive;
+    & tr td{
+        // color: $palesilver;
+        // background-color: $blackolive;
+        border-bottom: 2px solid $deepspacesparkle;
     }
-    & tr:nth-child(2n){
-        background-color: $artichoke;
-        color: $honeydew;
+    & tr:nth-child(2n) td{
+        // background-color: $artichoke;
+        // color: $honeydew;
+        border-bottom: 2px solid $deepspacesparkle;
         & .domain-list-element__prolong-button{
             background-color: $palesilver;
             color: $artichoke;
+
         }
     }
     & td{
