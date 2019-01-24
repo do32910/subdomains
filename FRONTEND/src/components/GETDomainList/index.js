@@ -80,7 +80,8 @@ class GETDomainList extends Component{
                         'Authorization': `Bearer ${this.state.token}`,
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
-                    }})
+                    }}).then(res => res.json())
+                    .then(response => console.log(response));
                     this.setState({
                         shouldProceedBtnBeDisabled: true
                     });  
@@ -94,7 +95,6 @@ class GETDomainList extends Component{
             }
             
             render(){
-                console.log("to prolg", this.state.domainToProlong)
                 if(this.state.domainToProlong){
                     return (
                         <DomainProlong domainToPurchase={this.state.domainToProlong} userId={this.state.userId} expDate={this.state.domainExpDate}/>

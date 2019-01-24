@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Redirect } from 'react-router-dom';
 
 export default class DomainProlong extends Component{
     
@@ -16,7 +17,7 @@ export default class DomainProlong extends Component{
             selectedPlan: undefined
         }
     } 
-
+    
     selectPlan(e, index){
         e.preventDefault();
         let selectedPlan = document.querySelector(`#plan-${index}`);
@@ -34,7 +35,7 @@ export default class DomainProlong extends Component{
         let newDate = this.state.expirationDate.split("-");
         newDate[0] = Number(newDate[0]) + Number(this.state.selectedPlan);
         let date = newDate.join("-");
-        console.log("user id", this.state.userId);
+        // console.log("user id", this.state.userId);
         fetch(`${this.state.url}/subdomains/`, {
             method: 'PUT',
             body: JSON.stringify({
@@ -49,32 +50,37 @@ export default class DomainProlong extends Component{
                 'Accept': 'application/json'
             },}).then((response) => response.json()).then(res => console.log(res))
             this.setState({
-                shouldProceedBtnBeDisabled: true
+                proceed: true
             }); 
-    }
-
-
-    render(){
-        console.log(this.state.selectedPlan, this.state.domainToPurchase);
-        return (
-            <form className="plan-form">
-            <span className="fieldset-container">
-            <div className="plan-form__option" id="plan-0">
-            <h2 className="plan-form__option-header">{this.state.availablePlans[0].duration}</h2>
-            {/* <span className="plan-form__option-pricing"><span className="plan-form__option-pricing-price">{this.state.availablePlans[0].price} zł</span> (w tym 23% VAT)</span>
-            <span  className="plan-form__option-annual-pricing">{(this.state.availablePlans[0].price / 1).toFixed(2)}/rok</span> */}
-            <button className="plan-form__option-btn" onClick={(e) => this.selectPlan(e, 0)}>Wybieram ten!</button>
-            </div>
-            <div className="plan-form__option" id="plan-1">
-            <h2 className="plan-form__option-header">{this.state.availablePlans[1].duration}</h2>
-            {/* <span className="plan-form__option-pricing"><span className="plan-form__option-pricing-price">{this.state.availablePlans[1].price} zł</span> (w tym 23% VAT)</span>
+        }
+        
+        
+        render(){
+            if(this.state.proceed){
+                return(
+                    <Redirect to="/dashboard"></Redirect>
+                    )
+                    
+                }
+                return (
+                    <form className="plan-form">
+                    <span className="fieldset-container">
+                    <div className="plan-form__option" id="plan-0">
+                    <h2 className="plan-form__option-header">{this.state.availablePlans[0].duration}</h2>
+                    {/* <span className="plan-form__option-pricing"><span className="plan-form__option-pricing-price">{this.state.availablePlans[0].price} zł</span> (w tym 23% VAT)</span>
+                <span  className="plan-form__option-annual-pricing">{(this.state.availablePlans[0].price / 1).toFixed(2)}/rok</span> */}
+                <button className="plan-form__option-btn" onClick={(e) => this.selectPlan(e, 0)}>Wybieram ten!</button>
+                </div>
+                <div className="plan-form__option" id="plan-1">
+                <h2 className="plan-form__option-header">{this.state.availablePlans[1].duration}</h2>
+                {/* <span className="plan-form__option-pricing"><span className="plan-form__option-pricing-price">{this.state.availablePlans[1].price} zł</span> (w tym 23% VAT)</span>
             <span className="plan-form__option-annual-pricing">{(this.state.availablePlans[1].price / 5).toFixed(2)}/rok</span> */}
             <button className="plan-form__option-btn" onClick={(e) => this.selectPlan(e, 1)}>Wybieram ten!</button>
             </div>
             </span>
             <button className="form-submit-btn" onClick={(e) => this.submitForm(e)} disabled={this.state.selectedPlan=== undefined ? true : false}>Przejdź dalej</button>
             </form>
-        )
+            )
+        }
+        
     }
-
-}

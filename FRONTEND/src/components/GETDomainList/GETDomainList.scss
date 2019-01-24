@@ -25,11 +25,6 @@
         // background-color: $artichoke;
         // color: $honeydew;
         border-bottom: 2px solid $deepspacesparkle;
-        & .domain-list-element__prolong-button{
-            background-color: $palesilver;
-            color: $artichoke;
-
-        }
     }
     & td{
         padding: 10px;
@@ -50,8 +45,7 @@
     cursor: pointer;
     transition: 0.4s all;
     &:hover{
-        background-color: $honeydew;
-        color: $deepspacesparkle;
+        background-color: $blackolive;
     }
 }
 

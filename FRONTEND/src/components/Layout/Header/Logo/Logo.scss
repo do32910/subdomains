@@ -21,10 +21,23 @@ img{
         font-size: 56px;
         padding: 0;
     }
+
+    .img-logo{
+        height: 70px;
+    }
+}
+
+@media(max-width: 600px){
+    .img-logo{
+        height: 50px;
+    }
 }
 
 @media(max-width: 480px){
     .logo{
         font-size: 32px;
+    }
+    .img-logo{
+        height: 30px;
     }
 }

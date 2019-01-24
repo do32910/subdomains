@@ -36,6 +36,7 @@ class SubdomainList extends Component{
             })
         }).then(resp => resp.json())
         .then(list => {
+            console.log(list);
             this.setState({
                 domainList: list,
                 showList: true
@@ -44,9 +45,9 @@ class SubdomainList extends Component{
     }
     
     
-    changeIP(e, id){
+    changeIP(e, id_domain, id_user){
         e.preventDefault();
-        let ipInput = document.querySelector(`#input-${id}`);
+        let ipInput = document.querySelector(`#input-${id_domain}`);
         if(ipInput.disabled){
             ipInput.disabled = false;
         }else{
@@ -61,8 +62,8 @@ class SubdomainList extends Component{
             fetch(`${this.state.url}/subdomains/`, {
                 method: 'PUT',
                 body: JSON.stringify({
-                    "id_user" : this.state.userId,
-                    "id_domain" : id,
+                    "id_user" : id_user,
+                    "id_domain" : id_domain,
                     "tag" : "ip",
                     "new_value" : newIP 
                 }),
@@ -70,7 +71,8 @@ class SubdomainList extends Component{
                     'Authorization': `Bearer ${this.state.token}`,
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
-                }})
+                }}).then(res => res.json())
+                .then(response => console.log(response))
                 this.setState({
                     shouldProceedBtnBeDisabled: true
                 });  

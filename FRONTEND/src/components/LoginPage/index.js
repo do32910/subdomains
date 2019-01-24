@@ -18,7 +18,7 @@ class LoginPage extends Component{
             redirectToReferrer: false,
             username: this.props.username,
             shouldMsgBeDisplayed: false,
-            validationMessage: "aaa",
+            validationMessage: "aaa"
         }
     }
 
@@ -48,10 +48,6 @@ class LoginPage extends Component{
             body: JSON.stringify({
                 "login": loginToVerify,
                 "password": psswdToVerify
-            //  "login": "Dabi",
-            //  "password": "endeavorsuccs"
-            // "login": "melon",
-            // "password": "superkudas"
             })
         }).then(
             (response) => response.json()
@@ -80,11 +76,9 @@ class LoginPage extends Component{
         if(localStorage.getItem('token')){
             this.props.doLogin(localStorage.getItem('login'), localStorage.getItem('token'), localStorage.getItem('userId'))
         }
-        const from = this.props.from ? this.props.from : '/';
         const auth = this.props;
-
         if (auth.isLoggedIn === true) {
-            return <Redirect to={from} />
+            // return <Redirect to={from} />
         }
         return (
             <div className="loginContainer">

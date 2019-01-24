@@ -3,9 +3,13 @@ import './AccountDetails.css';
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { doLogin } from "../../actions/auth";
+import { bindActionCreators } from  'redux';
+
 class AccountDetails extends Component{
     constructor(props){
         super(props);
+        
         this.state = {
             url: "https://api.subdom.name",
             loggedUserId: this.props.userId,
@@ -50,6 +54,25 @@ class AccountDetails extends Component{
             }else{
                 var newValue = document.querySelector(`#${selectedInputId}`).value;
                 var currentValue = document.querySelector(`#${selectedInputId}`).defaultValue;
+                //walidacja
+                var nameReg = /^[a-zA-Z0-9\-]+$/;
+                var emailReg = /^[a-z0-9\_\+\.\-]+@[a-z0-9]+\.[a-z0-9]+$/;
+                if(newValue.length < 1){
+                    return 0;
+                }
+                if(selectedInputId === "first_name" || selectedInputId === "last_name"){
+                    if(!nameReg.test(newValue)){
+                        return 0;
+                    }
+                }else if(selectedInputId === "email"){
+                    if(!emailReg.test(newValue)){
+                        return 0;
+                    }
+                }else if(selectedInputId === "password"){
+                    if(newValue.length < 5 || newValue.length > 21){
+                        return 0;
+                    }
+                }
                 if(currentValue !== newValue){
                     var dataToBeUpdated = {
                         "columns": [selectedInputId],
@@ -83,6 +106,8 @@ class AccountDetails extends Component{
             //           }
             //     }).then(res => res.json())
             // }
+
+
         }
         //  IMPORTANT: INPUT IDS HAVE TO BE EXACTLY THE SAME AS NAMES OF VALUES FROM THE STATE THEY ARE TAKEN FROM, OTHERWISE CHANGEUSERDATA FUNCTION WILL BREAK
         render(){
@@ -128,5 +153,10 @@ class AccountDetails extends Component{
                 userId: state.userId
             }
         }
+
+        
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({ doLogin }, dispatch);
+}
         
         export default connect(mapStateToProps)(AccountDetails); 

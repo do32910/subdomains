@@ -15,9 +15,6 @@
 
 .domain-list__body tr:nth-child(2n) td {
   border-bottom: 2px solid #466365; }
-  .domain-list__body tr:nth-child(2n) td .domain-list-element__prolong-button {
-    background-color: #CCC5B9;
-    color: #849887; }
 
 .domain-list__body td {
   padding: 10px; }
@@ -33,8 +30,7 @@
   cursor: pointer;
   transition: 0.4s all; }
   .domain-list__prolong-button:hover {
-    background-color: #F1F7EE;
-    color: #466365; }
+    background-color: #424242; }
 
 .inactive-domain {
   color: #D52941;

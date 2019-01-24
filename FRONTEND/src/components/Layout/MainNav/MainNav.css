@@ -33,9 +33,20 @@
   .main-nav {
     height: auto;
     width: 100%; }
+  .admin-list {
+    display: flex;
+    flex-direction: column; }
   .main-nav__list {
     flex-direction: row;
     align-content: stretch; }
   .main-nav__item-link {
-    width: 33.33%;
-    text-align: center; } }
+    font-size: 10px;
+    text-align: center; }
+  .main-nav__item {
+    padding: 10px;
+    height: 100%; } }
+
+@media (max-width: 480px) and (max-width: 350px) {
+  .main-nav__item {
+    padding: 5px;
+    font-size: 10px; } }
